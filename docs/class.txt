@@ -1,0 +1,261 @@
+@startuml
+class User {
+  id : Integer
+  firstName : String
+  lastName : String
+  email : String
+  username : String
+  password : String
+  reviews : Array[Integer]
+  helpfulRatings : Array[<Integer, Boolean>]
+  profilePic: String
+  bio: String
+  location: String
+  joined: Date
+  isAdmin: Boolean
+  User get()
+  User add()
+  User edit()
+  boolean delete()
+  Array[User] getUsers()
+}
+
+class Country {
+  name : String
+  about : String
+  destinations: Array[Destination]
+  Country get()
+  Country edit()
+  Array[Country] getCountries()
+  Array[Country] getCountriesLike()
+  Array[Country] getTopCountries()
+}
+
+class Destination {
+ id : Integer
+ creatorId: Integer
+ name : String
+ country : String
+ stars: Float
+ reviews: Array[Review]
+ spamScore : Float
+ Destination add()
+ boolean update()
+ boolean delete()
+ Destination get()
+ Array[Destination] getTopDestinations()
+ Array[Destination] getDestinations()
+ Array[Destination] getDestinationsLike()
+}
+
+class Review {
+  id : Integer
+  destinationId : Integer
+  title : String
+  content : String
+  stars : Integer
+  reviewRating: ReviewRating
+  creatorId: Integer
+  spamScore: Float
+  Review add()
+  boolean edit()
+  boolean delete()
+  Review get()
+  Array[Review] getTopReviews()
+  Array[Review] getReviews()
+}
+
+class ReviewRating {
+  review : Integer
+  upvoters: Set[User]
+  downvoters: Set[User]
+  ReviewRating get()
+  ReviewRating edit()
+  ReviewRating add()
+  boolean delete()
+  boolean upVote()
+  boolean downVote()
+}
+
+class FeedController {
+  user : User
+  sorter : Sorter
+  destinations : Array[Integer]
+  countries : Array[Country]
+
+  Feed getFeed()
+  void updateView()
+}
+
+class LoginController {
+    User selectUser()
+    void updateView()
+}
+
+class SignUpController {
+    User createUser()
+    void updateView()
+}
+
+class AccountController {
+    User getUserData()
+    boolean updateUserData()
+    boolean deleteUser()
+    void updateView()
+}
+
+class CountryController {
+    Country getCountry()
+    void updateView()
+}
+
+class DestinationController {
+    Destination getDestination()
+    Destination addDestination()
+    Destination editDestination()
+    boolean deleteDestination()
+    void updateView()
+}
+
+class ReviewController {
+    Review getReview()
+    Review addReview()
+    Review editReview()
+    boolean deleteReview()
+    boolean upVoteReview()
+    boolean downVoteReview()
+    void updateView()
+}
+
+class AdminController {
+    Array[Destination] getSpamDestinations()
+    Array[Review] getSpamReviews()
+    void updateView()
+}
+
+class AuthMiddleware {
+ boolean verifyUser()
+ boolean isAdmin()
+}
+
+class SearchController {
+  input : String
+  Array[Review] getSuggestions()
+  Array[Review] getResults()
+  void updateView()
+}
+
+class SpamDetector {
+  user : User
+  review : Review
+  destination : Destination
+  spamScore : Float
+  Float getScore()
+}
+
+class Dedupe {
+  destination : Destination
+  possibleDuplicates : Array<Destination>
+  Array[Destination] getDuplicates()
+}
+
+class Sorter {
+ type: String
+ Array<T> sort()
+}
+
+class MarkdownCompiler {
+ reviewContent : String
+ String compile()
+}
+
+class Pagination {
+ offset: Integer
+ Array<T> getNextItems()
+}
+
+'class LoginView {}
+
+'class SignUpView {}
+
+'class AccountView {}
+
+'class AdminView {}
+
+'class FeedView {}
+
+'class SearchView {}
+
+'class CountryView {}
+
+'class DestinationView {}
+
+' class ReviewView {}
+
+' Country *-- Destination
+' User *-- Review
+' Destination *-- Review
+' Review *-- ReviewRating
+' Feed -- Destination
+' User *-- Feed
+' Feed -- Country
+' Spam -- Review
+' Spam -- User
+' Dedupe -- Destination
+' Sorter -- Destination
+' Sorter -- Country
+' Search -- Destination
+' Search -- Country
+' Review -- MarkdownCompiler
+' Pagination -- Country
+' Pagination -- Destination
+' Pagination -- Feed
+' Auth -- User
+
+Country "1" *-- "many" Destination : Contains
+Destination "1" *-- "many" Review : Has
+Review "1" *-- "1" ReviewRating : Has A
+
+' FeedController --> FeedView : Updates
+FeedController --> Country : Uses
+FeedController --> Destination : Uses
+FeedController --> User : Uses
+FeedController --> AuthMiddleware : Uses
+' SearchController --> SearchView : Updates
+SearchController --> Country : Uses
+SearchController --> Destination : Uses
+' CountryController --> CountryView : Updates
+CountryController --> Country : Uses
+' DestinationController --> DestinationView : Updates
+DestinationController --> Destination : Uses
+DestinationController --> AuthMiddleware : Uses
+' ReviewController --> ReviewView : Updates
+ReviewController --> Review : Uses
+ReviewController --> ReviewRating : Uses
+ReviewController --> MarkdownCompiler : Uses
+ReviewController --> AuthMiddleware : Uses
+' LoginController --> LoginView : Updates
+LoginController --> AuthMiddleware : Uses
+LoginController --> User : Uses
+' SignUpController --> SignUpView : Updates
+SignUpController --> User : Uses
+' AccountController --> AccountView : Updates
+AccountController --> AuthMiddleware : Uses
+AccountController --> User : Uses
+' AdminController --> AdminView : Updates
+AdminController --> AuthMiddleware : Uses
+AdminController --> User : Uses
+AdminController --> Destination : Uses
+AdminController --> Review : Uses
+
+Destination --> Sorter : Uses
+Destination --> Dedupe : Uses
+Destination --> Pagination : Uses
+Destination --> SpamDetector : Uses
+Country --> Sorter : Uses
+Country --> Pagination : Uses
+Review --> Sorter : Uses
+Review --> SpamDetector : Uses
+SpamDetector --> User : Uses
+
+@enduml

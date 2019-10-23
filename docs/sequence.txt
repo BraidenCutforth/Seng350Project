@@ -1,0 +1,54 @@
+@startuml
+' activate CurrentUser
+CurrentUser -> LoginView : Select username
+activate LoginView
+' activate CurrentUser
+LoginView -> LoginController : selectUser() request
+LoginController -> AuthMiddleware : verifyUser()
+AuthMiddleware --> LoginController : Verified
+LoginController -> User : get()
+User --> LoginController : User
+LoginController -> FeedController : User, getFeed()
+FeedController -> FeedView : << Create >>
+activate FeedView
+FeedController -> CurrentUser : FeedView
+deactivate LoginView
+' deactivate CurrentUser
+CurrentUser -> FeedView : Select Country from feed
+' activate CurrentUser
+FeedView -> CountryController : getCountry()
+CountryController -> Country : get()
+CountryController <-- Country : Country
+CountryController -> CountryView : << Create >>
+activate CountryView
+CurrentUser <- CountryController : CountryView
+deactivate FeedView
+' deactivate CurrentUser
+CurrentUser -> CountryView : Select Destination
+' activate CurrentUser
+CountryView -> DestinationController : getDestination()
+DestinationController -> Destination : get()
+DestinationController <-- Destination : Destination
+DestinationController -> DestinationView : << Create >>
+activate DestinationView
+CurrentUser <- DestinationController : DestinationView
+deactivate CountryView
+CurrentUser -> DestinationView : Thumbs up a review
+' activate CurrentUser
+DestinationView -> ReviewController : upVoteReview()
+ReviewController -> AuthMiddleware : verifyUser()
+ReviewController <-- AuthMiddleware : verified
+ReviewController -> ReviewRating : upVote()
+ReviewController <-- ReviewRating : success
+DestinationView <-- ReviewController : success
+DestinationView -> DestinationController : updateView()
+deactivate DestinationView
+DestinationController -> DestinationView : << Create New >>
+activate DestinationView
+CurrentUser <- DestinationController : DestinationView
+' deactivate CurrentUser
+' User -> View : Clicks on own profile
+' View -> API : Profile page request
+' API -> View : Return profile page
+' View -> View : User can see own review and info
+@enduml
