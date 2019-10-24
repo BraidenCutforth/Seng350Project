@@ -21,7 +21,7 @@ const uri = process.env.MONGO_URI || "mongodb+srv://runaway:Y2ABndDFux4zyWzPsMxa
 export class Server {
 
     public app: express.Application;
-    public db: MongoClient;
+    public client: MongoClient;
 
     /**
      * Bootstrap the application.
@@ -44,12 +44,14 @@ export class Server {
     constructor() {
         //create expressjs application
         this.app = express();
-        this.db = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-        // this.db.connect(err => {
-        //     if (err) throw err;
-        //     const dbcontent = this.db.db('sample_airbnb');
-        //     console.log(dbcontent);
-        // });
+        this.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        this.client.connect(err => {
+            if (err) throw err;
+            console.log('Connection success');
+        });
+
+
+        this.initializeDb();
 
         //configure application
         this.config();
@@ -57,6 +59,11 @@ export class Server {
         //add routes
         this.routes();
     }
+
+    private async initializeDb() {
+
+    }
+
 
     /**
      * Configure application

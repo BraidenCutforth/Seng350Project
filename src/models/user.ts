@@ -1,6 +1,21 @@
+import { client } from '../index'
+
+export interface IUser {
+    firstName: string
+    lastName: string
+    email: string
+    username: string
+    profilePic: string
+    bio: string
+    location: string
+    isAdmin: boolean
+}
+
 export class User {
 
     public static async getUser(username: string){
+        const collection = client.db('runaway').collection('users')
+        const user = await collection.find({'username': username}).toArray()
         if(username==="wallace") {
             return Promise.resolve({
             firstName: "Wallace",
@@ -18,6 +33,22 @@ export class User {
         } else {
             return Promise.reject("Username not found")
         }
+    }
+
+    public static async getUsers() {
+
+    }
+
+    public static async deleteUser() {
+
+    }
+
+    public static async updateUser() {
+
+    }
+
+    public static async addUser() {
+
     }
 
 }
