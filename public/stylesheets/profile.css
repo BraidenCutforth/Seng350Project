@@ -1,16 +1,63 @@
-.main-container {
+body {
+  background-color: lavender;
+}
+
+h1, h3 {
+  margin: 0;
+}
+
+.bio {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.bio > span {
+  margin: 6px 0;
+}
+
+.col-lg {
+  width: 50%;
+}
+
+.col-sm {
+  width: 25%;
+}
+
+.card {
+  border-radius: 2px;
+  background-color: white;
+  padding: 12px;
+}
+
+.content-container {
+  display: flex;
+}
+
+.handle {
+  color: grey;
+}
+
+.info-container {
+  padding: 12px;
+}
+
+.name {
+  margin-bottom: 36px;
+}
+
+.profile-container {
+  background-color: white;
+  border-radius: 2px;
+  display: flex;
+  margin-bottom: 12px;
+  padding: 12px;
 }
 
 .profile-pic {
   border-radius: 50%;
-  height: 200px;
+  height: 144px;
   margin-right: 18px;
-  width: 200px;
-}
-
-.info-container {
-  margin-top: auto;
+  width: 144px;
 }
 
 .secondary-info {

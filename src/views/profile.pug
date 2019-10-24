@@ -5,15 +5,22 @@ html
       include ../styles/profile.css
       include ../styles/style.css
   body
-    div(class="main-container")
+    div(class="profile-container")
       img(src=profilePic class="profile-pic")
       div(class="info-container")
-        h2 #{firstName} #{lastName}
+        div(class="name")
+          h1 #{firstName} #{lastName}
+          span(class="handle") @#{username}
         div(class="secondary-info")
-          span @#{username}
-          span <b>email: </b>#{email} 
-          span <b>location: </b>#{location}
-          span <b>reviews: </b>#{reviewCount} 
-          span <b>Joined: </b>#{joined}
-          span <b>Bio: #{bio}</b>
+          h3 <b>Reviews: </b>#{reviewCount}    
+    div(class="content-container")
+      div(class="col-sm")
+        div(class="card bio")
+          h2 Bio
+          span #{bio}
+          span #{location}
+          span #{email} 
+          span Joined #{joined}
+      div(class="col-lg")
+      div(class="col-sm")
 
