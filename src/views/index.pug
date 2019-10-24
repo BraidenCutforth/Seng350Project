@@ -1,9 +1,17 @@
-title #{title}
-p #{message}
+doctype html
+html
+  head
+    title #{title}
+    style
+      include ../styles/style.css
+      include ../styles/index.css
 
-a(href="login")
-    button(type="button") login
-
-a(href="signup")
-    button(type="button") sign up
-    
+  body
+    div(class="container")
+        div(class="card")
+            h1 #{message}
+            div
+                a(href="login")
+                    button(type="button" class="btn") Log in
+                a(href="signup")
+                    button(type="button" class="btn") Sign up
