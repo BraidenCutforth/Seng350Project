@@ -47,7 +47,14 @@ export class ProfileRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public index(req: Request, res: Response, next: NextFunction) {
-    //set custom title
+    
+
+    // TODO: 
+    //      1. URL should be /profile/id
+    //      2. Get User from DB
+    //      3. If user id == profile id then display edit profile button
+    //      4. Edit button triggers function that changes elements on page 
+    //      5. Submit function 
 
 
     //set message

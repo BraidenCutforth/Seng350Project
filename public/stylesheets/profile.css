@@ -1,3 +1,19 @@
+.main-container {
+  display: flex;
+}
+
 .profile-pic {
   border-radius: 50%;
+  height: 200px;
+  margin-right: 18px;
+  width: 200px;
+}
+
+.info-container {
+  margin-top: auto;
+}
+
+.secondary-info {
+  display: flex;
+  flex-direction: column;
 }
