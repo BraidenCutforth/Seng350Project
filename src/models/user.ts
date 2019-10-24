@@ -1,7 +1,8 @@
 export class User {
 
     public async getUser(username: string){
-        return Promise.resolve({
+        if(username=="wallace") {
+            return Promise.resolve({
             firstname: "Wallace",
             lastname: "Berder",
             email: "wberder@gmail.com",
@@ -12,6 +13,9 @@ export class User {
             joined: "2019-09-01",
             isAdmin: true
         })
+        } else {
+            return Promise.reject("Username not found")
+        }
     }
 
 }
