@@ -11,7 +11,7 @@ import { SignUpRoute } from "./routes/signup";
 import { ProfileRoute } from "./routes/profile";
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGO_URI || ""; // Eventually set to a env var
+const uri = process.env.MONGO_URI || "mongodb+srv://runaway:Y2ABndDFux4zyWzPsMxa6D4h@seng350-f19-3-6-db-6khes.mongodb.net/test?retryWrites=true&w=majority"; // Eventually set to a env var
 
 /**
  * The server.

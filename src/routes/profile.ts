@@ -22,7 +22,7 @@ export class ProfileRoute extends BaseRoute {
     console.log("[ProfileRoute::create] Creating index route.");
 
     //add profile page route
-    router.get("/profile", (req: Request, res: Response, next: NextFunction) => {
+    router.get("/profile/:username", (req: Request, res: Response, next: NextFunction) => {
       new ProfileRoute().index(req, res, next);
     });
   }
@@ -38,7 +38,7 @@ export class ProfileRoute extends BaseRoute {
   }
 
   /**
-   * The home page route.
+   * The profile page route.
    *
    * @class ProfileRoute
    * @method index
@@ -48,15 +48,14 @@ export class ProfileRoute extends BaseRoute {
    */
   public index(req: Request, res: Response, next: NextFunction) {
     
-
     // TODO: 
     //      1. URL should be /profile/id
     //      2. Get User from DB
     //      3. If user id == profile id then display edit profile button
     //      4. Edit button triggers function that changes elements on page 
     //      5. Submit function 
-    const query = req.query;
-    console.log(query);
+    
+    const username = req.params.username;
 
     //set message
     let options: Object = {
