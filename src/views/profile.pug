@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    style
+      include ../styles/profile.css
+      include ../styles/style.css
+  body
+    div(class="profile-container")
+      img(src=profilePic class="profile-pic")
+      div(class="info-container")
+        div(class="name")
+          h1 #{firstName} #{lastName}
+          span(class="handle") @#{username}
+        div(class="secondary-info")
+          h3 <b>Reviews: </b>#{reviewCount}   
+      if isOwnProfile
+        button(class="edit-btn") Edit Profile
+    div(class="content-container")
+      div(class="col-sm")
+        div(class="card bio")
+          h2 Bio
+          span #{bio}
+          span #{location}
+          span #{email} 
+          span Joined #{joined}
+      div(class="col-lg")
+      div(class="col-sm")
+

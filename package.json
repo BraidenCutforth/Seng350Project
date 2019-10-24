@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "rm -rf ./dist && tsc && cp -R ./src/views ./dist/views && cp -R ./node_modules ./dist/node_modules"
+    "build": "rm -rf ./dist && tsc && cp -R ./src/views ./dist/views && cp -R ./node_modules ./dist/node_modules && cp -R ./public/stylesheets ./dist/styles"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
