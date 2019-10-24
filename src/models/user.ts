@@ -1,7 +1,7 @@
 export class User {
 
     public async getUser(username: string){
-        if(username=="wallace") {
+        if(username==="wallace") {
             return Promise.resolve({
             firstname: "Wallace",
             lastname: "Berder",
