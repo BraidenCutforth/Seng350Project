@@ -7,6 +7,7 @@ import path from "path";
 import errorHandler from "errorhandler";
 import { IndexRoute } from "./routes/index";
 import { LoginRoute } from "./routes/login";
+import { SignUpRoute } from "./routes/signup";
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGO_URI || ""; // Eventually set to a env var
@@ -106,6 +107,7 @@ export class Server {
         router = express.Router();
         IndexRoute.create(router);
         LoginRoute.create(router);
+        SignUpRoute.create(router);
         //use router middleware
         this.app.use(router);
     }

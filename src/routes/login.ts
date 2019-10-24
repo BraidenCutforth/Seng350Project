@@ -18,12 +18,16 @@ export class LoginRoute extends BaseRoute {
      * @static
      */
     public static create(router: Router) {
-        //log
-        console.log("[LoginRoute::create] Creating index route.");
+        console.log("[LoginRoute::create] Creating login route.");
 
-        //add home page route
+        // add home page route
         router.get("/login", (req: Request, res: Response, next: NextFunction) => {
             new LoginRoute().index(req, res, next);
+        })
+
+        // getting login info
+        .post("/login", (req: Request, res: Response, next: NextFunction) => {
+            new LoginRoute().handleLogin(req, res, next);
         });
     }
 
@@ -38,7 +42,7 @@ export class LoginRoute extends BaseRoute {
     }
 
     /**
-     * The home page route.
+     * The login page route.
      *
      * @class LoginRoute
      * @method index
@@ -54,5 +58,13 @@ export class LoginRoute extends BaseRoute {
 
         //render template
         this.render(req, res, "login", options);
+    }
+
+    public handleLogin(req: Request, res: Response, next: NextFunction) {
+        res.send("sucessfully submitted user credentials");
+
+        // handle login flow here
+
+        // if credientals are verified, redirect to index
     }
 }
