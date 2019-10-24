@@ -48,20 +48,14 @@ export class ProfileRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public async index(req: Request, res: Response, next: NextFunction) {
-    
-    // TODO: 
-    //      1. URL should be /profile/id
-    //      2. Get User from DB
-    //      3. If user id == profile id then display edit profile button
-    //      4. Edit button triggers function that changes elements on page 
-    //      5. Submit function 
-    
+
     const username = req.params.username;
-    const userData = await User.getUser(username)
-
-    //set message
-
-    //render template
-    this.render(req, res, "profile", userData);
+    try {
+      let userData = await User.getUser(username)
+      this.render(req, res, "profile", userData);
+    } catch (error) {
+      console.error(error);
+      this.render(req, res, "404");
+    }
   }
 }
