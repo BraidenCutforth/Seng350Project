@@ -1,6 +1,7 @@
 
 import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./route";
+import { User } from "../models/user"
 
 
 /**
@@ -46,7 +47,7 @@ export class ProfileRoute extends BaseRoute {
    * @param res {Response} The express Response object.
    * @next {NextFunction} Execute the next method.
    */
-  public index(req: Request, res: Response, next: NextFunction) {
+  public async index(req: Request, res: Response, next: NextFunction) {
     
     // TODO: 
     //      1. URL should be /profile/id
@@ -56,23 +57,11 @@ export class ProfileRoute extends BaseRoute {
     //      5. Submit function 
     
     const username = req.params.username;
+    const userData = await User.getUser(username)
 
     //set message
-    let options: Object = {
-      "firstName": "Wallace",
-      "lastName": "Berder",
-      "email": "wberder@gmail.com",
-      "username": "wallace",
-      "reviews": [],
-      "reviewCount": 0,
-      "profilePic": "https://pbs.twimg.com/profile_images/1163541386785746944/A1nz8DcJ_400x400.jpg",
-      "bio": "Business man. Brothers to Harv, Linus, Mick Donald, Aiden",
-      "location": "Moscow, Russia",
-      "joined": "October 2019",
-      "isOwnProfile": true
-    };
 
     //render template
-    this.render(req, res, "profile", options);
+    this.render(req, res, "profile", userData);
   }
 }
