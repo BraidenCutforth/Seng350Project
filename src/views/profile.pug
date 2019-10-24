@@ -12,7 +12,9 @@ html
           h1 #{firstName} #{lastName}
           span(class="handle") @#{username}
         div(class="secondary-info")
-          h3 <b>Reviews: </b>#{reviewCount}    
+          h3 <b>Reviews: </b>#{reviewCount}   
+      if isOwnProfile
+        button(class="edit-btn") Edit Profile
     div(class="content-container")
       div(class="col-sm")
         div(class="card bio")
