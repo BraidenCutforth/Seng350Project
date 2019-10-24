@@ -8,6 +8,7 @@ import errorHandler from "errorhandler";
 import { IndexRoute } from "./routes/index";
 import { LoginRoute } from "./routes/login";
 import { SignUpRoute } from "./routes/signup";
+import { ProfileRoute } from "./routes/profile";
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGO_URI || ""; // Eventually set to a env var
@@ -44,11 +45,11 @@ export class Server {
         //create expressjs application
         this.app = express();
         this.db = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-        this.db.connect(err => {
-            if (err) throw err;
-            const dbcontent = this.db.db('sample_airbnb');
-            console.log(dbcontent);
-        });
+        // this.db.connect(err => {
+        //     if (err) throw err;
+        //     const dbcontent = this.db.db('sample_airbnb');
+        //     console.log(dbcontent);
+        // });
 
         //configure application
         this.config();
@@ -108,6 +109,7 @@ export class Server {
         IndexRoute.create(router);
         LoginRoute.create(router);
         SignUpRoute.create(router);
+        ProfileRoute.create(router);
         //use router middleware
         this.app.use(router);
     }
