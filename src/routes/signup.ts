@@ -1,11 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { users } from '../mock_data/users'
-<<<<<<< HEAD
-import { User } from '../models/user'
-=======
 import { User, IUser } from '../models/user'
->>>>>>> sign up flow integrated with db
 
 /**
  * / route
