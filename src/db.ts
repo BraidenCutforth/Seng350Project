@@ -1,4 +1,4 @@
-import { MongoClient, Db, MongoError } from 'mongodb'
+import { MongoClient, Db } from 'mongodb'
 
 const uri =
     process.env.MONGO_URI ||
