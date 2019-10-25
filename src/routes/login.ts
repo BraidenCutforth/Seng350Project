@@ -61,13 +61,24 @@ export class LoginRoute extends BaseRoute {
     }
 
     public handleLogin(req: Request, res: Response, next: NextFunction) {
-        res.send('sucessfully submitted user credentials')
-
         // handle login flow here
-        const credentials = req.body
-        console.log('username: ' + credentials['username'])
-        console.log('password: ' + credentials['password'])
+        try {
+            const credential = this.parseCredentials(req)
+            res.redirect(`/profile/${credential}`)
+        } catch (err) {
+            res.status(404)
+            res.send(err)
+        }
 
         // if credientals are verified, redirect to index
+    }
+
+    private parseCredentials(req: Request): string {
+        const credential = req.body
+        const username = credential['username']
+        if (typeof username !== 'string') {
+            throw new Error('username is undefined')
+        }
+        return username
     }
 }
