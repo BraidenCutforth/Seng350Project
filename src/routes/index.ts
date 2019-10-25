@@ -53,7 +53,7 @@ export class IndexRoute extends BaseRoute {
         //set message
         let options: Object = {
             "title": "Runaway",
-            "message": "Runaway with us :^)"
+            "message": "Runaway"
         };
 
         //render template

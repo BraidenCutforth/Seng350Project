@@ -1,0 +1,13 @@
+{
+  "country": {
+    "$ref": "countries",
+    "$id": ""
+  },
+  "name": "Paris",
+  "reviews": [],
+  "stars": 0.0,
+  "creator": {
+    "$ref": "users",
+    "$id": ""
+  }
+}
