@@ -5,7 +5,8 @@
     "scripts": {
         "start": "node ./dist/index.js",
         "build": "rm -rf ./dist && tsc && cp -R ./src/views ./dist/views && cp -R ./node_modules ./dist/node_modules && cp -R ./public/stylesheets ./dist/styles",
-        "test": "jest"
+        "test": "jest",
+        "lint": "eslint src/**/*.ts"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
