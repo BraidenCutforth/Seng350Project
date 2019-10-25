@@ -1,7 +1,6 @@
-
-import { NextFunction, Request, Response, Router } from "express";
-import { BaseRoute } from "./route";
-import { users } from '../mock_data/users';
+import { NextFunction, Request, Response, Router } from 'express'
+import { BaseRoute } from './route'
+import { users } from '../mock_data/users'
 
 /**
  * / route
@@ -9,7 +8,6 @@ import { users } from '../mock_data/users';
  * @class AdminRoute
  */
 export class AdminRoute extends BaseRoute {
-
     /**
      * Create the routes.
      *
@@ -18,17 +16,18 @@ export class AdminRoute extends BaseRoute {
      * @static
      */
     public static create(router: Router) {
-        console.log("[AdminRoute::create] Creating admin route.");
+        console.log('[AdminRoute::create] Creating admin route.')
 
         // add home page route
-        router.get("/admin", (req: Request, res: Response, next: NextFunction) => {
-            new AdminRoute().index(req, res, next);
-        })
+        router
+            .get('/admin', (req: Request, res: Response, next: NextFunction) => {
+                new AdminRoute().index(req, res, next)
+            })
 
-        // getting login info
-        .post("/admin", (req: Request, res: Response, next: NextFunction) => {
-            new AdminRoute().index(req, res, next);
-        });
+            // getting login info
+            .post('/admin', (req: Request, res: Response, next: NextFunction) => {
+                new AdminRoute().index(req, res, next)
+            })
     }
 
     /**
@@ -38,7 +37,7 @@ export class AdminRoute extends BaseRoute {
      * @constructor
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -52,11 +51,11 @@ export class AdminRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set message
-        let options: Object = {
-            users
-        };
+        const options: Record<string, any> = {
+            users,
+        }
 
         //render template
-        this.render(req, res, "admin", options);
+        this.render(req, res, 'admin', options)
     }
 }

@@ -3,10 +3,13 @@ interface IUser {
     id: number
 }
 
-export const users: IUser[] = [{
-    username: 'braidenc',
-    id: 1
-}, {
-    username: 'jordan',
-    id: 2
-}]
+export const users: IUser[] = [
+    {
+        username: 'braidenc',
+        id: 1,
+    },
+    {
+        username: 'jordan',
+        id: 2,
+    },
+]

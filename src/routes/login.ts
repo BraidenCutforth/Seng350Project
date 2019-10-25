@@ -1,8 +1,7 @@
-
-import { NextFunction, Request, Response, Router } from "express";
-import { BaseRoute } from "./route";
-import { User } from "../models/user";
-import { users } from '../mock_data/users';
+import { NextFunction, Request, Response, Router } from 'express'
+import { BaseRoute } from './route'
+import { User } from '../models/user'
+import { users } from '../mock_data/users'
 
 /**
  * / route
@@ -10,7 +9,6 @@ import { users } from '../mock_data/users';
  * @class LoginRoute
  */
 export class LoginRoute extends BaseRoute {
-
     /**
      * Create the routes.
      *
@@ -19,17 +17,18 @@ export class LoginRoute extends BaseRoute {
      * @static
      */
     public static create(router: Router) {
-        console.log("[LoginRoute::create] Creating login route.");
+        console.log('[LoginRoute::create] Creating login route.')
 
         // add home page route
-        router.get("/login", (req: Request, res: Response, next: NextFunction) => {
-            new LoginRoute().index(req, res, next);
-        })
+        router
+            .get('/login', (req: Request, res: Response, next: NextFunction) => {
+                new LoginRoute().index(req, res, next)
+            })
 
-        // getting login info
-        .post("/login", (req: Request, res: Response, next: NextFunction) => {
-            new LoginRoute().handleLogin(req, res, next);
-        });
+            // getting login info
+            .post('/login', (req: Request, res: Response, next: NextFunction) => {
+                new LoginRoute().handleLogin(req, res, next)
+            })
     }
 
     /**
@@ -39,7 +38,7 @@ export class LoginRoute extends BaseRoute {
      * @constructor
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -53,21 +52,21 @@ export class LoginRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set message
-        let options: Object = {
-            users
-        };
+        const options: Record<string, any> = {
+            users,
+        }
 
         //render template
-        this.render(req, res, "login", options);
+        this.render(req, res, 'login', options)
     }
 
     public handleLogin(req: Request, res: Response, next: NextFunction) {
-        res.send("sucessfully submitted user credentials");
+        res.send('sucessfully submitted user credentials')
 
         // handle login flow here
-        var credentials = req.body;
-        console.log("username: " + credentials["username"]);
-        console.log("password: " + credentials["password"]);
+        const credentials = req.body
+        console.log('username: ' + credentials['username'])
+        console.log('password: ' + credentials['password'])
 
         // if credientals are verified, redirect to index
     }
