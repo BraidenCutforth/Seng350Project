@@ -54,24 +54,24 @@ export class SignUpRoute extends BaseRoute {
     }
 
     public async createUser(req: Request, res: Response, next: NextFunction) {
-        const userInfo = this.parseUser(req);
-        await User.addUser(userInfo);
+        const userInfo = this.parseUser(req)
+        await User.addUser(userInfo)
         res.redirect(`/profile/${userInfo.username}`)
     }
 
     private parseUser(req: Request): IUser {
-      const newUserInfo = req.body;
-      return {
-          firstName: newUserInfo['firstname'],
-          lastName: newUserInfo['lastname'],
-          email: newUserInfo['email'],
-          username: newUserInfo['username'],
-          profilePic: "",
-          bio: "",
-          location: "",
-          joined: new Date().toISOString(),
-          isAdmin: false,
-          reviews: [],
-      }
+        const newUserInfo = req.body
+        return {
+            firstName: newUserInfo['firstname'],
+            lastName: newUserInfo['lastname'],
+            email: newUserInfo['email'],
+            username: newUserInfo['username'],
+            profilePic: '',
+            bio: '',
+            location: '',
+            joined: new Date().toISOString(),
+            isAdmin: false,
+            reviews: [],
+        }
     }
 }
