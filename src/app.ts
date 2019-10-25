@@ -8,6 +8,7 @@ import { IndexRoute } from './routes/index'
 import { LoginRoute } from './routes/login'
 import { SignUpRoute } from './routes/signup'
 import { ProfileRoute } from './routes/profile'
+import { AdminRoute } from './routes/admin'
 import { MongoClient } from 'mongodb'
 
 const uri =
@@ -119,6 +120,7 @@ export class Server {
         LoginRoute.create(router)
         SignUpRoute.create(router)
         ProfileRoute.create(router)
+        AdminRoute.create(router)
         //use router middleware
         this.app.use(router)
     }

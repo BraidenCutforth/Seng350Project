@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
-import { users } from '../mock_data/users'
+import { User, IUser } from '../models/user'
 
 /**
  * / route
@@ -49,13 +49,11 @@ export class AdminRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public index(req: Request, res: Response, next: NextFunction) {
-        //set message
-        const options: Record<string, any> = {
-            users,
-        }
+    public async index(req: Request, res: Response, next: NextFunction) {
 
+        const userData = await User.getUsers()
+        
         //render template
-        this.render(req, res, 'admin', options)
+        this.render(req, res, 'admin', {userData})
     }
 }

@@ -15,7 +15,7 @@ html
         div(class="secondary-info")
           h3 <b>Reviews: </b>#{reviewCount}
       div(class="profile-actions")
-        if isAdmin
+        if !isAdmin
           form(method='POST' action='/admin')
             button(class="profile-btn") Admin Access
         if isOwnProfile

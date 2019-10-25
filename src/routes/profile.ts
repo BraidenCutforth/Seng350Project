@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
-import { User } from '../models/user'
+import { IUser, User } from '../models/user'
 
 /**
  * / route
@@ -48,10 +48,15 @@ export class ProfileRoute extends BaseRoute {
         const username = req.params.username
         try {
             const userData = await User.getUser(username)
-            this.render(req, res, 'profile', userData)
+            const isOwnProfile = this.isCurrentUser(userData, req.query.user)
+            this.render(req, res, 'profile', {...userData, isOwnProfile})
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
         }
+    }
+
+    public isCurrentUser(userData: IUser, username?: string) {
+      return userData.username === username
     }
 }
