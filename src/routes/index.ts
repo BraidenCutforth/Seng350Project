@@ -1,7 +1,5 @@
-
-import { NextFunction, Request, Response, Router } from "express";
-import { BaseRoute } from "./route";
-
+import { NextFunction, Request, Response, Router } from 'express'
+import { BaseRoute } from './route'
 
 /**
  * / route
@@ -9,7 +7,6 @@ import { BaseRoute } from "./route";
  * @class IndexRoute
  */
 export class IndexRoute extends BaseRoute {
-
     /**
      * Create the routes.
      *
@@ -19,12 +16,12 @@ export class IndexRoute extends BaseRoute {
      */
     public static create(router: Router) {
         //log
-        console.log("[IndexRoute::create] Creating index route.");
+        console.log('[IndexRoute::create] Creating index route.')
 
         //add home page route
-        router.get("/", (req: Request, res: Response, next: NextFunction) => {
-            new IndexRoute().index(req, res, next);
-        });
+        router.get('/', (req: Request, res: Response, next: NextFunction) => {
+            new IndexRoute().index(req, res, next)
+        })
     }
 
     /**
@@ -34,7 +31,7 @@ export class IndexRoute extends BaseRoute {
      * @constructor
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -48,15 +45,15 @@ export class IndexRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set custom title
-        this.title = "Runaway | Home";
+        this.title = 'Runaway | Home'
 
         //set message
-        let options: Object = {
-            "title": "Runaway",
-            "message": "Runaway"
-        };
+        const options: Record<string, any> = {
+            title: 'Runaway',
+            message: 'Runaway',
+        }
 
         //render template
-        this.render(req, res, "index", options);
+        this.render(req, res, 'index', options)
     }
 }

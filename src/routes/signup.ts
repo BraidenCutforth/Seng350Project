@@ -1,8 +1,7 @@
-
-import { NextFunction, Request, Response, Router } from "express";
-import { BaseRoute } from "./route";
-import { users } from '../mock_data/users';
-import { User } from "../models/user";
+import { NextFunction, Request, Response, Router } from 'express'
+import { BaseRoute } from './route'
+import { users } from '../mock_data/users'
+import { User } from '../models/user'
 
 /**
  * / route
@@ -10,7 +9,6 @@ import { User } from "../models/user";
  * @class SignUpRoute
  */
 export class SignUpRoute extends BaseRoute {
-
     /**
      * Create the routes.
      *
@@ -19,15 +17,16 @@ export class SignUpRoute extends BaseRoute {
      * @static
      */
     public static create(router: Router) {
-        console.log("[SignUpRoute::create] Creating sign up route.");
+        console.log('[SignUpRoute::create] Creating sign up route.')
 
         // add home page route
-        router.get("/signup", (req: Request, res: Response, next: NextFunction) => {
-            new SignUpRoute().index(req, res, next);
-        })
-        .post("/signup", (req: Request, res: Response, next: NextFunction) => {
-            new SignUpRoute().createUser(req, res,next);
-        });
+        router
+            .get('/signup', (req: Request, res: Response, next: NextFunction) => {
+                new SignUpRoute().index(req, res, next)
+            })
+            .post('/signup', (req: Request, res: Response, next: NextFunction) => {
+                new SignUpRoute().createUser(req, res, next)
+            })
     }
 
     /**
@@ -37,7 +36,7 @@ export class SignUpRoute extends BaseRoute {
      * @constructor
      */
     constructor() {
-        super();
+        super()
     }
 
     /**
@@ -50,32 +49,31 @@ export class SignUpRoute extends BaseRoute {
      * @next {NextFunction} Execute the next method.
      */
     public index(req: Request, res: Response, next: NextFunction) {
-
         //render template
-        this.render(req, res, "signup");
+        this.render(req, res, 'signup')
     }
 
     public createUser(req: Request, res: Response, next: NextFunction) {
-        res.send("creating new user ...");
+        res.send('creating new user ...')
 
-        var new_user_info = req.body;
+        const newUserInfo = req.body
 
-        console.log("new name: " + new_user_info["name"]);
-        console.log("new username: " +  new_user_info["username"]); 
+        console.log('new name: ' + newUserInfo['name'])
+        console.log('new username: ' + newUserInfo['username'])
 
         // create user in db
         const user: User = {
-            firstName: new_user_info["name"],
+            firstName: newUserInfo['name'],
             lastName: null,
             email: null,
-            username: new_user_info["username"],
+            username: newUserInfo['username'],
             profilePic: null,
             bio: null,
             location: null,
             joined: null,
             isAdmin: false,
             reviewCount: 0,
-            isOwnProfile: true
-        };
+            isOwnProfile: true,
+        }
     }
 }

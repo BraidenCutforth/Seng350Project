@@ -1,5 +1,4 @@
-
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express'
 
 /**
  * Constructo
@@ -7,11 +6,9 @@ import { NextFunction, Request, Response } from "express";
  * @class BaseRoute
  */
 export class BaseRoute {
+    protected title: string
 
-    protected title: string;
-
-    private scripts: string[];
-
+    private scripts: string[]
 
     /**
      * Constructor
@@ -21,8 +18,8 @@ export class BaseRoute {
      */
     constructor() {
         //initialize variables
-        this.title = "Runaway";
-        this.scripts = [];
+        this.title = 'Runaway'
+        this.scripts = []
     }
 
     /**
@@ -34,8 +31,8 @@ export class BaseRoute {
      * @return {BaseRoute} Self for chaining
      */
     public addScript(src: string): BaseRoute {
-        this.scripts.push(src);
-        return this;
+        this.scripts.push(src)
+        return this
     }
 
     /**
@@ -49,17 +46,17 @@ export class BaseRoute {
      * @param options {Object} Additional options to append to the view's local scope.
      * @return void
      */
-    public render(req: Request, res: Response, view: string, options?: Object) {
+    public render(req: Request, res: Response, view: string, options?: Record<string, any>) {
         //add constants
-        res.locals.BASE_URL = "/";
+        res.locals.BASE_URL = '/'
 
         //add scripts
-        res.locals.scripts = this.scripts;
+        res.locals.scripts = this.scripts
 
         //add title
-        res.locals.title = this.title;
+        res.locals.title = this.title
 
         //render view
-        res.render(view, options);
+        res.render(view, options)
     }
 }
