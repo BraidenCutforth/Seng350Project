@@ -5,9 +5,14 @@
  */
 
 import { Server } from './app'
+import { initDb } from './db'
+
 const server = Server.bootstrap()
 const port = 3000
 
-server.app.listen(port, () => console.log(`Runaway app listening on port ${port}!`))
+async function init() {
+    await initDb()
+    server.app.listen(port, () => console.log(`Runaway app listening on port ${port}!`))
+}
 
-export const client = server.client
+init()
