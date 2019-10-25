@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { users } from '../mock_data/users'
+<<<<<<< HEAD
 import { User } from '../models/user'
+=======
+import { User, IUser } from '../models/user'
+>>>>>>> sign up flow integrated with db
 
 /**
  * / route
@@ -53,27 +57,25 @@ export class SignUpRoute extends BaseRoute {
         this.render(req, res, 'signup')
     }
 
-    public createUser(req: Request, res: Response, next: NextFunction) {
-        res.send('creating new user ...')
+    public async createUser(req: Request, res: Response, next: NextFunction) {
+        const userInfo = this.parseUser(req);
+        await User.addUser(userInfo);
+        res.redirect(`/profile/${userInfo.username}`)
+    }
 
-        const newUserInfo = req.body
-
-        console.log('new name: ' + newUserInfo['name'])
-        console.log('new username: ' + newUserInfo['username'])
-
-        // create user in db
-        const user: User = {
-            firstName: newUserInfo['name'],
-            lastName: null,
-            email: null,
-            username: newUserInfo['username'],
-            profilePic: null,
-            bio: null,
-            location: null,
-            joined: null,
-            isAdmin: false,
-            reviewCount: 0,
-            isOwnProfile: true,
-        }
+    private parseUser(req: Request): IUser {
+      const newUserInfo = req.body;
+      return {
+          firstName: newUserInfo['firstname'],
+          lastName: newUserInfo['lastname'],
+          email: newUserInfo['email'],
+          username: newUserInfo['username'],
+          profilePic: "",
+          bio: "",
+          location: "",
+          joined: new Date().toISOString(),
+          isAdmin: false,
+          reviews: [],
+      }
     }
 }
