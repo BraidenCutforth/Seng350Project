@@ -1,6 +1,7 @@
 
 import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./route";
+import { User } from "../models/user";
 import { users } from '../mock_data/users';
 
 /**
@@ -64,6 +65,9 @@ export class LoginRoute extends BaseRoute {
         res.send("sucessfully submitted user credentials");
 
         // handle login flow here
+        var credentials = req.body;
+        console.log("username: " + credentials["username"]);
+        console.log("password: " + credentials["password"]);
 
         // if credientals are verified, redirect to index
     }

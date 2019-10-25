@@ -29,16 +29,6 @@ h1, h3 {
   display: flex;
 }
 
-.edit-btn {
-  background-color: transparent;
-  border-color: darkslateblue;
-  border-radius: 4px;
-  border-width: medium;
-  cursor: pointer;
-  height: 42px;
-  margin-left: auto;
-}
-
 .handle {
   color: grey;
 }
@@ -49,6 +39,19 @@ h1, h3 {
 
 .name {
   margin-bottom: 36px;
+}
+
+.profile-actions {
+  margin-left: auto;
+}
+
+.profile-btn {
+  background-color: transparent;
+  border-color: darkslateblue;
+  border-radius: 4px;
+  border-width: medium;
+  cursor: pointer;
+  height: 42px;
 }
 
 .profile-container {

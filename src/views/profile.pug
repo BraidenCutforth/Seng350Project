@@ -12,17 +12,20 @@ html
           h1 #{firstName} #{lastName}
           span(class="handle") @#{username}
         div(class="secondary-info")
-          h3 <b>Reviews: </b>#{reviewCount}   
-      if isOwnProfile
-        button(class="edit-btn") Edit Profile
+          h3 <b>Reviews: </b>#{reviewCount}
+      div(class="profile-actions")
+        if isAdmin
+          form(method='POST' action='/admin')
+            button(class="profile-btn") Admin Access
+        if isOwnProfile
+          button(class="profile-btn") Edit Profile
     div(class="content-container")
       div(class="col-sm")
         div(class="card bio")
           h2 Bio
           span #{bio}
           span #{location}
-          span #{email} 
+          span #{email}
           span Joined #{joined}
       div(class="col-lg")
       div(class="col-sm")
-

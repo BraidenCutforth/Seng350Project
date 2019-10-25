@@ -2,6 +2,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { BaseRoute } from "./route";
 import { users } from '../mock_data/users';
+import { User } from "../models/user";
 
 /**
  * / route
@@ -54,9 +55,27 @@ export class SignUpRoute extends BaseRoute {
         this.render(req, res, "signup");
     }
 
-    public createUser(req: Request, res: Response, next: NextFunction) { 
+    public createUser(req: Request, res: Response, next: NextFunction) {
+        res.send("creating new user ...");
+
+        var new_user_info = req.body;
+
+        console.log("new name: " + new_user_info["name"]);
+        console.log("new username: " +  new_user_info["username"]); 
 
         // create user in db
-        res.send("creating new user ...");
+        const user: User = {
+            firstName: new_user_info["name"],
+            lastName: null,
+            email: null,
+            username: new_user_info["username"],
+            profilePic: null,
+            bio: null,
+            location: null,
+            joined: null,
+            isAdmin: false,
+            reviewCount: 0,
+            isOwnProfile: true
+        };
     }
 }

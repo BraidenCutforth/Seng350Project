@@ -51,7 +51,7 @@ export class ProfileRoute extends BaseRoute {
 
     const username = req.params.username;
     try {
-      let userData = await User.getUser(username)
+      let userData = await User.getUser(username); 
       this.render(req, res, "profile", userData);
     } catch (error) {
       console.error(error);
