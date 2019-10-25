@@ -21,7 +21,7 @@ export class BaseRoute {
      */
     constructor() {
         //initialize variables
-        this.title = "My New TypeScript Web app";
+        this.title = "Runaway";
         this.scripts = [];
     }
 

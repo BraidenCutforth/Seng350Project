@@ -2,13 +2,18 @@ doctype html
 html(lang="en")
   head
     title=login
+    style
+      include ../styles/style.css
+      include ../styles/login.css
   body
-    h1 Login
-    form(method='POST' action='/login')
-      div.form-group
-        label(for='username') Username
-        input.form-control(type='text' id='username' placeholder='username' name='username')
-      div.form-group
-        label(for='password') Password
-        input.form-control(type='password' id='password' placeholder='password' name='password')
-      button(type='submit') Log in
+    div(class="container")
+        div(class="card")
+          h1 Log in
+          form(method='POST' action='/login')
+            div.form-group
+              label(for='username') Username
+              input.form-control(type='text' id='username' placeholder='username' name='username')
+            div.form-group
+              label(for='password') Password
+              input.form-control(type='password' id='password' placeholder='password' name='password')
+            button(type='submit' class='btn') Log in

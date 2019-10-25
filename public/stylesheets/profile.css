@@ -9,6 +9,7 @@ h1, h3 {
 
 .bio > span {
   margin: 6px 0;
+  width: 100%;
 }
 
 .col-lg {
@@ -20,8 +21,9 @@ h1, h3 {
 }
 
 .card {
-  border-radius: 2px;
   background-color: white;
+  border-radius: 2px;
+  box-shadow: 1px 1px lightgray;
   padding: 12px;
 }
 
@@ -37,6 +39,10 @@ h1, h3 {
   cursor: pointer;
   height: 42px;
   margin-left: auto;
+}
+
+.edit-btn:hover {
+  background-color: lavender;
 }
 
 .handle {
