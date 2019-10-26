@@ -61,6 +61,15 @@ export class LoginRoute extends BaseRoute {
         this.render(req, res, 'login', options)
     }
 
+    /**
+     * Handles user login and sets the query parameter
+     *
+     * @class LoginRoute
+     * @method handleLogin
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @next {NextFunction} Execute the next method.
+     */
     public handleLogin(req: Request, res: Response, next: NextFunction) {
         // handle login flow here
         try {
@@ -74,6 +83,10 @@ export class LoginRoute extends BaseRoute {
         // if credientals are verified, redirect to index
     }
 
+    /**
+     * Parses out the user information from the login page
+     * @param req Express request
+     */
     private parseCredentials(req: Request): string {
         const credential = req.body
         const username = credential['username']

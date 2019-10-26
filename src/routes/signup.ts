@@ -53,6 +53,16 @@ export class SignUpRoute extends BaseRoute {
         this.render(req, res, 'signup')
     }
 
+    /**
+     * Handles user creation. Once user is created they are redirected to their profile page.
+     * Otherwise sends the user to signup page if their user does not exist
+     *
+     * @class SignUpRoute
+     * @method index
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @next {NextFunction} Execute the next method.
+     */
     public async createUser(req: Request, res: Response, next: NextFunction) {
         try {
             const userInfo = this.parseUser(req)

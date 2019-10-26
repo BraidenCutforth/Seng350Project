@@ -56,6 +56,11 @@ export class ProfileRoute extends BaseRoute {
         }
     }
 
+    /**
+     * Verifies that the user data object has the same username of the given username
+     * @param userData User data object
+     * @param username Username
+     */
     public isCurrentUser(userData: IUser, username?: string) {
         return userData.username === username
     }
