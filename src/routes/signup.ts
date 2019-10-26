@@ -54,14 +54,18 @@ export class SignUpRoute extends BaseRoute {
     }
 
     public async createUser(req: Request, res: Response, next: NextFunction) {
-        const userInfo = this.parseUser(req)
-        await User.addUser(userInfo)
-        res.redirect(`/profile/${userInfo.username}`)
+        try {
+            const userInfo = this.parseUser(req)
+            await User.addUser(userInfo)
+            res.redirect(`/profile/${userInfo.username}`)
+        } catch {
+            res.redirect('/signup')
+        }
     }
 
     private parseUser(req: Request): IUser {
         const newUserInfo = req.body
-        return {
+        const user = {
             firstName: newUserInfo['firstname'],
             lastName: newUserInfo['lastname'],
             email: newUserInfo['email'],
@@ -73,5 +77,11 @@ export class SignUpRoute extends BaseRoute {
             isAdmin: false,
             reviews: [],
         }
+
+        if (!user.email || !user.username || !user.firstName || !user.lastName) {
+            throw new Error('Incomplete information')
+        }
+
+        return user
     }
 }

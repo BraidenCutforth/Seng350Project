@@ -21,11 +21,12 @@ export class LoginRoute extends BaseRoute {
 
         // add home page route
         router
+            // Get login page
             .get('/login', (req: Request, res: Response, next: NextFunction) => {
                 new LoginRoute().index(req, res, next)
             })
 
-            // getting login info
+            // log the user in
             .post('/login', (req: Request, res: Response, next: NextFunction) => {
                 new LoginRoute().handleLogin(req, res, next)
             })
