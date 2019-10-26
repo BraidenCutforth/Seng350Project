@@ -17,6 +17,7 @@ h1, h3 {
 }
 
 .col-lg {
+  padding: 0 4px;
   width: 50%;
 }
 

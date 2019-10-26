@@ -17,7 +17,7 @@ html
             h3 <b>Reviews: </b>#{reviewCount}
       div(class="profile-actions")
         if isAdmin
-          form(method='POST' action='/admin' class="admin-btn")
+          form(method='GET' action='/admin' class="admin-btn")
             button(class="profile-btn") Admin Access
         if isOwnProfile
           button(class="profile-btn") Edit Profile
@@ -30,4 +30,7 @@ html
           span #{email}
           span Joined #{joined}
       div(class="col-lg")
+        if reviewCount <= 0
+          div(class="card no-reviews")
+            p @#{username} hasn't reviewed anything yet!
       div(class="col-sm")
