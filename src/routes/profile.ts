@@ -49,7 +49,7 @@ export class ProfileRoute extends BaseRoute {
         try {
             const userData = await User.getUser(username)
             const isOwnProfile = this.isCurrentUser(userData, req.query.user)
-            this.render(req, res, 'profile', {...userData, isOwnProfile})
+            this.render(req, res, 'profile', { ...userData, isOwnProfile })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
@@ -57,6 +57,6 @@ export class ProfileRoute extends BaseRoute {
     }
 
     public isCurrentUser(userData: IUser, username?: string) {
-      return userData.username === username
+        return userData.username === username
     }
 }

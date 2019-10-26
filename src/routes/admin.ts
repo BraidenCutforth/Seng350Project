@@ -28,6 +28,10 @@ export class AdminRoute extends BaseRoute {
             .post('/admin', (req: Request, res: Response, next: NextFunction) => {
                 new AdminRoute().index(req, res, next)
             })
+
+            .post('/admin/delete/:username', (req: Request, res: Response, next: NextFunction) => {
+                new AdminRoute().delete(req, res, next)
+            })
     }
 
     /**
@@ -50,10 +54,19 @@ export class AdminRoute extends BaseRoute {
      * @next {NextFunction} Execute the next method.
      */
     public async index(req: Request, res: Response, next: NextFunction) {
-
         const userData = await User.getUsers()
-        
+
         //render template
-        this.render(req, res, 'admin', {userData})
+        this.render(req, res, 'admin', { userData })
+    }
+
+    public async delete(req: Request, res: Response, next: NextFunction) {
+        const username = req.params.username
+        const user = await User.getUser(username)
+        await User.deleteUser(user)
+
+        // re-render view
+        const userData = await User.getUsers()
+        this.render(req, res, 'admin', { userData })
     }
 }
