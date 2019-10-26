@@ -1,5 +1,20 @@
 table {
   background-color: whitesmoke;
+  border-collapse: collapse;
+  border-color: transparent;
+  box-shadow: 1px 1px lightgray;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: ivory}
+
+th {
+  background-color: darkslateblue;
+  color: white;
 }
 
 .btn {
