@@ -8,6 +8,7 @@ import { IndexRoute } from './routes/index'
 import { LoginRoute } from './routes/login'
 import { SignUpRoute } from './routes/signup'
 import { ProfileRoute } from './routes/profile'
+import { AdminRoute } from './routes/admin'
 
 /**
  * The server.
