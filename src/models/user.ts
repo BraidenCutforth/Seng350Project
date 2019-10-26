@@ -1,4 +1,4 @@
-import { client } from '../index'
+import { getDb } from '../db'
 
 export interface IUser {
     _id?: string
@@ -16,7 +16,7 @@ export interface IUser {
 
 export class User {
     public static async getUser(username: string) {
-        const collection = client.db('runaway').collection('users')
+        const collection = getDb().collection('users')
         const user = await collection.find({ username: username }).toArray()
         if (user.length == 0) {
             return Promise.reject(`No users found matching username ${username}`)
@@ -29,13 +29,13 @@ export class User {
     }
 
     public static async getUsers() {
-        const collection = client.db('runaway').collection('users')
+        const collection = getDb().collection('users')
         const users = await collection.find({}).toArray()
         return users as IUser[]
     }
 
     public static async deleteUser(user: IUser) {
-        const collection = client.db('runaway').collection('users')
+        const collection = getDb().collection('users')
         const result = await collection.deleteOne(user)
         console.log(result)
     }
@@ -43,7 +43,7 @@ export class User {
     public static async updateUser() {}
 
     public static async addUser(user: IUser) {
-        const collection = client.db('runaway').collection('users')
+        const collection = getDb().collection('users')
         const result = await collection.insertOne(user)
         console.log(result)
     }
