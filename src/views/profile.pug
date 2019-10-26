@@ -13,10 +13,11 @@ html
           h1 #{firstName} #{lastName}
           span(class="handle") @#{username}
         div(class="secondary-info")
-          h3 <b>Reviews: </b>#{reviewCount}
+          if reviewCount >= 0
+            h3 <b>Reviews: </b>#{reviewCount}
       div(class="profile-actions")
-        if !isAdmin
-          form(method='POST' action='/admin')
+        if isAdmin
+          form(method='POST' action='/admin' class="admin-btn")
             button(class="profile-btn") Admin Access
         if isOwnProfile
           button(class="profile-btn") Edit Profile

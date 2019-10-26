@@ -62,6 +62,7 @@ export class Server {
     public config() {
         //add static paths
         this.app.use(express.static(path.join(__dirname, 'public')))
+        this.app.use(express.static('public'))
 
         //configure pug
         this.app.set('views', path.join(__dirname, 'views'))
