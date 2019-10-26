@@ -31,7 +31,7 @@ export class User {
     public static async getUsers() {
         const collection = client.db('runaway').collection('users')
         const users = await collection.find({}).toArray()
-        return users
+        return users as IUser[]
     }
 
     public static async deleteUser(user: IUser) {

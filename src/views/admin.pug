@@ -4,7 +4,23 @@ html(lang="en")
     title=admin
   body
     h1 Admin
-    table
-      each user in users
+    table(style='width:100%', border='1')
+      tr
+        th Username
+        th Email
+        th First name
+        th Last name
+        th Admin rights
+        th Joined
+        th Actions
+      each user in userData
         tr
-         td user 
+          td #{user.username}
+          td #{user.email}
+          td #{user.firstName}
+          td #{user.lastName}
+          td #{user.isAdmin}
+          td #{user.joined}
+          td
+            form(method='POST' action='/admin/delete/' + user.username)
+              button(class="action-btn") Delete
