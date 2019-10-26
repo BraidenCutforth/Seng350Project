@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
-import { User, IUser } from '../models/user'
+import { User } from '../models/user'
 
 /**
  * / route
@@ -20,15 +20,13 @@ export class AdminRoute extends BaseRoute {
 
         // add home page route
         router
+            // render main admin page
             .get('/admin', (req: Request, res: Response, next: NextFunction) => {
                 new AdminRoute().index(req, res, next)
             })
 
-            // getting login info
-            .post('/admin', (req: Request, res: Response, next: NextFunction) => {
-                new AdminRoute().index(req, res, next)
-            })
-
+            // Delete method. Note the DELETE method was not used because it is not supported
+            // by HTML forms so POST was used instead.
             .post('/admin/delete/:username', (req: Request, res: Response, next: NextFunction) => {
                 new AdminRoute().delete(req, res, next)
             })
@@ -52,6 +50,8 @@ export class AdminRoute extends BaseRoute {
      * @param req {Request} The express Request object.
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
+     *
+     * Handles rendering the admin page
      */
     public async index(req: Request, res: Response, next: NextFunction) {
         const userData = await User.getUsers()
@@ -60,6 +60,15 @@ export class AdminRoute extends BaseRoute {
         this.render(req, res, 'admin', { userData })
     }
 
+    /**
+     * @class AdminRoute
+     * @method delete
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @param next {NextFunction} Execute the next method.
+     *
+     * Handles deleting a user from the admin page.
+     */
     public async delete(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         const user = await User.getUser(username)

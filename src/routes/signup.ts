@@ -53,15 +53,29 @@ export class SignUpRoute extends BaseRoute {
         this.render(req, res, 'signup')
     }
 
+    /**
+     * Handles user creation. Once user is created they are redirected to their profile page.
+     * Otherwise sends the user to signup page if their user does not exist
+     *
+     * @class SignUpRoute
+     * @method index
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @next {NextFunction} Execute the next method.
+     */
     public async createUser(req: Request, res: Response, next: NextFunction) {
-        const userInfo = this.parseUser(req)
-        await User.addUser(userInfo)
-        res.redirect(`/profile/${userInfo.username}`)
+        try {
+            const userInfo = this.parseUser(req)
+            await User.addUser(userInfo)
+            res.redirect(`/profile/${userInfo.username}`)
+        } catch {
+            res.redirect('/signup')
+        }
     }
 
     private parseUser(req: Request): IUser {
         const newUserInfo = req.body
-        return {
+        const user = {
             firstName: newUserInfo['firstname'],
             lastName: newUserInfo['lastname'],
             email: newUserInfo['email'],
@@ -73,5 +87,11 @@ export class SignUpRoute extends BaseRoute {
             isAdmin: false,
             reviews: [],
         }
+
+        if (!user.email || !user.username || !user.firstName || !user.lastName) {
+            throw new Error('Incomplete information')
+        }
+
+        return user
     }
 }
