@@ -8,18 +8,31 @@ Have you ever had a vacation planned to a country or area but are unsure of wher
 
 Have ```npm``` and ```node``` installed. Next, install the node packages.
 
-```npm install```
+```bash
+npm install
+```
 
 Run the build script.
 
-```npm run build```
+```bash
+npm run build
+```
 
 Start up the server.
 
-```npm start```
+```bash
+npm start
+```
 
 Check out localhost:3000 to view the local build.
 
+## Testing
+
+To run the tests: 
+
+```bash
+npm run test
+```
 
 ## Milestone 3
 
@@ -30,7 +43,7 @@ We chose to implement the following user stories:
 
 We chose these user stories because they are straightforward to implement and because the rest of the stories will build on top of their implementation.  
 
-Our controllers are defined as routes.  For our user stories, we have defined a login controller, sign up controller, profile controller (account controller in the diagram), and an admin controller.
+Our controllers are defined as routes.  For our user stories, we have defined a login controller, sign up controller, profile controller (account controller in the diagram), and an admin controller. We still need to implement the auth middleware. 
 
 ![Class Diagram](docs/class.png "Class Diagram")
 
