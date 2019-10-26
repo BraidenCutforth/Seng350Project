@@ -2,6 +2,10 @@ h1, h3 {
   margin: 0;
 }
 
+.admin-btn {
+  margin-right: 4px;
+}
+
 .bio {
   display: flex;
   flex-wrap: wrap;
@@ -31,23 +35,6 @@ h1, h3 {
   display: flex;
 }
 
-<<<<<<< HEAD
-=======
-.edit-btn {
-  background-color: transparent;
-  border-color: darkslateblue;
-  border-radius: 4px;
-  border-width: medium;
-  cursor: pointer;
-  height: 42px;
-  margin-left: auto;
-}
-
-.edit-btn:hover {
-  background-color: lavender;
-}
-
->>>>>>> fa15209cc50c3e203c0c8a50898f1efd1788b81a
 .handle {
   color: grey;
 }
@@ -61,6 +48,7 @@ h1, h3 {
 }
 
 .profile-actions {
+  display: flex;
   margin-left: auto;
 }
 
@@ -71,6 +59,10 @@ h1, h3 {
   border-width: medium;
   cursor: pointer;
   height: 42px;
+}
+
+.profile-btn:hover {
+  background-color: lavender;
 }
 
 .profile-container {

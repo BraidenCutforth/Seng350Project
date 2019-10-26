@@ -1,0 +1,20 @@
+table {
+  background-color: whitesmoke;
+}
+
+.btn {
+  background-color: rgb(237,67,55);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  height: 30px;
+}
+
+.btn:hover {
+  background-color: rgb(194,63,56);
+}
+
+.delete-form {
+  text-align: center;
+  padding: 4px;
+}

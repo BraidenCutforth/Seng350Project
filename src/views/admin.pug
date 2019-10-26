@@ -2,6 +2,9 @@ doctype html
 html(lang="en")
   head
     title=admin
+    style
+      include ../styles/style.css
+      include ../styles/admin.css
   body
     h1 Admin
     table(style='width:100%', border='1')
@@ -22,5 +25,5 @@ html(lang="en")
           td #{user.isAdmin}
           td #{user.joined}
           td
-            form(method='POST' action='/admin/delete/' + user.username)
-              button(class="action-btn") Delete
+            form(class='delete-form' method='POST' action='/admin/delete/' + user.username)
+              button(class="btn action-btn") Delete

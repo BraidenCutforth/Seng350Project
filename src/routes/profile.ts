@@ -49,7 +49,11 @@ export class ProfileRoute extends BaseRoute {
         try {
             const userData = await User.getUser(username)
             const isOwnProfile = this.isCurrentUser(userData, req.query.user)
-            this.render(req, res, 'profile', { ...userData, isOwnProfile })
+            if (!userData.profilePic) {
+                userData.profilePic = '/images/default-profile-pic.jpg';
+            }
+            let reviewCount = userData.reviews != undefined ? userData.reviews.length : -1;
+            this.render(req, res, 'profile', { ...userData, isOwnProfile, reviewCount })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
