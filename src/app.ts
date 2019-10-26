@@ -8,11 +8,7 @@ import { IndexRoute } from './routes/index'
 import { LoginRoute } from './routes/login'
 import { SignUpRoute } from './routes/signup'
 import { ProfileRoute } from './routes/profile'
-import { MongoClient } from 'mongodb'
-
-const uri =
-    process.env.MONGO_URI ||
-    'mongodb+srv://runaway:Y2ABndDFux4zyWzPsMxa6D4h@seng350-f19-3-6-db-6khes.mongodb.net/test?retryWrites=true&w=majority' // Eventually set to a env var
+import { AdminRoute } from './routes/admin'
 
 /**
  * The server.
@@ -21,7 +17,6 @@ const uri =
  */
 export class Server {
     public app: express.Application
-    public client: MongoClient
 
     /**
      * Bootstrap the application.
@@ -44,14 +39,6 @@ export class Server {
     constructor() {
         //create expressjs application
         this.app = express()
-        this.client = new MongoClient(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
-        this.client.connect(err => {
-            if (err) throw err
-            console.log('Connection success')
-        })
 
         this.initializeDb()
 
@@ -119,6 +106,7 @@ export class Server {
         LoginRoute.create(router)
         SignUpRoute.create(router)
         ProfileRoute.create(router)
+        AdminRoute.create(router)
         //use router middleware
         this.app.use(router)
     }

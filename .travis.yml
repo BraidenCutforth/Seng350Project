@@ -4,4 +4,5 @@ node_js:
 
 script:
     - npm run build
-    - npx eslint src/**/*.ts
+    - npm run lint
+    - npm run test
