@@ -5,30 +5,30 @@ import { IUser, User } from '../models/user'
 /**
  * / route
  *
- * @class ProfileRoute
+ * @class EditProfileRoute
  */
-export class ProfileRoute extends BaseRoute {
+export class EditProfileRoute extends BaseRoute {
     /**
      * Create the routes.
      *
-     * @class ProfileRoute
+     * @class EditProfileRoute
      * @method create
      * @static
      */
     public static create(router: Router) {
         //log
-        console.log('[ProfileRoute::create] Creating profile route.')
+        console.log('[EditProfileRoute::create] Creating edit profile route.')
 
-        //add profile page route
-        router.get('/profile/:username', (req: Request, res: Response, next: NextFunction) => {
-            new ProfileRoute().index(req, res, next)
+        //add edit profile page route
+        router.get('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
+            new EditProfileRoute().index(req, res, next)
         })
     }
 
     /**
      * Constructor
      *
-     * @class ProfileRoute
+     * @class EditProfileRoute
      * @constructor
      */
     constructor() {
@@ -36,9 +36,9 @@ export class ProfileRoute extends BaseRoute {
     }
 
     /**
-     * The profile page route.
+     * The edit profile page route.
      *
-     * @class ProfileRoute
+     * @class EditProfileRoute
      * @method index
      * @param req {Request} The express Request object.
      * @param res {Response} The express Response object.
@@ -48,24 +48,13 @@ export class ProfileRoute extends BaseRoute {
         const username = req.params.username
         try {
             const userData = await User.getUser(username)
-            const isOwnProfile = this.isCurrentUser(userData, req.query.user)
             if (!userData.profilePic) {
                 userData.profilePic = '/images/default-profile-pic.jpg'
             }
-            const reviewCount = userData.reviews != undefined ? userData.reviews.length : -1
-            this.render(req, res, 'profile', { ...userData, isOwnProfile, reviewCount })
+            this.render(req, res, 'edit-profile', { ...userData })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
         }
-    }
-
-    /**
-     * Verifies that the user data object has the same username of the given username
-     * @param userData User data object
-     * @param username Username
-     */
-    public isCurrentUser(userData: IUser, username?: string) {
-        return userData.username === username
     }
 }

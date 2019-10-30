@@ -9,6 +9,7 @@ import { LoginRoute } from './routes/login'
 import { SignUpRoute } from './routes/signup'
 import { ProfileRoute } from './routes/profile'
 import { AdminRoute } from './routes/admin'
+import { EditProfileRoute } from './routes/editProfile'
 
 /**
  * The server.
@@ -108,6 +109,7 @@ export class Server {
         SignUpRoute.create(router)
         ProfileRoute.create(router)
         AdminRoute.create(router)
+        EditProfileRoute.create(router)
         //use router middleware
         this.app.use(router)
     }

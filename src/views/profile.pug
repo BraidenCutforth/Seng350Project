@@ -20,7 +20,8 @@ html
           form(method='GET' action='/admin' class="admin-btn")
             button(class="profile-btn") Admin Access
         if isOwnProfile
-          button(class="profile-btn") Edit Profile
+          form(method='GET' action=`/profile/edit/${username}` class="admin-btn")
+            button(class="profile-btn") Edit Profile
     div(class="content-container")
       div(class="col-sm")
         div(class="card bio")
