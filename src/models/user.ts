@@ -1,7 +1,8 @@
 import { getDb } from '../db'
+import { ObjectId } from 'mongodb';
 
 export interface IUser {
-    _id?: string
+    _id?: ObjectId
     firstName: string
     lastName: string
     email: string
