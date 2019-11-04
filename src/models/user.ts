@@ -41,7 +41,11 @@ export class User {
         console.log(result)
     }
 
-    public static async updateUser() {}
+    public static async updateUser(user: IUser) {
+        const collection = getDb().collection('users')
+        const result = await collection.updateOne({ _id: user._id }, user)
+        console.log(result)
+    }
 
     public static async addUser(user: IUser) {
         const collection = getDb().collection('users')
