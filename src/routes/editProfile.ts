@@ -73,10 +73,12 @@ export class EditProfileRoute extends BaseRoute {
      * @next {NextFunction} Execute the next method.
      */
     public async updateUser(req: Request, res: Response, next: NextFunction) {
+        const username = req.params.username
         try {
-            // const userInfo = this.parseUser(req)
-            // await User.updateUser()
-            // res.redirect(`/profile/${userInfo.username}`)
+            const userInfo = this.parseUser(req)
+            await User.updateUser()
+            // await User.updateUser(userInfo)
+            res.redirect(`/profile/${username}`)
         } catch {
             res.redirect(req.url)
         }
