@@ -20,9 +20,13 @@ export class EditProfileRoute extends BaseRoute {
         console.log('[EditProfileRoute::create] Creating edit profile route.')
 
         //add edit profile page route
-        router.get('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
-            new EditProfileRoute().index(req, res, next)
-        })
+        router
+            .get('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
+                new EditProfileRoute().index(req, res, next)
+            })
+            .post('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
+                new EditProfileRoute().updateUser(req, res, next)
+            })
     }
 
     /**
@@ -56,5 +60,33 @@ export class EditProfileRoute extends BaseRoute {
             console.error(error)
             this.render(req, res, '404')
         }
+    }
+
+    /**
+     * Handles user creation. Once user is created they are redirected to their profile page.
+     * Otherwise sends the user to signup page if their user does not exist
+     *
+     * @class EditProfileRoute
+     * @method updateUser
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     * @next {NextFunction} Execute the next method.
+     */
+    public async updateUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            // const userInfo = this.parseUser(req)
+            // await User.updateUser()
+            // res.redirect(`/profile/${userInfo.username}`)
+        } catch {
+            res.redirect(req.url)
+        }
+    }
+
+    private parseUser(req: Request): IUser {
+        const newUserInfo = req.body
+        Object.keys(newUserInfo).forEach(
+            key => (newUserInfo[key] == null || newUserInfo[key] == '') && delete newUserInfo[key],
+        )
+        return newUserInfo
     }
 }
