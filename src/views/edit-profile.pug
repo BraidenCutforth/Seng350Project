@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    title #{title}
+    style
+      include ../styles/edit-profile.css
+      include ../styles/style.css
+  body
+    div(class="container")
+      div(class="card")
+        h1 Edit Profile
+        form(method='POST' action=`/profile/edit/${username}`)
+          div.form-group
+            label(for='firstName') First Name
+            input.form-control(
+              id='firstName'
+              name='firstName'
+              placeholder='John'
+              type='text'
+              value=firstName
+            )
+            label(for='lastName') Last Name
+            input.form-control(
+              id='lastName'
+              name='lastName'
+              placeholder='Doe'
+              type='text'
+              value=lastName
+            )
+            label(for='email') Email
+            input.form-control(
+              id='email'
+              name='email'
+              placeholder='example@email.com'
+              type='text'
+              value=email
+            )
+            label(for='username') Username
+            input.form-control(
+              id='username'
+              name='username'
+              placeholder='Username'
+              type='text'
+              value=username
+            )
+            label(for='profilePic') Profile Picture
+            input.form-control(
+              id='profilePic'
+              name='profilePic'
+              type='file'
+            )
+            label(for='bio') Bio
+            textarea.form-control(
+              id='bio'
+              name='bio'
+              placeholder='Hi I\'m John!'
+              type='text'
+              value=bio
+            )
+            label(for='location') Location
+            textarea.form-control(
+              id='location'
+              name='location'
+              placeholder='City, Country'
+              type='text'
+              value=location
+            )
+          button(type='submit' class='btn') Submit

@@ -17,7 +17,7 @@ export class ProfileRoute extends BaseRoute {
      */
     public static create(router: Router) {
         //log
-        console.log('[ProfileRoute::create] Creating index route.')
+        console.log('[ProfileRoute::create] Creating profile route.')
 
         //add profile page route
         router.get('/profile/:username', (req: Request, res: Response, next: NextFunction) => {
