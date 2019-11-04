@@ -1,5 +1,5 @@
 import { getDb } from '../db'
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb'
 
 export interface IUser {
     _id?: ObjectId
@@ -41,9 +41,9 @@ export class User {
         console.log(result)
     }
 
-    public static async updateUser(user: IUser) {
+    public static async updateUser(username: string, userData: Record<string, any>) {
         const collection = getDb().collection('users')
-        const result = await collection.updateOne({ _id: user._id }, user)
+        const result = await collection.updateOne({ username: username }, { $set: userData })
         console.log(result)
     }
 

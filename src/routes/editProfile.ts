@@ -76,8 +76,7 @@ export class EditProfileRoute extends BaseRoute {
         const username = req.params.username
         try {
             const userInfo = this.parseUser(req)
-            await User.updateUser()
-            // await User.updateUser(userInfo)
+            await User.updateUser(username, userInfo)
             res.redirect(`/profile/${username}`)
         } catch {
             res.redirect(req.url)
