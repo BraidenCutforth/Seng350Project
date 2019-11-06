@@ -1,7 +1,8 @@
 import { getDb } from '../db'
+import { ObjectId } from 'mongodb'
 
 export interface IUser {
-    _id?: string
+    _id?: ObjectId
     firstName: string
     lastName: string
     email: string
@@ -40,7 +41,11 @@ export class User {
         console.log(result)
     }
 
-    public static async updateUser() {}
+    public static async updateUser(username: string, userData: Partial<IUser>) {
+        const collection = getDb().collection('users')
+        const result = await collection.updateOne({ username: username }, { $set: userData })
+        console.log(result)
+    }
 
     public static async addUser(user: IUser) {
         const collection = getDb().collection('users')

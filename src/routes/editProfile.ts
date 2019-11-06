@@ -76,8 +76,7 @@ export class EditProfileRoute extends BaseRoute {
         const username = req.params.username
         try {
             const userInfo = this.parseUser(req)
-            await User.updateUser()
-            // await User.updateUser(userInfo)
+            await User.updateUser(username, userInfo)
             res.redirect(`/profile/${username}`)
         } catch {
             res.redirect(req.url)
@@ -86,6 +85,9 @@ export class EditProfileRoute extends BaseRoute {
 
     private parseUser(req: Request): IUser {
         const newUserInfo = req.body
+        if (typeof newUserInfo !== 'object') {
+            throw new Error('info is undefined')
+        }
         Object.keys(newUserInfo).forEach(
             key => (newUserInfo[key] == null || newUserInfo[key] == '') && delete newUserInfo[key],
         )
