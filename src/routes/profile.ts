@@ -2,6 +2,11 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 
+interface IProfileData extends IUser {
+    isOwnProfile: boolean
+    reviewCount: number
+}
+
 /**
  * / route
  *
@@ -26,6 +31,11 @@ export class ProfileRoute extends BaseRoute {
         })
 
         return router
+    }
+
+    // May need different render functions for different page renderings, as they need different options
+    render(req: Request, res: Response, template: string, options?: IProfileData) {
+        super.render(req, res, template, options)
     }
 
     /**
