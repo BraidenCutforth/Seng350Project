@@ -77,7 +77,7 @@ export class LoginRoute extends BaseRoute {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
-            res.redirect(`../profile/${credential}?user=${credential}`)
+            res.redirect(`/profile/${credential}?user=${credential}`)
         } catch (err) {
             res.status(404)
             res.send(err)
