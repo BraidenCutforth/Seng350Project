@@ -16,20 +16,23 @@ export class LoginRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
-        console.log('[LoginRoute::create] Creating login route.')
+    public getRouter() {
+        console.log('[LoginRoute::getRouter] Creating login router.')
 
+        const router = Router()
         // add home page route
         router
             // Get login page
-            .get('/login', (req: Request, res: Response, next: NextFunction) => {
-                new LoginRoute().index(req, res, next)
+            .get('/', (req: Request, res: Response, next: NextFunction) => {
+                this.index(req, res, next)
             })
 
             // log the user in
-            .post('/login', (req: Request, res: Response, next: NextFunction) => {
-                new LoginRoute().handleLogin(req, res, next)
+            .post('/', (req: Request, res: Response, next: NextFunction) => {
+                this.handleLogin(req, res, next)
             })
+
+        return router
     }
 
     /**
@@ -74,7 +77,7 @@ export class LoginRoute extends BaseRoute {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
-            res.redirect(`/profile/${credential}?user=${credential}`)
+            res.redirect(`../profile/${credential}?user=${credential}`)
         } catch (err) {
             res.status(404)
             res.send(err)

@@ -15,18 +15,22 @@ export class EditProfileRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
+    public getRouter(): Router {
         //log
-        console.log('[EditProfileRoute::create] Creating edit profile route.')
+        console.log('[EditProfileRoute::getRouter] Creating edit profile router.')
+
+        const router = Router()
 
         //add edit profile page route
         router
-            .get('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
-                new EditProfileRoute().index(req, res, next)
+            .get('/edit/:username', (req: Request, res: Response, next: NextFunction) => {
+                this.index(req, res, next)
             })
-            .post('/profile/edit/:username', (req: Request, res: Response, next: NextFunction) => {
-                new EditProfileRoute().updateUser(req, res, next)
+            .post('/edit/:username', (req: Request, res: Response, next: NextFunction) => {
+                this.updateUser(req, res, next)
             })
+
+        return router
     }
 
     /**
@@ -48,7 +52,7 @@ export class EditProfileRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public async index(req: Request, res: Response, next: NextFunction) {
+    async index(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         try {
             const userData = await User.getUser(username)
@@ -72,7 +76,7 @@ export class EditProfileRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public async updateUser(req: Request, res: Response, next: NextFunction) {
+    async updateUser(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         try {
             const userInfo = this.parseUser(req)
