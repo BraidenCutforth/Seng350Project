@@ -85,6 +85,9 @@ export class EditProfileRoute extends BaseRoute {
 
     private parseUser(req: Request): IUser {
         const newUserInfo = req.body
+        if (typeof newUserInfo !== 'object') {
+            throw new Error('info is undefined')
+        }
         Object.keys(newUserInfo).forEach(
             key => (newUserInfo[key] == null || newUserInfo[key] == '') && delete newUserInfo[key],
         )

@@ -41,7 +41,7 @@ export class User {
         console.log(result)
     }
 
-    public static async updateUser(username: string, userData: Record<string, any>) {
+    public static async updateUser(username: string, userData: Partial<IUser>) {
         const collection = getDb().collection('users')
         const result = await collection.updateOne({ username: username }, { $set: userData })
         console.log(result)
