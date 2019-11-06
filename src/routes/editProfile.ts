@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
+import url from 'url'
 
 /**
  * / route
@@ -81,7 +82,12 @@ export class EditProfileRoute extends BaseRoute {
         try {
             const userInfo = this.parseUser(req)
             await User.updateUser(username, userInfo)
-            res.redirect(`/profile/${username}`)
+            res.redirect(
+                url.format({
+                    pathname: `/profile/${username}`,
+                    query: req.query,
+                }),
+            )
         } catch {
             res.redirect(req.url)
         }

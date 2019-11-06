@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { User } from '../models/user'
-import { users } from '../mock_data/users'
+
+import url from 'url'
 
 /**
  * / route
@@ -56,9 +57,7 @@ export class LoginRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set message
-        const options: Record<string, any> = {
-            users,
-        }
+        const options: Record<string, any> = {}
 
         //render template
         this.render(req, res, 'login', options)
@@ -77,7 +76,15 @@ export class LoginRoute extends BaseRoute {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
-            res.redirect(`/profile/${credential}?user=${credential}`)
+            res.redirect(
+                url.format({
+                    path: `/profile/${credential}`,
+                    query: {
+                        ...req.query,
+                        user: credential,
+                    },
+                }),
+            )
         } catch (err) {
             res.status(404)
             res.send(err)
