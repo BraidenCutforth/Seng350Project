@@ -14,4 +14,8 @@ html
             form(method='POST' action='/')
               div.form-group
                 input.form-control(type='text' id='country' placeholder='Search for a country' name='country')
+                ul(class='dropdown')
+                  each country in countries
+                      li=country.countryName
+
               
