@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
+import { Country } from '../models/country'
 
 /**
  * / route
@@ -46,17 +47,23 @@ export class IndexRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public index(req: Request, res: Response, next: NextFunction) {
+    public async index(req: Request, res: Response, next: NextFunction) {
         //set custom title
         this.title = 'Runaway | Home'
 
-        //set message
-        const options: Record<string, any> = {
-            title: 'Runaway',
-            message: 'Runaway',
+        try {
+            const countries = await Country.getCountries()
+            //set message
+            const options: Record<string, any> = {
+                title: 'Runaway',
+                message: 'Runaway',
+                countries,
+            }
+            //render template
+            this.render(req, res, 'index', options)
+        } catch (error) {
+            console.log(error)
+            this.render(req, res, '404')
         }
-
-        //render template
-        this.render(req, res, 'index', options)
     }
 }

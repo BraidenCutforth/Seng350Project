@@ -11,7 +11,12 @@ html
     div(class="container")
         div(class="card")
             h1 #{message}
-            form(method='POST' action='/')
-              div.form-group
-                input.form-control(type='text' id='country' placeholder='Search for a country' name='country')
+            div.form-group
+              input.form-control(type='text' id='countryInput' placeholder='Select a country' name='country')
+              div(id='dropdown')
+                each country in countries
+                  a(class='select-item' href=`/countries/${country.countryName}`) #{country.countryName}
+    script
+      include ../view_scripts/index.js
+
               
