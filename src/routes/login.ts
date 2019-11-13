@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { User } from '../models/user'
-import { users } from '../mock_data/users'
+
+import url from 'url'
 
 /**
  * / route
@@ -16,20 +17,23 @@ export class LoginRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
-        console.log('[LoginRoute::create] Creating login route.')
+    public getRouter() {
+        console.log('[LoginRoute::getRouter] Creating login router.')
 
+        const router = Router()
         // add home page route
         router
             // Get login page
-            .get('/login', (req: Request, res: Response, next: NextFunction) => {
-                new LoginRoute().index(req, res, next)
+            .get('/', (req: Request, res: Response, next: NextFunction) => {
+                this.index(req, res, next)
             })
 
             // log the user in
-            .post('/login', (req: Request, res: Response, next: NextFunction) => {
-                new LoginRoute().handleLogin(req, res, next)
+            .post('/', (req: Request, res: Response, next: NextFunction) => {
+                this.handleLogin(req, res, next)
             })
+
+        return router
     }
 
     /**
@@ -53,9 +57,7 @@ export class LoginRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set message
-        const options: Record<string, any> = {
-            users,
-        }
+        const options: Record<string, any> = {}
 
         //render template
         this.render(req, res, 'login', options)
@@ -74,7 +76,15 @@ export class LoginRoute extends BaseRoute {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
-            res.redirect(`/profile/${credential}?user=${credential}`)
+            res.redirect(
+                url.format({
+                    path: `/profile/${credential}`,
+                    query: {
+                        ...req.query,
+                        user: credential,
+                    },
+                }),
+            )
         } catch (err) {
             res.status(404)
             res.send(err)

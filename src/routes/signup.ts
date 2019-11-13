@@ -16,17 +16,21 @@ export class SignUpRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
-        console.log('[SignUpRoute::create] Creating sign up route.')
+    public getRouter() {
+        console.log('[SignUpRoute::getRouter] Creating sign up router.')
+
+        const router = Router()
 
         // add home page route
         router
-            .get('/signup', (req: Request, res: Response, next: NextFunction) => {
-                new SignUpRoute().index(req, res, next)
+            .get('/', (req: Request, res: Response, next: NextFunction) => {
+                this.index(req, res, next)
             })
-            .post('/signup', (req: Request, res: Response, next: NextFunction) => {
-                new SignUpRoute().createUser(req, res, next)
+            .post('/', (req: Request, res: Response, next: NextFunction) => {
+                this.createUser(req, res, next)
             })
+
+        return router
     }
 
     /**

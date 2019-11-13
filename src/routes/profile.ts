@@ -2,6 +2,11 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 
+interface IProfileData extends IUser {
+    isOwnProfile: boolean
+    reviewCount: number
+}
+
 /**
  * / route
  *
@@ -15,14 +20,22 @@ export class ProfileRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
+    public getRouter() {
         //log
-        console.log('[ProfileRoute::create] Creating profile route.')
+        console.log('[ProfileRoute::getRouter] Creating profile router.')
 
+        const router = Router()
         //add profile page route
-        router.get('/profile/:username', (req: Request, res: Response, next: NextFunction) => {
-            new ProfileRoute().index(req, res, next)
+        router.get('/:username', (req: Request, res: Response, next: NextFunction) => {
+            this.index(req, res, next)
         })
+
+        return router
+    }
+
+    // May need different render functions for different page renderings, as they need different options
+    render(req: Request, res: Response, template: string, options?: IProfileData) {
+        super.render(req, res, template, options)
     }
 
     /**

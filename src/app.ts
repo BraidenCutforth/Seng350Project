@@ -103,14 +103,12 @@ export class Server {
      * @return void
      */
     private routes() {
-        const router = express.Router()
-        IndexRoute.create(router)
-        LoginRoute.create(router)
-        SignUpRoute.create(router)
-        ProfileRoute.create(router)
-        AdminRoute.create(router)
-        EditProfileRoute.create(router)
-        //use router middleware
-        this.app.use(router)
+        // Setup routes for our individual routers
+        this.app.use('/', new IndexRoute().getRouter())
+        this.app.use('/admin', new AdminRoute().getRouter())
+        this.app.use('/profile', new EditProfileRoute().getRouter())
+        this.app.use('/login', new LoginRoute().getRouter())
+        this.app.use('/signup', new SignUpRoute().getRouter())
+        this.app.use('/profile', new ProfileRoute().getRouter())
     }
 }

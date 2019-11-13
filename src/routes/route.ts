@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 
 /**
  * Constructo
  *
  * @class BaseRoute
  */
-export class BaseRoute {
+export abstract class BaseRoute {
     protected title: string
 
     private scripts: string[]
@@ -34,6 +34,8 @@ export class BaseRoute {
         this.scripts.push(src)
         return this
     }
+
+    abstract getRouter(): Router
 
     /**
      * Render a page.

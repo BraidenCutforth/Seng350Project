@@ -14,14 +14,17 @@ export class IndexRoute extends BaseRoute {
      * @method create
      * @static
      */
-    public static create(router: Router) {
+    public getRouter() {
+        const router = Router()
         //log
-        console.log('[IndexRoute::create] Creating index route.')
+        console.log('[IndexRoute::getRouter] Creating index router.')
 
         //add home page route
         router.get('/', (req: Request, res: Response, next: NextFunction) => {
-            new IndexRoute().index(req, res, next)
+            this.index(req, res, next)
         })
+
+        return router
     }
 
     /**
