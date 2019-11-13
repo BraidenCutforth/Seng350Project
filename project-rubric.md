@@ -4,7 +4,7 @@ Authors: Neil Ernst
 
 ---
 
-# Running Total (this will change each milestone):   19
+# Running Total (this will change each milestone):   45
 
 NB: for all milestones, basic clean coding style: comments, standardized indentation, lack of code smells, is expected. Your submission and repository should show the following: 
 	- Travis CI is being used (M3+)
@@ -60,15 +60,13 @@ Marks deducted:
 
 - The rationale as ADRs could be explained better to show the implementation of the QAS.
 
+# Milestone 3   19 / 20
 
+## Marking Guide
 
-# Milestone 3    / 20
-
-## Marking Guide	
-
-- code compiles 
+- code compiles
 - code conventions/CI from above (commented, code style, design principles)
-- working demo 
+- working demo
 - clear explanation of what user stories were satisfied in this iteration
 - design as implemented follows design doc, or change rationale is present in README
 - async is async when necessary
@@ -76,8 +74,13 @@ Marks deducted:
 - test suite present/part of CI
 - test coverage reasonable and meaningful
 
+Marks deducted:
+
+- Asynchronous programming was not followed everywhere. (-1)
+
 ## Notes M3
 
 (explaining why marks were deducted)
 -----
 
+- Asynchronous programming was only done to connect to database. The read/write operation could also be implemented Asynchronously.
