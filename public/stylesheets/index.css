@@ -3,7 +3,7 @@ a {
 }
 
 li {
-  padding: 8px 2px;
+  padding: 4px 2px;
 }
 
 .btn:hover {
@@ -35,9 +35,18 @@ li {
   text-align: center;
 }
 
+#dropdown {
+  border: 1px lightgray solid;
+  display: none;
+  list-style: none;
+  margin: 2px 0px;
+  padding: 0;
+  text-align: left;
+  width: 220px;
+}
+
 .form-control {
   border: 1px lightgrey solid;
-  border-radius: 5px;
   font-size: 16px;
   height: 28px;
   padding: 2px;
@@ -47,14 +56,13 @@ li {
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 220px;
+  width: 222px;
 }
 
-.dropdown {
-  border: 1px lightgray solid;
-  list-style: none;
-  margin: 2px 0px;
-  padding: 0;
-  text-align: left;
-  width: 220px;
+.select-item {
+  display: block;
+  margin: 0;
+  padding: 4px;
+  text-decoration: none;
+  width: 100%;
 }
