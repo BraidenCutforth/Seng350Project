@@ -10,7 +10,7 @@ import { SignUpRoute } from './routes/signup'
 import { ProfileRoute } from './routes/profile'
 import { AdminRoute } from './routes/admin'
 import { EditProfileRoute } from './routes/editProfile'
-
+import { CountryRoute } from './routes/country'
 /**
  * The server.
  *
@@ -110,5 +110,6 @@ export class Server {
         this.app.use('/login', new LoginRoute().getRouter())
         this.app.use('/signup', new SignUpRoute().getRouter())
         this.app.use('/profile', new ProfileRoute().getRouter())
+        this.app.use('/country', new CountryRoute().getRouter())
     }
 }
