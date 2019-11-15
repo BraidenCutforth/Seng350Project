@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 export interface ICountry {
     _id?: ObjectId
     code: string
-    countryName: string
+    name: string
     description: string
     destinations: number[]
 }
