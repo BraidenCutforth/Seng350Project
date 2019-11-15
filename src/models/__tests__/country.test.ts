@@ -10,7 +10,7 @@ xdescribe('country model tests', () => {
         const numCountries = (await Country.getCountries()).length
         const country: ICountry = {
             code: 'GH',
-            countryName: 'Ghana',
+            name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [1461361, 3164357, 2356326],
         }
@@ -27,7 +27,7 @@ xdescribe('country model tests', () => {
     test('get country', async () => {
         const country = await Country.getCountry('CA')
         expect(country).not.toBeNull()
-        expect(country.countryName).toBe('Canada')
+        expect(country.name).toBe('Canada')
     })
 
     test('get country fail', async () => {
@@ -39,7 +39,7 @@ xdescribe('country model tests', () => {
     test('remove country', async () => {
         const country: ICountry = {
             code: 'GH',
-            countryName: 'Ghana',
+            name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [1461361, 3164357, 2356326],
         }
