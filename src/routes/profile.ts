@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
+import dayjs from 'dayjs'
 
 interface IProfileData extends IUser {
+    joined: string
     isOwnProfile: boolean
     reviewCount: number
 }
@@ -66,7 +68,12 @@ export class ProfileRoute extends BaseRoute {
                 userData.profilePic = '/images/default-profile-pic.jpg'
             }
             const reviewCount = userData.reviews != undefined ? userData.reviews.length : -1
-            this.render(req, res, 'profile', { ...userData, isOwnProfile, reviewCount })
+            let joined = ''
+            if (userData._id) {
+                const date = userData._id.getTimestamp()
+                joined = dayjs(date).format('MMMM D, YYYY')
+            }
+            this.render(req, res, 'profile', { ...userData, joined, isOwnProfile, reviewCount })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

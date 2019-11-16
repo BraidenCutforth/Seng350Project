@@ -10,7 +10,6 @@ export interface IUser {
     profilePic: string
     bio: string
     location: string
-    joined: string
     reviews: string[]
     isAdmin: boolean
 }
