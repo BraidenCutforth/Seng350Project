@@ -1,0 +1,15 @@
+html
+  head
+    title #{title}
+    style
+      include ../styles/edit-profile.css
+      include ../styles/style.css
+  body
+    include header.pug
+    div(class="container")
+        h1 Create a Review for #{country}
+    div(class="editor")
+        textarea(id="editor")
+    div(class="preview" id="preview")
+    script
+        include ../view_scripts/create-review.js

@@ -1,0 +1,48 @@
+{
+    "type": "object",
+    "properties": {
+        "title": {
+            "bsonType": "string",
+            "minLength": 3,
+            "maxLength": 255
+        },
+        "destination_id": {
+            "bsonType": "objectId"
+        },
+        "content": {
+            "bsontype": "string"
+        },
+        "creator_id": {
+            "bsonType": "objectId"
+        },
+        "stars": {
+            "bsonType": "int",
+            "minimum": 1,
+            "maximum": 5
+        },
+        "reviewRating": {
+            "bsonType": "object",
+            "properties": {
+                "upvoter_ids": {
+                    "bsonType": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "bsonType": "objectId"
+                    }
+                },
+                "downvoter_ids": {
+                    "bsonType": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "bsonType": "objectId"
+                    }
+                }
+            },
+            "required": ["upvoter_ids", "downvoter_ids"]
+        },
+        "spamScore": {
+            "bsonType": "double"
+        }
+    },
+    "required": ["title", "destination_id", "content", "creator_id", "stars", "reviewRating", "spamScore"]
+}
