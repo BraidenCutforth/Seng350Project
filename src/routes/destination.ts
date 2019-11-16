@@ -1,32 +1,33 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
-import { ICountry, Country } from '../models/country'
 import { Destination, IDestination } from '../models/destination'
+import { ObjectID } from 'mongodb'
+import { IReview, Review } from '../models/review'
 
-interface ICountryData extends ICountry {
-    destData: IDestination[]
+interface IDestinationData extends IDestination {
+    reviewData: IReview[]
 }
 
 /**
  * / route
  *
- * @class CountryRoute
+ * @class DestinationRoute
  */
-export class CountryRoute extends BaseRoute {
+export class DestinationRoute extends BaseRoute {
     /**
      * Create the routes.
      *
-     * @class CountryRoute
+     * @class DestinationRoute
      * @method create
      * @static
      */
     public getRouter() {
         //log
-        console.log('[CountryRoute::getRouter] Creating country router.')
+        console.log('[DestinationRoute::getRouter] Creating destination router.')
 
         const router = Router()
-        //add country page route
-        router.get('/:code', (req: Request, res: Response, next: NextFunction) => {
+        //add destination page route
+        router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
             this.index(req, res, next)
         })
 
@@ -34,14 +35,14 @@ export class CountryRoute extends BaseRoute {
     }
 
     // May need different render functions for different page renderings, as they need different options
-    render(req: Request, res: Response, template: string, options?: ICountryData) {
+    render(req: Request, res: Response, template: string, options?: IDestinationData) {
         super.render(req, res, template, options)
     }
 
     /**
      * Constructor
      *
-     * @class CountryRoute
+     * @class DestinationRoute
      * @constructor
      */
     constructor() {
@@ -49,20 +50,20 @@ export class CountryRoute extends BaseRoute {
     }
 
     /**
-     * The country page route.
+     * The destination page route.
      *
-     * @class CountryRoute
+     * @class DestinationRoute
      * @method index
      * @param req {Request} The express Request object.
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
     public async index(req: Request, res: Response, next: NextFunction) {
-        const countryCode = req.params.code
+        const destId = new ObjectID(req.params.id)
         try {
-            const countryData = await Country.getCountry(countryCode)
-            const destData = await Destination.getDestinations(countryData.destinations)
-            this.render(req, res, 'country', { ...countryData, destData })
+            const destData = await Destination.getDestination(destId)
+            const reviewData = await Review.getReviewsForDestination(destId)
+            this.render(req, res, 'destination', { ...destData, reviewData })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

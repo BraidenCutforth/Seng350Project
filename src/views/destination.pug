@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title #{title}
+    style
+      include ../styles/destination.css
+      include ../styles/style.css
+  body
+    include header.pug
+    div(class="main-container")
+      h1 #{name}
+      p #{description}
+      h2 Reviews
+      div(class="reviews")
+        each review in reviewData
+          div(class="review")
+            a(class="review-link" href=`/review/${review._id}`)
+              h4 #{review.title}
