@@ -44,6 +44,10 @@ h1, h3 {
   padding: 12px;
 }
 
+.main-container {
+  padding: 24px;
+}
+
 .name {
   margin-bottom: 36px;
 }
@@ -71,7 +75,6 @@ h1, h3 {
   border-radius: 2px;
   display: flex;
   margin-bottom: 12px;
-  padding: 12px;
 }
 
 .profile-pic {

@@ -1,18 +1,23 @@
 import { Country, ICountry } from '../country'
-
 import { initDb, closeDb } from '../../db'
+import { ObjectID } from 'mongodb'
 
 xdescribe('country model tests', () => {
     beforeAll(async () => {
         await initDb()
     })
+
+    const _id1 = new ObjectID()
+    const _id2 = new ObjectID()
+    const _id3 = new ObjectID()
+
     test('Add country', async () => {
         const numCountries = (await Country.getCountries()).length
         const country: ICountry = {
             code: 'GH',
             name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
-            destinations: [1461361, 3164357, 2356326],
+            destinations: [_id1, _id2, _id3],
         }
 
         await Country.addCountry(country)
@@ -41,7 +46,7 @@ xdescribe('country model tests', () => {
             code: 'GH',
             name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
-            destinations: [1461361, 3164357, 2356326],
+            destinations: [_id1, _id2, _id3],
         }
         await Country.addCountry(country)
 

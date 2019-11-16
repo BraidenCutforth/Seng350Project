@@ -7,32 +7,33 @@ html
       include ../styles/style.css
   body
     include header.pug
-    div(class="profile-container")
-      img(src=profilePic class="profile-pic")
-      div(class="info-container")
-        div(class="name")
-          h1 #{firstName} #{lastName}
-          span(class="handle") @#{username}
-        div(class="secondary-info")
-          if reviewCount >= 0
-            h3 <b>Reviews: </b>#{reviewCount}
-      div(class="profile-actions")
-        if isAdmin
-          form(method='GET' action='/admin' class="admin-btn")
-            button(class="profile-btn") Admin Access
-        if isOwnProfile
-          form(method='GET' action=`/profile/edit/${username}` class="admin-btn")
-            button(class="profile-btn") Edit Profile
-    div(class="content-container")
-      div(class="col-sm")
-        div(class="card bio")
-          h2 Bio
-          span #{bio}
-          span #{location}
-          span #{email}
-          span Joined #{joined}
-      div(class="col-lg")
-        if reviewCount <= 0
-          div(class="card no-reviews")
-            p @#{username} hasn't reviewed anything yet!
-      div(class="col-sm")
+    div(class="main-container")
+      div(class="profile-container")
+        img(src=profilePic class="profile-pic")
+        div(class="info-container")
+          div(class="name")
+            h1 #{firstName} #{lastName}
+            span(class="handle") @#{username}
+          div(class="secondary-info")
+            if reviewCount >= 0
+              h3 <b>Reviews: </b>#{reviewCount}
+        div(class="profile-actions")
+          if isAdmin
+            form(method='GET' action='/admin' class="admin-btn")
+              button(class="profile-btn") Admin Access
+          if isOwnProfile
+            form(method='GET' action=`/profile/edit/${username}` class="admin-btn")
+              button(class="profile-btn") Edit Profile
+      div(class="content-container")
+        div(class="col-sm")
+          div(class="card bio")
+            h2 Bio
+            span #{bio}
+            span #{location}
+            span #{email}
+            span Joined #{joined}
+        div(class="col-lg")
+          if reviewCount <= 0
+            div(class="card no-reviews")
+              p @#{username} hasn't reviewed anything yet!
+        div(class="col-sm")

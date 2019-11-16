@@ -1,5 +1,6 @@
 import { getDb } from '../db'
 import { ObjectId } from 'mongodb'
+import { Review } from './review'
 
 export interface IDestination {
     _id?: ObjectId
@@ -7,8 +8,7 @@ export interface IDestination {
     country: string
     description: string
     stars: number
-    //TODO: change this to Review[]
-    reviews: string[]
+    reviews: Review[]
     spamScore: number
 }
 
@@ -26,9 +26,13 @@ export class Destination {
         }
     }
 
-    public static async getDestinations() {
+    public static async getDestinations(destIds?: ObjectId[]) {
         const collection = getDb().collection('destinations')
-        const destinations = await collection.find({}).toArray()
+        const destinations = await collection
+            .find({
+                _id: { $in: destIds },
+            })
+            .toArray()
         return destinations as IDestination[]
     }
 

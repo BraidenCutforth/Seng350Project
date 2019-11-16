@@ -11,7 +11,7 @@ if (inputCountry) {
         if (dropdown) {
             setTimeout(function() {
                 dropdown.style.display = 'none'
-            }, 100)
+            }, 125)
         }
     })
 }

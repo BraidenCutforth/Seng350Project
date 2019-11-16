@@ -8,7 +8,7 @@ a {
 }
 
 header {
-  background-color: lightblue;
+  background-color: black;
   display: flex;
   height: 50px;
   justify-content: flex-end;
@@ -17,6 +17,7 @@ header {
 header > a > button {
   background-color: transparent;
   border: 0;
+  color: white;
   cursor: pointer;
   font-size: medium;
   height: 100%;

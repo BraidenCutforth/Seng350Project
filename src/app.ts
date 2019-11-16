@@ -12,6 +12,7 @@ import { AdminRoute } from './routes/admin'
 import { EditProfileRoute } from './routes/editProfile'
 import { CountryRoute } from './routes/country'
 import { ReviewRoute } from './routes/reviews'
+import { DestinationRoute } from './routes/destination'
 
 /**
  * The server.
@@ -114,5 +115,6 @@ export class Server {
         this.app.use('/profile', new ProfileRoute().getRouter())
         this.app.use('/country', new CountryRoute().getRouter())
         this.app.use('/review', new ReviewRoute().getRouter())
+        this.app.use('/destination', new DestinationRoute().getRouter())
     }
 }
