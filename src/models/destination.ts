@@ -1,5 +1,6 @@
 import { getDb } from '../db'
 import { ObjectId } from 'mongodb'
+import { Review } from './review'
 
 export interface IDestination {
     _id?: ObjectId
@@ -7,8 +8,7 @@ export interface IDestination {
     country: string
     description: string
     stars: number
-    //TODO: change this to Review[]
-    reviews: string[]
+    reviews: Review[]
     spamScore: number
 }
 

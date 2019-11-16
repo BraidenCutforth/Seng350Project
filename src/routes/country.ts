@@ -1,6 +1,12 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { ICountry, Country } from '../models/country'
+import { Destination, IDestination } from '../models/destination'
+import { ObjectID } from 'mongodb'
+
+interface ICountryData extends ICountry {
+    destData: IDestination[]
+}
 
 /**
  * / route
@@ -29,7 +35,7 @@ export class CountryRoute extends BaseRoute {
     }
 
     // May need different render functions for different page renderings, as they need different options
-    render(req: Request, res: Response, template: string, options?: ICountry) {
+    render(req: Request, res: Response, template: string, options?: ICountryData) {
         super.render(req, res, template, options)
     }
 
@@ -56,10 +62,24 @@ export class CountryRoute extends BaseRoute {
         const countryCode = req.params.code
         try {
             const countryData = await Country.getCountry(countryCode)
-            this.render(req, res, 'country', countryData)
+            const destData = this.getDestData(countryData.destinations)
+            this.render(req, res, 'country', { ...countryData, destData })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
         }
+    }
+
+    public getDestData(destinations: ObjectID[]) {
+        const destData: IDestination[] = []
+        destinations.forEach(async destId => {
+            try {
+                const dest = await Destination.getDestination(destId)
+                destData.push(dest)
+            } catch (error) {
+                console.error(error)
+            }
+        })
+        return destData
     }
 }

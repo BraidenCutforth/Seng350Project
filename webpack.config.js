@@ -4,6 +4,8 @@ const path = require('path')
 module.exports = {
     entry: {
         'create-review': './src/view_scripts/create-review.ts',
+        'edit-profile': './src/view_scripts/edit-profile.ts',
+        index: './src/view_scripts/index.ts',
     },
     mode: 'production',
     devtool: 'inline-source-map',

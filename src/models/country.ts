@@ -6,7 +6,7 @@ export interface ICountry {
     code: string
     name: string
     description: string
-    destinations: number[]
+    destinations: ObjectId[]
 }
 
 export class Country {
