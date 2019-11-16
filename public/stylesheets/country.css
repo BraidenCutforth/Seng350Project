@@ -1,0 +1,16 @@
+.dest {
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  box-shadow: 0.5px 0.5px lightgrey;  
+  padding: 4px;
+  width: 200px;
+}
+.dest-link {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+.main-container {
+  padding: 24px;
+}

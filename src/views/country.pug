@@ -7,4 +7,14 @@ html
       include ../styles/style.css
   body
     include header.pug
-    h1 #{name}
+    div(class="main-container")
+      h1 #{name}
+      p #{description}
+      h2 Destinations
+      div(class="destinations")
+        each dest in destData
+          div(class="dest")
+            a(class="dest-link" href=`/destination/${dest._id}`)
+              h4 #{dest.name}
+              span #{dest.description}
+              span Rating: #{4.2}

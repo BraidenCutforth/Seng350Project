@@ -26,9 +26,13 @@ export class Destination {
         }
     }
 
-    public static async getDestinations() {
+    public static async getDestinations(destIds?: ObjectId[]) {
         const collection = getDb().collection('destinations')
-        const destinations = await collection.find({}).toArray()
+        const destinations = await collection
+            .find({
+                _id: { $in: destIds },
+            })
+            .toArray()
         return destinations as IDestination[]
     }
 

@@ -62,24 +62,11 @@ export class CountryRoute extends BaseRoute {
         const countryCode = req.params.code
         try {
             const countryData = await Country.getCountry(countryCode)
-            const destData = this.getDestData(countryData.destinations)
+            const destData = await Destination.getDestinations(countryData.destinations)
             this.render(req, res, 'country', { ...countryData, destData })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
         }
-    }
-
-    public getDestData(destinations: ObjectID[]) {
-        const destData: IDestination[] = []
-        destinations.forEach(async destId => {
-            try {
-                const dest = await Destination.getDestination(destId)
-                destData.push(dest)
-            } catch (error) {
-                console.error(error)
-            }
-        })
-        return destData
     }
 }
