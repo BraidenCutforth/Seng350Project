@@ -6,7 +6,7 @@ export interface IReview {
     destination_id: ObjectId
     title: string
     content: string
-    creator_id: string
+    creator_id: ObjectId
     stars: number
     reviewRating: {
         upvoters: ObjectId[]
@@ -43,13 +43,13 @@ export class Review {
     }
 
     public static async updateReview(_id: ObjectId, reviewData: Partial<IReview>) {
-        const collection = getDb().collection('countries')
+        const collection = getDb().collection('reviews')
         const result = await collection.updateOne({ _id }, { $set: reviewData })
         console.log(result)
     }
 
     public static async addReview(review: IReview) {
-        const collection = getDb().collection('countries')
+        const collection = getDb().collection('reviews')
         const result = await collection.insertOne(review)
         console.log(result)
     }
