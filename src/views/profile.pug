@@ -31,7 +31,8 @@ html
             span #{bio}
             span #{location}
             span #{email}
-            span Joined #{joined}
+            if joined
+              span Joined #{joined}
         div(class="col-lg")
           if reviewCount <= 0
             div(class="card no-reviews")

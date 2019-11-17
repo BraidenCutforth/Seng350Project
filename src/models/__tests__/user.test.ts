@@ -17,7 +17,6 @@ xdescribe('user model tests', () => {
             bio: 'My user bio',
             profilePic: 'nothing',
             location: '',
-            joined: date.toISOString(),
             reviews: [],
             isAdmin: false,
         }
@@ -53,7 +52,6 @@ xdescribe('user model tests', () => {
             bio: 'My user bio',
             profilePic: 'nothing',
             location: '',
-            joined: date.toISOString(),
             reviews: [],
             isAdmin: false,
         }
