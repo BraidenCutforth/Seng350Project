@@ -45,7 +45,7 @@ export class ReviewRoute extends BaseRoute {
         const username = req.query.user
         try {
             // TODO: Parse review content from page into IReview structure
-            // seem to get the "User not signed in" error even when signed in? 
+            // seem to get the 'user not signed in' error even when signed in
             if (!username) {
                 throw new Error('User not signed in')
             }
