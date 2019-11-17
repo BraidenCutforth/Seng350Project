@@ -12,7 +12,9 @@ textarea {
 }
 
 .preview {
+  border: 1px solid grey;
   overflow-wrap: break-word;
+  padding: 8px;
 }
 
 .preview, .editor-container {
