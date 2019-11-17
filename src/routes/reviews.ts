@@ -25,12 +25,10 @@ interface ReviewOpts {
 export class ReviewRoute extends BaseRoute {
     getRouter() {
         const router = Router()
-
         router
             .get('/:reviewId', (req, res) => this.reviewPage(req, res))
             .get('/create/:destinationId', (req, res) => this.createPage(req, res))
             .post('/create/:destinationId', (req, res) => this.createReview(req, res))
-
         return router
     }
 
@@ -47,6 +45,7 @@ export class ReviewRoute extends BaseRoute {
         const username = req.query.user
         try {
             // TODO: Parse review content from page into IReview structure
+            // seem to get the "User not signed in" error even when signed in? 
             if (!username) {
                 throw new Error('User not signed in')
             }

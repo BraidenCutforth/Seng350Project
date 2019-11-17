@@ -10,7 +10,13 @@ html
       h1 Add a Review for #{destination}
       div(class="content-container")
         div(class="editor-container")
-            textarea(id="editor")
-        div(class="preview" id="preview")
+          form(method='POST' action='/review/create/' + destinationId)
+            div.form-group
+              label(for='title-editor') Title
+              input.form-control(type='text' id='title-editor' placeholder='My tour of Paris!' name='title-editor')
+            div.form-group
+              textarea(id="editor")
+            button(type='submit' class="btn") Create review
+        div(class="preview" id="preview" )
     script
       include ../view_scripts/create-review.js
