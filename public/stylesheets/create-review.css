@@ -1,0 +1,22 @@
+textarea {
+  min-height: 200px;
+  width: 80%;
+}
+
+.content-container {
+  display: flex;
+}
+
+.main-container {
+  padding: 24px;
+}
+
+.preview {
+  border: 1px solid grey;
+  overflow-wrap: break-word;
+  padding: 8px;
+}
+
+.preview, .editor-container {
+  width: 50%;
+}

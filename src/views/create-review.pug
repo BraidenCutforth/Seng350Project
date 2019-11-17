@@ -2,14 +2,15 @@ html
   head
     title #{title}
     style
-      include ../styles/edit-profile.css
+      include ../styles/create-review.css
       include ../styles/style.css
   body
     include header.pug
-    div(class="container")
-        h1 Create a Review for #{country}
-    div(class="editor")
-        textarea(id="editor")
-    div(class="preview" id="preview")
+    div(class="main-container")
+      h1 Add a Review for #{destination}
+      div(class="content-container")
+        div(class="editor-container")
+            textarea(id="editor")
+        div(class="preview" id="preview")
     script
-        include ../view_scripts/create-review.js
+      include ../view_scripts/create-review.js
