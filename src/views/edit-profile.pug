@@ -11,6 +11,7 @@ html
       div(class="card")
         h1 Edit Profile
         form(method='POST' action=`/profile/edit/${username}`)
+          input(type="hidden" name="user" value=`${username}`)
           div.form-group
             label(for='firstName') First Name
             input.form-control(

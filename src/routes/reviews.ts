@@ -9,6 +9,7 @@ import { IHeaderOpts, parseQueryParams } from './helpers'
 interface CreateReviewParams extends IHeaderOpts {
     destination: string
     destinationId: string
+    username: string
 }
 
 interface ReviewOpts {
@@ -42,7 +43,7 @@ export class ReviewRoute extends BaseRoute {
 
     async createReview(req: Request, res: Response) {
         const destinationId = req.params.destinationId
-        const username = req.query.user
+        const username = req.body['user']
         try {
             // TODO: Parse review content from page into IReview structure
             // seem to get the 'user not signed in' error even when signed in
@@ -56,8 +57,8 @@ export class ReviewRoute extends BaseRoute {
 
             const review: IReview = {
                 destination_id: new ObjectId(destinationId), // eslint-disable-line @typescript-eslint/camelcase
-                title: '',
-                content: '',
+                title: req.body['title-editor'],
+                content: req.body['editor'],
                 stars: 1,
                 reviewRating: {
                     upvoters: [],
@@ -67,6 +68,8 @@ export class ReviewRoute extends BaseRoute {
                 spamScore: 0,
             }
             await Review.addReview(review)
+            // Now we need to render the review page.
+            res.redirect(`/destination/${destinationId}`)
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')
@@ -75,12 +78,14 @@ export class ReviewRoute extends BaseRoute {
 
     async createPage(req: Request, res: Response) {
         const destinationId = req.params.destinationId
+        const username = req.query.user as string
         try {
             const destination = await Destination.getDestination(new ObjectId(destinationId))
             const options: CreateReviewParams = {
                 destination: destination.name,
                 destinationId,
                 queryParams: parseQueryParams(req),
+                username,
             }
             this.render(req, res, 'create-review', options)
         } catch (err) {
