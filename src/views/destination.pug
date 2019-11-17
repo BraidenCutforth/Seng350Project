@@ -8,7 +8,10 @@ html
   body
     include header.pug
     div(class="main-container")
-      h1 #{name}
+      div(class="sub-header")
+        h1 #{name}
+        a(href=`/review/create/${_id}`)
+          button(class="btn" type="button") Create A Review
       p #{description}
       h2 Reviews
       div(class="reviews")
