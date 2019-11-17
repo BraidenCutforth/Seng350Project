@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 import url from 'url'
+import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -60,7 +61,7 @@ export class EditProfileRoute extends BaseRoute {
             if (!userData.profilePic) {
                 userData.profilePic = '/images/default-profile-pic.jpg'
             }
-            this.render(req, res, 'edit-profile', { ...userData })
+            this.render(req, res, 'edit-profile', { ...userData, queryParams: parseQueryParams(req) })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

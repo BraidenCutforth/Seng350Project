@@ -1,9 +1,12 @@
 import { BaseRoute } from './route'
 import { Router, Request, Response } from 'express'
 import { Review, IReview } from '../models/review'
+import { Destination, IDestination } from '../models/destination'
 import { ObjectId } from 'mongodb'
+import { User } from '../models/user'
+import { IHeaderOpts, parseQueryParams } from './helpers'
 
-interface CreateReviewParams {
+interface CreateReviewParams extends IHeaderOpts {
     destination: string
     destinationId: string
 }
@@ -41,26 +44,49 @@ export class ReviewRoute extends BaseRoute {
 
     async createReview(req: Request, res: Response) {
         const destinationId = req.params.destinationId
-        // TODO: Parse review content from page into IReview structure
-        const review: IReview = {
-            destination_id: new ObjectId(destinationId), // eslint-disable-line
-            title: '',
-            content: '',
-            stars: 1,
-            reviewRating: {
-                upvoters: [],
-                downvoters: [],
-            },
-            creator_id: new ObjectId(), // eslint-disable-line
-            spamScore: 0,
+        const username = req.query.user
+        try {
+            // TODO: Parse review content from page into IReview structure
+            if (!username) {
+                throw new Error('User not signed in')
+            }
+            const user = await User.getUser(username)
+            if (!user._id) {
+                throw new Error(`User id not found for ${username}`)
+            }
+
+            const review: IReview = {
+                destination_id: new ObjectId(destinationId), // eslint-disable-line @typescript-eslint/camelcase
+                title: '',
+                content: '',
+                stars: 1,
+                reviewRating: {
+                    upvoters: [],
+                    downvoters: [],
+                },
+                creator_id: new ObjectId(user._id), // eslint-disable-line @typescript-eslint/camelcase
+                spamScore: 0,
+            }
+            await Review.addReview(review)
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
         }
-        await Review.addReview(review)
     }
 
     async createPage(req: Request, res: Response) {
         const destinationId = req.params.destinationId
-        // TODO: Get the destination info (name) from the id in the url
-        const options: CreateReviewParams = { destination: '', destinationId }
-        this.render(req, res, 'create-review', options)
+        try {
+            const destination = await Destination.getDestination(new ObjectId(destinationId))
+            const options: CreateReviewParams = {
+                destination: destination.name,
+                destinationId,
+                queryParams: parseQueryParams(req),
+            }
+            this.render(req, res, 'create-review', options)
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
+        }
     }
 }

@@ -2,8 +2,9 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 import dayjs from 'dayjs'
+import { IHeaderOpts, parseQueryParams } from './helpers'
 
-interface IProfileData extends IUser {
+interface IProfileData extends IUser, IHeaderOpts {
     joined: string
     isOwnProfile: boolean
     reviewCount: number
@@ -73,7 +74,13 @@ export class ProfileRoute extends BaseRoute {
                 const date = userData._id.getTimestamp()
                 joined = dayjs(date).format('MMMM D, YYYY')
             }
-            this.render(req, res, 'profile', { ...userData, joined, isOwnProfile, reviewCount })
+            this.render(req, res, 'profile', {
+                ...userData,
+                joined,
+                isOwnProfile,
+                reviewCount,
+                queryParams: parseQueryParams(req),
+            })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

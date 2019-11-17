@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { User } from '../models/user'
 import { BaseRoute } from './route'
+import { parseQueryParams } from './helpers'
 // import { AdminController } from '../controllers/admin'
 
 export class AdminRoute extends BaseRoute {
@@ -18,7 +19,7 @@ export class AdminRoute extends BaseRoute {
         const userData = await User.getUsers()
 
         //render template
-        res.render('admin', { userData })
+        res.render('admin', { userData, queryParams: parseQueryParams(req) })
     }
 
     public getRouter(): Router {

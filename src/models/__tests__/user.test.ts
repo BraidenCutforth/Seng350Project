@@ -2,7 +2,7 @@ import { User, IUser } from '../user'
 
 import { initDb, closeDb } from '../../db'
 
-xdescribe('user model tests', () => {
+describe('user model tests', () => {
     beforeAll(async () => {
         await initDb()
     })

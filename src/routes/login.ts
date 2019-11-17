@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
-import { User } from '../models/user'
 
 import url from 'url'
+import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -57,7 +57,9 @@ export class LoginRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //set message
-        const options: Record<string, any> = {}
+        const options: Record<string, any> = {
+            queryParams: parseQueryParams(req),
+        }
 
         //render template
         this.render(req, res, 'login', options)

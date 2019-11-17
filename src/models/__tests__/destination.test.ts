@@ -32,7 +32,7 @@ xdescribe('destination model tests', () => {
     })
 
     test('get destination', async () => {
-        const destination = await Destination.getDestination(_id)
+        const destination = await Destination.getDestination(new ObjectId('5dc3522cbfa6fa7ec0808324'))
         expect(destination).not.toBeNull()
         expect(destination.name).toBe('Whistler')
     })

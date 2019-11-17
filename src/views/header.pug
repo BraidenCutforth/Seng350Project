@@ -1,11 +1,11 @@
 header
-  a(href='/')
+  a(href=`/${queryParams || ""}`)
     button(type="button" class="header-btn") Home
   if username
-    a(href=`/profile/${username}`)
+    a(href=`/profile/${username}${queryParams || ""}`)
       button(type="button" class="header-btn") Profile
   else
-    a(href="/login")
+    a(href=`/login${queryParams || ""}`)
       button(type="button") Login
-    a(href="/signup")
+    a(href=`/signup${queryParams || ""}`)
       button(type="button") Sign up

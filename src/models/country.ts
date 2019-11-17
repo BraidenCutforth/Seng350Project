@@ -16,7 +16,6 @@ export class Country {
         if (country.length == 0) {
             return Promise.reject(`No countries found matching code ${code}`)
         } else if (country.length == 1) {
-            console.log(country[0])
             return country[0] as ICountry
         } else {
             return Promise.reject(new Error('More than one country found.'))
@@ -32,18 +31,18 @@ export class Country {
     public static async deleteCountry(country: ICountry) {
         const collection = getDb().collection('countries')
         const result = await collection.deleteOne(country)
-        console.log(result)
+        return result
     }
 
     public static async updateCountry(code: string, countryData: Partial<ICountry>) {
         const collection = getDb().collection('countries')
         const result = await collection.updateOne({ code: code }, { $set: countryData })
-        console.log(result)
+        return result
     }
 
     public static async addCountry(country: ICountry) {
         const collection = getDb().collection('countries')
         const result = await collection.insertOne(country)
-        console.log(result)
+        return result
     }
 }

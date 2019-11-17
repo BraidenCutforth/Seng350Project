@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { Country } from '../models/country'
+import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -58,11 +59,12 @@ export class IndexRoute extends BaseRoute {
                 title: 'Runaway',
                 message: 'Runaway',
                 countries,
+                queryParams: parseQueryParams(req),
             }
             //render template
             this.render(req, res, 'index', options)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             this.render(req, res, '404')
         }
     }

@@ -2,7 +2,7 @@ import { Country, ICountry } from '../country'
 import { initDb, closeDb } from '../../db'
 import { ObjectID } from 'mongodb'
 
-xdescribe('country model tests', () => {
+describe('country model tests', () => {
     beforeAll(async () => {
         await initDb()
     })

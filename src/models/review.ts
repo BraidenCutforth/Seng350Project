@@ -22,7 +22,6 @@ export class Review {
         if (review.length == 0) {
             return Promise.reject(`No review found matching id ${_id}`)
         } else if (review.length == 1) {
-            console.log(review[0])
             return review[0] as IReview
         } else {
             return Promise.reject(new Error('More than one country found.'))
@@ -32,25 +31,48 @@ export class Review {
     public static async getReviewsForDestination(destinationId: ObjectId) {
         const collection = getDb().collection('reviews')
         // eslint-disable-next-line @typescript-eslint/camelcase
-        const countries = await collection.find({ destination_id: destinationId }).toArray()
-        return countries as IReview[]
+        const reviews = await collection.find({ destination_id: destinationId }).toArray()
+        return reviews as IReview[]
+    }
+
+    public static async getRecentReviewsForDestination(destinationId: ObjectId, limit?: number) {
+        const collection = getDb().collection('reviews')
+        const reviews = await collection
+            .aggregate([
+                { $match: { destination_id: destinationId } }, // eslint-disable-line @typescript-eslint/camelcase
+                {
+                    $addField: {
+                        reviewScore: {
+                            $subtract: [new Date(), new ObjectId('$_id').getTimestamp()],
+                        },
+                    },
+                },
+                {
+                    $sort: {
+                        reviewScore: 1,
+                    },
+                },
+                { $limit: limit || 100 },
+            ])
+            .toArray()
+        return reviews as IReview[]
     }
 
     public static async deleteReview(_id: ObjectId) {
         const collection = getDb().collection('reviews')
         const result = await collection.deleteOne({ _id })
-        console.log(result)
+        return result
     }
 
     public static async updateReview(_id: ObjectId, reviewData: Partial<IReview>) {
         const collection = getDb().collection('reviews')
         const result = await collection.updateOne({ _id }, { $set: reviewData })
-        console.log(result)
+        return result
     }
 
     public static async addReview(review: IReview) {
         const collection = getDb().collection('reviews')
         const result = await collection.insertOne(review)
-        console.log(result)
+        return result
     }
 }

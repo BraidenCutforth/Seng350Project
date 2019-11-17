@@ -21,7 +21,6 @@ export class User {
         if (user.length == 0) {
             return Promise.reject(`No users found matching username ${username}`)
         } else if (user.length == 1) {
-            console.log(user[0])
             return user[0] as IUser
         } else {
             return Promise.reject(new Error('More than one user found.'))
@@ -37,18 +36,18 @@ export class User {
     public static async deleteUser(user: IUser) {
         const collection = getDb().collection('users')
         const result = await collection.deleteOne(user)
-        console.log(result)
+        return result
     }
 
     public static async updateUser(username: string, userData: Partial<IUser>) {
         const collection = getDb().collection('users')
         const result = await collection.updateOne({ username: username }, { $set: userData })
-        console.log(result)
+        return result
     }
 
     public static async addUser(user: IUser) {
         const collection = getDb().collection('users')
         const result = await collection.insertOne(user)
-        console.log(result)
+        return result
     }
 }
