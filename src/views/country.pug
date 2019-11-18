@@ -14,7 +14,7 @@ html
       div(class="destinations")
         each dest in destData
           div(class="dest")
-            a(class="dest-link" href=`/destination/${dest._id}`)
+            a(class="dest-link" href=`/destination/${dest._id}${queryParams}`)
               h4 #{dest.name}
               span #{dest.description}
               span Rating: #{4.2}

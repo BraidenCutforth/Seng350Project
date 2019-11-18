@@ -5,6 +5,7 @@ import { Destination, IDestination } from '../models/destination'
 import { ObjectId } from 'mongodb'
 import { User } from '../models/user'
 import { IHeaderOpts, parseQueryParams } from './helpers'
+import url from 'url'
 
 interface CreateReviewParams extends IHeaderOpts {
     destination: string
@@ -69,7 +70,12 @@ export class ReviewRoute extends BaseRoute {
             }
             await Review.addReview(review)
             // Now we need to render the review page.
-            res.redirect(`/destination/${destinationId}`)
+            res.redirect(
+                url.format({
+                    pathname: `/destination/${destinationId}`,
+                    query: req.query,
+                }),
+            )
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')

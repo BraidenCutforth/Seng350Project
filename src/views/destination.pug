@@ -10,12 +10,12 @@ html
     div(class="main-container")
       div(class="sub-header")
         h1 #{name}
-        a(href=`/review/create/${_id}`)
+        a(href=`/review/create/${_id}${queryParams}`)
           button(class="btn" type="button") Create A Review
       p #{description}
       h2 Reviews
       div(class="reviews")
         each review in reviewData
           div(class="review")
-            a(class="review-link" href=`/review/${review._id}`)
+            a(class="review-link" href=`/review/${review._id}${queryParams}`)
               h4 #{review.title}
