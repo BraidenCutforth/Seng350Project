@@ -6,6 +6,7 @@ import { ObjectId } from 'mongodb'
 import { User } from '../models/user'
 import { IHeaderOpts, parseQueryParams } from './helpers'
 import url from 'url'
+import marked from 'marked'
 
 interface CreateReviewParams extends IHeaderOpts {
     destination: string
@@ -39,7 +40,9 @@ export class ReviewRoute extends BaseRoute {
         const review = await Review.getReview(reviewId)
         // Get review, and populate reviewOpts
         // const reviewOpts: ReviewOpts = {}
-        this.render(req, res, 'render')
+        const reviewHtml = marked(review.content)
+        console.log(reviewHtml)
+        this.render(req, res, 'review', { ...review, reviewHtml })
     }
 
     async createReview(req: Request, res: Response) {
