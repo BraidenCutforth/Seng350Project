@@ -90,7 +90,26 @@ The "Edit Profile" functionality should bring the user to another page to edit t
 
 ## Milestone 3.5
 
-The changes that have been made during this milestone are:
-* A user can now select a country to view its destinations
-* A user can now select a destination to view its corresponding reviews
-* A user can now create a review in markdown, and see a preview before submitting
+The following features were implemented during this milestone.
+
+---
+
+#### As a user, I can select a country and view its destinations.
+
+On the index page, the user can select a country from the dropdown box. This dropdown is populated from the country model in the database. When the user selects a country, they are brought to the country page. The country page is populated using the details from the country model. It has a short description about the country and lists the destinations within the country.
+
+The user can select a destination to see the reviews.  
+
+---
+
+#### As a user, I can select a destination and view its reviews.
+
+From the country page, the user can view the destinations corresponding to each country. When the user selects a destination, they are brought to the destination page, which lists all the reviews related to the selected destination. The destination page is populated from the destination model in the database.
+
+The user can choose to create a view for the selected destination.
+
+---
+
+#### As a user, I can create a review in markdown and preview it before submitting.
+
+On the destination page, the user can click on the "Create a Review" button to create a review for the destination they are currently viewing. The user will be redirected to an editor where they can write up their review in markdown and preview it before submitting.
