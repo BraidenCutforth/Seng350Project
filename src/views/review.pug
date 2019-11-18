@@ -1,7 +1,14 @@
+doctype html
 html
   head
     title #{title}
     style
+      include ../styles/review.css
       include ../styles/style.css
   body
     include header.pug
+    div(class="main-container")
+      div(class="sub-header")
+        h1 #{title}
+        div
+          | !{reviewHtml}
