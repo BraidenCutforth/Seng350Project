@@ -87,3 +87,10 @@ If the user is viewing their own profile page, they will be able to see an "Edit
 The profile controller retrieves the user's data from the database and populates the view.
 
 The "Edit Profile" functionality should bring the user to another page to edit their profile. This feature is currently in progress.
+
+## Milestone 3.5
+
+The changes that have been made during this milestone are:
+* A user can now select a country to view its destinations
+* A user can now select a destination to view its corresponding reviews
+* A user can now create a review in markdown, and see a preview before submitting
