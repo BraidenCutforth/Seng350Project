@@ -46,7 +46,7 @@ export class ReviewRoute extends BaseRoute {
         let reviewCreator = false
         if (username) {
             const user = await User.getUser(username)
-            if (user._id != undefined && user._id.equals(review.creator_id)) {
+            if ((user._id != undefined && user._id.equals(review.creator_id)) || user.isAdmin) {
                 reviewCreator = true
             }
         }
