@@ -24,7 +24,10 @@ export class Country {
 
     public static async getCountries() {
         const collection = getDb().collection('countries')
-        const countries = await collection.find({}).toArray()
+        const countries = await collection
+            .find({})
+            .sort({ name: 1 })
+            .toArray()
         return countries as ICountry[]
     }
 

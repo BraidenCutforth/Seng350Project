@@ -1,3 +1,21 @@
 .main-container {
   padding: 24px;
 }
+
+.delete-btn {
+  background-color: rgb(237,67,55);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  height: 30px;
+}
+
+.delete-btn:hover {
+  background-color: rgb(194,63,56);
+}
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

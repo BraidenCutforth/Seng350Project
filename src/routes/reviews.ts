@@ -32,6 +32,7 @@ export class ReviewRoute extends BaseRoute {
             .get('/:reviewId', (req, res) => this.reviewPage(req, res))
             .get('/create/:destinationId', (req, res) => this.createPage(req, res))
             .post('/create/:destinationId', (req, res) => this.createReview(req, res))
+            .post('/delete/:reviewId', (req, res) => this.deleteReview(req, res))
         return router
     }
 
@@ -41,8 +42,24 @@ export class ReviewRoute extends BaseRoute {
         // Get review, and populate reviewOpts
         // const reviewOpts: ReviewOpts = {}
         const reviewHtml = marked(review.content)
-        console.log(reviewHtml)
-        this.render(req, res, 'review', { ...review, reviewHtml })
+        const username = req.query.user
+        let reviewCreator = false
+        try {
+            if (!username) {
+                throw new Error('User not signed in')
+            }
+            const user = await User.getUser(username)
+            if (!user._id) {
+                throw new Error(`User id not found for ${username}`)
+            }
+            if (user._id.equals(review.creator_id)) {
+                reviewCreator = true
+            }
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
+        }
+        this.render(req, res, 'review', { ...review, reviewHtml, reviewCreator })
     }
 
     async createReview(req: Request, res: Response) {
@@ -97,6 +114,25 @@ export class ReviewRoute extends BaseRoute {
                 username,
             }
             this.render(req, res, 'create-review', options)
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
+        }
+    }
+
+    async deleteReview(req: Request, res: Response) {
+        const reviewId = new ObjectId(req.params.reviewId)
+        try {
+            const review = await Review.getReview(reviewId)
+            if (review) {
+                Review.deleteReview(reviewId)
+            }
+            res.redirect(
+                url.format({
+                    pathname: `/destination/${review.destination_id}`,
+                    query: req.query,
+                }),
+            )
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')
