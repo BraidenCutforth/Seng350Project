@@ -44,20 +44,11 @@ export class ReviewRoute extends BaseRoute {
         const reviewHtml = marked(review.content)
         const username = req.query.user
         let reviewCreator = false
-        try {
-            if (!username) {
-                throw new Error('User not signed in')
-            }
+        if (username) {
             const user = await User.getUser(username)
-            if (!user._id) {
-                throw new Error(`User id not found for ${username}`)
-            }
-            if (user._id.equals(review.creator_id)) {
+            if (user._id != undefined && user._id.equals(review.creator_id)) {
                 reviewCreator = true
             }
-        } catch (err) {
-            console.error(err)
-            this.render(req, res, '404')
         }
         this.render(req, res, 'review', { ...review, reviewHtml, reviewCreator })
     }
