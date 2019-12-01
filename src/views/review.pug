@@ -10,5 +10,8 @@ html
     div(class="main-container")
       div(class="sub-header")
         h1 #{title}
-        div
-          | !{reviewHtml}
+        if reviewCreator
+          form(method='POST' action='/review/delete/' + _id)
+            button(class="delete-btn") Delete Review
+      div
+        | !{reviewHtml}
