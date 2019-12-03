@@ -31,6 +31,7 @@ export class ReviewRoute extends BaseRoute {
         router
             .get('/:reviewId', (req, res) => this.reviewPage(req, res))
             .get('/create/:destinationId', (req, res) => this.createPage(req, res))
+            .get('/edit/:reviewId', (req, res) => this.editReview(req, res))
             .post('/create/:destinationId', (req, res) => this.createReview(req, res))
             .post('/delete/:reviewId', (req, res) => this.deleteReview(req, res))
         return router
@@ -38,19 +39,34 @@ export class ReviewRoute extends BaseRoute {
 
     async reviewPage(req: Request, res: Response) {
         const reviewId = new ObjectId(req.params.reviewId)
-        const review = await Review.getReview(reviewId)
-        // Get review, and populate reviewOpts
-        // const reviewOpts: ReviewOpts = {}
-        const reviewHtml = marked(review.content)
-        const username = req.query.user
-        let reviewCreator = false
-        if (username) {
-            const user = await User.getUser(username)
-            if ((user._id != undefined && user._id.equals(review.creator_id)) || user.isAdmin) {
-                reviewCreator = true
+        try {
+            const review = await Review.getReview(reviewId)
+            // Get review, and populate reviewOpts
+            // const reviewOpts: ReviewOpts = {}
+            const reviewHtml = marked(review.content)
+            const username = req.query.user
+            let isReviewCreator = false
+            let isAdmin = false
+            if (username) {
+                const user = await User.getUser(username)
+                if (user._id != undefined && user._id.equals(review.creator_id)) {
+                    isReviewCreator = true
+                }
+                if (user.isAdmin) {
+                    isAdmin = true
+                }
             }
+            this.render(req, res, 'review', {
+                ...review,
+                reviewHtml,
+                isAdmin,
+                isReviewCreator,
+                queryParams: parseQueryParams(req),
+            })
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
         }
-        this.render(req, res, 'review', { ...review, reviewHtml, reviewCreator })
     }
 
     async createReview(req: Request, res: Response) {
@@ -124,6 +140,19 @@ export class ReviewRoute extends BaseRoute {
                     query: req.query,
                 }),
             )
+        } catch (err) {
+            console.error(err)
+            this.render(req, res, '404')
+        }
+    }
+
+    async editReview(req: Request, res: Response) {
+        const reviewId = new ObjectId(req.params.reviewId)
+        try {
+            const review = await Review.getReview(reviewId)
+            const destination = await Destination.getDestination(review.destination_id)
+            const destName = destination.name
+            this.render(req, res, 'edit-review', { ...review, destName, queryParams: parseQueryParams(req) })
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')
