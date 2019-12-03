@@ -15,7 +15,7 @@ html
             a(href=`/review/edit/${_id}${queryParams}`)
               button(class="edit-btn") Edit
           if isReviewCreator || isAdmin
-            form(method='POST' action='/review/delete/' + _id)
+            form(method='POST' action=`/review/delete/${_id}${queryParams}`)
               button(class="delete-btn") Delete
       div
         | !{reviewHtml}

@@ -10,7 +10,7 @@ html
       h1 Edit a Review for #{destName}
       div(class="content-container")
         div(class="editor-container")
-          form(method='POST' action=`/review/update/${_id}` id='edit-review')
+          form(method='POST' action=`/review/update/${_id}${queryParams}` id='edit-review')
             input(type='hidden' name='user' value=`${username}`)
             div.form-group
               label(for='title') Title
