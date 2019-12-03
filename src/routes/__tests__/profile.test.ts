@@ -27,4 +27,14 @@ describe('profile route', () => {
             expect(result).toBe(false)
         })
     })
+
+    describe('parseUser', () => {
+        test('true', () => {
+            const fn = new ProfileRoute()['parseUser']
+
+            const result = fn('jchua', '')
+
+            expect(result).not.toBeNull()
+        })
+    })
 })
