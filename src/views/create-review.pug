@@ -17,6 +17,8 @@ html
               input.form-control(type='text' id='title-editor' placeholder='My tour of Paris!' name='title-editor')
             div.form-group
               textarea(id='editor' name='editor' form='create-review')
+            a(href=`/destination/${destinationId}`)
+              button(type="button" class="btn edit-btn") Cancel
             button(type='submit' class="btn") Create review
         div(class="preview" id="preview" )
     script

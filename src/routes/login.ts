@@ -80,7 +80,7 @@ export class LoginRoute extends BaseRoute {
             const credential = this.parseCredentials(req)
             res.redirect(
                 url.format({
-                    pathname: `/profile/${credential}`,
+                    pathname: `/`,
                     query: {
                         ...req.query,
                         user: credential,
