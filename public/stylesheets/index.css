@@ -64,5 +64,8 @@ li {
   margin: 0;
   padding: 4px;
   text-decoration: none;
-  width: 100%;
+}
+
+.select-item:hover {
+  background-color: lightgrey;
 }
