@@ -7,19 +7,20 @@ html
   body
     include header.pug
     div(class="main-container")
-      h1 Add a Review for #{destination}
+      h1 Edit a Review for #{destName}
       div(class="content-container")
         div(class="editor-container")
-          form(method='POST' action=`/review/create/${destinationId}${queryParams}` id='create-review')
+          form(method='POST' action=`/review/update/${_id}${queryParams}` id='edit-review')
             input(type='hidden' name='user' value=`${username}`)
             div.form-group
               label(for='title') Title
-              input.form-control(type='text' id='title' placeholder='My tour of Paris!' name='title')
+              input.form-control(type='text' id='title' placeholder='My tour of Paris!' name='title' value=title)
             div.form-group
-              textarea(id='content' name='content' form='create-review')
-            a(href=`/destination/${destinationId}${queryParams}`)
+              textarea(id='content' name='content' form='edit-review')
+                | !{content}
+            a(href=`/destination/${destination_id}${queryParams}`)
               button(type="button" class="btn edit-btn") Cancel
-            button(type='submit' class="btn") Create review
+            button(type='submit' class="btn") Save
         div(class="preview" id="preview" )
     script
       include ../view_scripts/create-review.js

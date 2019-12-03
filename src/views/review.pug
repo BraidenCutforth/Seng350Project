@@ -11,10 +11,11 @@ html
       div(class="sub-header")
         h1 #{title}
         div(class='actions')
-          if reviewCreator
-            form(method='get' action='/review/edit/' + _id)
+          if isReviewCreator
+            a(href=`/review/edit/${_id}${queryParams}`)
               button(class="edit-btn") Edit
-            form(method='POST' action='/review/delete/' + _id)
+          if isReviewCreator || isAdmin
+            form(method='POST' action=`/review/delete/${_id}${queryParams}`)
               button(class="delete-btn") Delete
       div
         | !{reviewHtml}

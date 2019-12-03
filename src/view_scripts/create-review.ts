@@ -6,6 +6,11 @@ function showPreview(text: string) {
     if (previewElem) previewElem.innerHTML = html
 }
 
-;(document.getElementById('editor') as HTMLTextAreaElement).addEventListener('input', (event: any) =>
+;(document.getElementById('content') as HTMLTextAreaElement).addEventListener('input', (event: any) =>
     showPreview(event.currentTarget.value),
 )
+window.addEventListener('load', () => {
+    const content = document.getElementById('content') as HTMLTextAreaElement
+    const text = content.value
+    showPreview(text)
+})
