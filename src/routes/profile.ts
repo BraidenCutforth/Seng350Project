@@ -63,28 +63,36 @@ export class ProfileRoute extends BaseRoute {
     public async index(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         try {
-            const userData = await User.getUser(username)
-            const isOwnProfile = this.isCurrentUser(userData, req.query.user)
-            if (!userData.profilePic) {
-                userData.profilePic = '/images/default-profile-pic.jpg'
-            }
-            const reviewCount = userData.reviews != undefined ? userData.reviews.length : -1
-            let joined = ''
-            if (userData._id) {
-                const date = userData._id.getTimestamp()
-                joined = dayjs(date).format('MMMM D, YYYY')
-            }
+            const profileData =  await this.parseUser(username, parseQueryParams(req));
             this.render(req, res, 'profile', {
-                ...userData,
-                joined,
-                isOwnProfile,
-                reviewCount,
-                queryParams: parseQueryParams(req),
+                ...profileData,
             })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')
         }
+    }
+
+    public async parseUser(username: string, queryParams: string): Promise<IProfileData> {
+        const userData = await User.getUser(username)
+        const isOwnProfile = this.isCurrentUser(userData, username)
+        if (!userData.profilePic) {
+            userData.profilePic = '/images/default-profile-pic.jpg'
+        }
+        const reviewCount = userData.reviews != undefined ? userData.reviews.length : -1
+        let joined = ''
+        if (userData._id) {
+            const date = userData._id.getTimestamp()
+            joined = dayjs(date).format('MMMM D, YYYY')
+        }
+        const profileData: IProfileData = {
+            joined: joined,
+            isOwnProfile: isOwnProfile,
+            reviewCount: reviewCount,
+            queryParams: queryParams,
+            ...userData,
+        }
+        return profileData
     }
 
     /**
