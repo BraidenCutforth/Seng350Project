@@ -15,6 +15,6 @@ html
               input.form-control(type='text' id='countryInput' placeholder='Select a country' name='country')
               div(id='dropdown')
                 each country in countries
-                  a(class='select-item' href=`/country/${country.code}${queryParams}`) #{country.name}
+                  a(class='select-item' href=`/country/${country.code}`) #{country.name}
     script
       include ../view_scripts/index.js

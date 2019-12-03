@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { ICountry, Country } from '../models/country'
 import { Destination, IDestination } from '../models/destination'
-import { IHeaderOpts, parseQueryParams } from './helpers'
+import { IHeaderOpts } from './helpers'
 
 interface ICountryData extends ICountry, IHeaderOpts {
     destData: IDestination[]
@@ -63,7 +63,7 @@ export class CountryRoute extends BaseRoute {
         try {
             const countryData = await Country.getCountry(countryCode)
             const destData = await Destination.getDestinations(countryData.destinations)
-            this.render(req, res, 'country', { ...countryData, destData, queryParams: parseQueryParams(req) })
+            this.render(req, res, 'country', { ...countryData, destData, currUser: req.cookies.user })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

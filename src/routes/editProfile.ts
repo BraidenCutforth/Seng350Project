@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 import url from 'url'
-import { parseQueryParams } from './helpers'
+import { Auth } from '../middleware/auth'
 
 /**
  * / route
@@ -25,6 +25,7 @@ export class EditProfileRoute extends BaseRoute {
 
         //add edit profile page route
         router
+            .use('/edit/:username', Auth.isCurrentUser)
             .get('/edit/:username', (req: Request, res: Response, next: NextFunction) => {
                 this.index(req, res, next)
             })
@@ -61,7 +62,7 @@ export class EditProfileRoute extends BaseRoute {
             if (!userData.profilePic) {
                 userData.profilePic = '/images/default-profile-pic.jpg'
             }
-            this.render(req, res, 'edit-profile', { ...userData, queryParams: parseQueryParams(req) })
+            this.render(req, res, 'edit-profile', { ...userData, currUser: req.cookies.user })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

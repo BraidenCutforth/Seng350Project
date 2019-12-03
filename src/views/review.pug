@@ -12,10 +12,10 @@ html
         h1 #{title}
         div(class='actions')
           if isReviewCreator
-            a(href=`/review/edit/${_id}${queryParams}`)
+            a(href=`/review/edit/${_id}`)
               button(class="edit-btn") Edit
           if isReviewCreator || isAdmin
-            form(method='POST' action=`/review/delete/${_id}${queryParams}`)
+            form(method='POST' action=`/review/delete/${_id}`)
               button(class="delete-btn") Delete
       div
         | !{reviewHtml}

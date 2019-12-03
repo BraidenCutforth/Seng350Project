@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { User, IUser } from '../models/user'
-import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -54,7 +53,7 @@ export class SignUpRoute extends BaseRoute {
      */
     public index(req: Request, res: Response, next: NextFunction) {
         //render template
-        this.render(req, res, 'signup', { queryParams: parseQueryParams(req) })
+        this.render(req, res, 'signup', { currUser: req.cookies.user })
     }
 
     /**
