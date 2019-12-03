@@ -10,7 +10,7 @@ html
       h1 Edit a Review for #{destName}
       div(class="content-container")
         div(class="editor-container")
-          form(method='POST' action=`/review/update/${_id}${queryParams}` id='edit-review')
+          form(method='POST' action=`/review/update/${_id}` id='edit-review')
             input(type='hidden' name='user' value=`${username}`)
             div.form-group
               label(for='title') Title
@@ -18,7 +18,7 @@ html
             div.form-group
               textarea(id='content' name='content' form='edit-review')
                 | !{content}
-            a(href=`/destination/${destination_id}${queryParams}`)
+            a(href=`/destination/${destination_id}`)
               button(type="button" class="btn edit-btn") Cancel
             button(type='submit' class="btn") Save
         div(class="preview" id="preview" )

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 import dayjs from 'dayjs'
-import { IHeaderOpts, parseQueryParams } from './helpers'
+import { IHeaderOpts } from './helpers'
 
 interface IProfileData extends IUser, IHeaderOpts {
     joined: string
@@ -63,7 +63,7 @@ export class ProfileRoute extends BaseRoute {
     public async index(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         try {
-            const profileData = await this.parseUser(username, parseQueryParams(req))
+            const profileData = await this.parseUser(username, req.cookies.user)
             this.render(req, res, 'profile', {
                 ...profileData,
             })
@@ -73,7 +73,7 @@ export class ProfileRoute extends BaseRoute {
         }
     }
 
-    public async parseUser(username: string, queryParams: string): Promise<IProfileData> {
+    public async parseUser(username: string, currUser: string): Promise<IProfileData> {
         const userData = await User.getUser(username)
         const isOwnProfile = this.isCurrentUser(userData, username)
         if (!userData.profilePic) {
@@ -89,7 +89,7 @@ export class ProfileRoute extends BaseRoute {
             joined: joined,
             isOwnProfile: isOwnProfile,
             reviewCount: reviewCount,
-            queryParams: queryParams,
+            currUser,
             ...userData,
         }
         return profileData

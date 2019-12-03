@@ -10,14 +10,13 @@ html
       h1 Add a Review for #{destination}
       div(class="content-container")
         div(class="editor-container")
-          form(method='POST' action=`/review/create/${destinationId}${queryParams}` id='create-review')
-            input(type='hidden' name='user' value=`${username}`)
+          form(method='POST' action=`/review/create/${destinationId}` id='create-review')
             div.form-group
               label(for='title') Title
               input.form-control(type='text' id='title' placeholder='My tour of Paris!' name='title')
             div.form-group
               textarea(id='content' name='content' form='create-review')
-            a(href=`/destination/${destinationId}${queryParams}`)
+            a(href=`/destination/${destinationId}`)
               button(type="button" class="btn edit-btn") Cancel
             button(type='submit' class="btn") Create review
         div(class="preview" id="preview" )

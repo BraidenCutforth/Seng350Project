@@ -2,7 +2,6 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 
 import url from 'url'
-import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -24,13 +23,17 @@ export class LoginRoute extends BaseRoute {
         // add home page route
         router
             // Get login page
-            .get('/', (req: Request, res: Response, next: NextFunction) => {
-                this.index(req, res, next)
+            .get('/', (req: Request, res: Response) => {
+                this.index(req, res)
+            })
+
+            .get('/logout', (req: Request, res: Response) => {
+                this.handleLogout(req, res)
             })
 
             // log the user in
-            .post('/', (req: Request, res: Response, next: NextFunction) => {
-                this.handleLogin(req, res, next)
+            .post('/', (req: Request, res: Response) => {
+                this.handleLogin(req, res)
             })
 
         return router
@@ -55,10 +58,10 @@ export class LoginRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public index(req: Request, res: Response, next: NextFunction) {
+    public index(req: Request, res: Response) {
         //set message
         const options: Record<string, any> = {
-            queryParams: parseQueryParams(req),
+            currUser: req.cookies.user,
         }
 
         //render template
@@ -66,27 +69,44 @@ export class LoginRoute extends BaseRoute {
     }
 
     /**
-     * Handles user login and sets the query parameter
+     * Handles user login and sets the cookie
      *
      * @class LoginRoute
      * @method handleLogin
      * @param req {Request} The express Request object.
      * @param res {Response} The express Response object.
-     * @next {NextFunction} Execute the next method.
      */
-    public handleLogin(req: Request, res: Response, next: NextFunction) {
+    public handleLogin(req: Request, res: Response) {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
+            res.cookie('user', credential, { maxAge: 1800000 })
             res.redirect(
                 url.format({
                     pathname: `/`,
-                    query: {
-                        ...req.query,
-                        user: credential,
-                    },
+                    query: req.query,
                 }),
             )
+        } catch (err) {
+            res.status(404)
+            res.send(err)
+        }
+
+        // if credientals are verified, redirect to index
+    }
+
+    /**
+     * Handles user logout and unsets the cookie
+     *
+     * @class LoginRoute
+     * @method handleLogout
+     * @param req {Request} The express Request object.
+     * @param res {Response} The express Response object.
+     */
+    public handleLogout(req: Request, res: Response) {
+        try {
+            res.cookie('user', undefined, { maxAge: 0 })
+            res.redirect('/')
         } catch (err) {
             res.status(404)
             res.send(err)

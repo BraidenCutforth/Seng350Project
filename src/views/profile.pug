@@ -23,7 +23,6 @@ html
               button(class="profile-btn") Admin Access
           if isOwnProfile
             form(method='GET' action=`/profile/edit/${username}` class="admin-btn")
-              input(type="hidden" name="user" value=`${username}`)
               button(class="profile-btn") Edit Profile
       div(class="content-container")
         div(class="col-sm")

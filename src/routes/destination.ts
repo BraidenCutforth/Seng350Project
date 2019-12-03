@@ -3,7 +3,7 @@ import { BaseRoute } from './route'
 import { Destination, IDestination } from '../models/destination'
 import { ObjectID } from 'mongodb'
 import { IReview, Review } from '../models/review'
-import { IHeaderOpts, parseQueryParams } from './helpers'
+import { IHeaderOpts } from './helpers'
 
 interface IDestinationData extends IDestination, IHeaderOpts {
     reviewData: IReview[]
@@ -64,7 +64,7 @@ export class DestinationRoute extends BaseRoute {
         try {
             const destData = await Destination.getDestination(destId)
             const reviewData = await Review.getReviewsForDestination(destId)
-            this.render(req, res, 'destination', { ...destData, reviewData, queryParams: parseQueryParams(req) })
+            this.render(req, res, 'destination', { ...destData, reviewData, currUser: req.cookies.user })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

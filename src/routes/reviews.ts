@@ -4,7 +4,7 @@ import { Review, IReview } from '../models/review'
 import { Destination, IDestination } from '../models/destination'
 import { ObjectId } from 'mongodb'
 import { User } from '../models/user'
-import { IHeaderOpts, parseQueryParams } from './helpers'
+import { IHeaderOpts } from './helpers'
 import url from 'url'
 import marked from 'marked'
 
@@ -45,7 +45,7 @@ export class ReviewRoute extends BaseRoute {
             // Get review, and populate reviewOpts
             // const reviewOpts: ReviewOpts = {}
             const reviewHtml = marked(review.content)
-            const username = req.query.user
+            const username = req.cookies.user
             let isReviewCreator = false
             let isAdmin = false
             if (username) {
@@ -62,7 +62,7 @@ export class ReviewRoute extends BaseRoute {
                 reviewHtml,
                 isAdmin,
                 isReviewCreator,
-                queryParams: parseQueryParams(req),
+                currUser: req.cookies.user,
             })
         } catch (err) {
             console.error(err)
@@ -112,13 +112,13 @@ export class ReviewRoute extends BaseRoute {
 
     async createPage(req: Request, res: Response) {
         const destinationId = req.params.destinationId
-        const username = req.query.user as string
+        const username = req.cookies.user as string
         try {
             const destination = await Destination.getDestination(new ObjectId(destinationId))
             const options: CreateReviewParams = {
                 destination: destination.name,
                 destinationId,
-                queryParams: parseQueryParams(req),
+                currUser: req.cookies.user,
                 username,
             }
             this.render(req, res, 'create-review', options)
@@ -153,7 +153,7 @@ export class ReviewRoute extends BaseRoute {
             const review = await Review.getReview(reviewId)
             const destination = await Destination.getDestination(review.destination_id)
             const destName = destination.name
-            this.render(req, res, 'edit-review', { ...review, destName, queryParams: parseQueryParams(req) })
+            this.render(req, res, 'edit-review', { ...review, destName, currUser: req.cookies.user })
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')

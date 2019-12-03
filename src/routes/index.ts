@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { Country } from '../models/country'
-import { parseQueryParams } from './helpers'
 
 /**
  * / route
@@ -59,7 +58,7 @@ export class IndexRoute extends BaseRoute {
                 title: 'Runaway',
                 message: 'Runaway',
                 countries,
-                queryParams: parseQueryParams(req),
+                currUser: req.cookies.user,
             }
             //render template
             this.render(req, res, 'index', options)
