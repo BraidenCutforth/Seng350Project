@@ -63,7 +63,7 @@ export class ProfileRoute extends BaseRoute {
     public async index(req: Request, res: Response, next: NextFunction) {
         const username = req.params.username
         try {
-            const profileData =  await this.parseUser(username, parseQueryParams(req));
+            const profileData = await this.parseUser(username, parseQueryParams(req))
             this.render(req, res, 'profile', {
                 ...profileData,
             })
