@@ -32,6 +32,7 @@ export class ReviewRoute extends BaseRoute {
             .get('/:reviewId', (req, res) => this.reviewPage(req, res))
             .get('/create/:destinationId', (req, res) => this.createPage(req, res))
             .get('/edit/:reviewId', (req, res) => this.editReview(req, res))
+            .post('/update/:reviewId', (req, res) => this.updateReview(req, res))
             .post('/create/:destinationId', (req, res) => this.createReview(req, res))
             .post('/delete/:reviewId', (req, res) => this.deleteReview(req, res))
         return router
@@ -85,8 +86,8 @@ export class ReviewRoute extends BaseRoute {
 
             const review: IReview = {
                 destination_id: new ObjectId(destinationId), // eslint-disable-line @typescript-eslint/camelcase
-                title: req.body['title-editor'],
-                content: req.body['editor'],
+                title: req.body['title'],
+                content: req.body['content'],
                 stars: 1,
                 reviewRating: {
                     upvoters: [],
@@ -157,5 +158,33 @@ export class ReviewRoute extends BaseRoute {
             console.error(err)
             this.render(req, res, '404')
         }
+    }
+
+    async updateReview(req: Request, res: Response) {
+        const reviewId = req.params.reviewId
+        try {
+            const reviewInfo = this.parseReview(req)
+
+            await Review.updateReview(new ObjectId(reviewId), reviewInfo)
+            res.redirect(
+                url.format({
+                    pathname: `/review/${reviewId}`,
+                    query: req.query,
+                }),
+            )
+        } catch {
+            res.redirect(req.url)
+        }
+    }
+
+    private parseReview(req: Request): IReview {
+        const newReviewInfo = req.body
+        if (typeof newReviewInfo !== 'object') {
+            throw new Error('review is undefined')
+        }
+        Object.keys(newReviewInfo).forEach(
+            key => (newReviewInfo[key] == null || newReviewInfo[key] == '') && delete newReviewInfo[key],
+        )
+        return newReviewInfo
     }
 }

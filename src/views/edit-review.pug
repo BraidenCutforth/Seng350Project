@@ -10,13 +10,13 @@ html
       h1 Edit a Review for #{destName}
       div(class="content-container")
         div(class="editor-container")
-          form(method='POST' action=`/review/create/${destinationId}` id='create-review')
+          form(method='POST' action=`/review/update/${_id}` id='edit-review')
             input(type='hidden' name='user' value=`${username}`)
             div.form-group
-              label(for='title-editor') Title
-              input.form-control(type='text' id='title-editor' placeholder='My tour of Paris!' name='title-editor' value=title)
+              label(for='title') Title
+              input.form-control(type='text' id='title' placeholder='My tour of Paris!' name='title' value=title)
             div.form-group
-              textarea(id='editor' name='editor' form='create-review')
+              textarea(id='content' name='content' form='edit-review')
                 | !{content}
             a(href=`/destination/${destination_id}${queryParams}`)
               button(type="button" class="btn edit-btn") Cancel
