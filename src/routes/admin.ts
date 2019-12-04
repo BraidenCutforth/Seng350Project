@@ -12,7 +12,7 @@ export class AdminRoute extends BaseRoute {
 
             // re-render view
             const userData = await User.getUsers()
-            res.render('admin', { userData })
+            res.render('admin', { userData, currUser: req.cookies.user })
         } catch (err) {
             console.error(err)
             this.render(req, res, '404')
