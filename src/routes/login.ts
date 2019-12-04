@@ -2,6 +2,12 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 
 import url from 'url'
+import { User } from '../models/user'
+import { IHeaderOpts } from './helpers'
+
+interface LoginOptions extends IHeaderOpts {
+    loginErr?: boolean
+}
 
 /**
  * / route
@@ -60,8 +66,8 @@ export class LoginRoute extends BaseRoute {
      */
     public index(req: Request, res: Response) {
         //set message
-        const options: Record<string, any> = {
-            currUser: req.cookies.user,
+        const options: LoginOptions = {
+            currUser: '',
         }
 
         //render template
@@ -76,10 +82,15 @@ export class LoginRoute extends BaseRoute {
      * @param req {Request} The express Request object.
      * @param res {Response} The express Response object.
      */
-    public handleLogin(req: Request, res: Response) {
+    public async handleLogin(req: Request, res: Response) {
         // handle login flow here
         try {
             const credential = this.parseCredentials(req)
+            if (!(await this.validCredential(credential))) {
+                const loginOpts: LoginOptions = { currUser: '', loginErr: true }
+                res.render('login', loginOpts)
+                return
+            }
             res.cookie('user', credential, { maxAge: 1800000 })
             res.redirect(
                 url.format({
@@ -91,8 +102,6 @@ export class LoginRoute extends BaseRoute {
             res.status(404)
             res.send(err)
         }
-
-        // if credientals are verified, redirect to index
     }
 
     /**
@@ -126,5 +135,17 @@ export class LoginRoute extends BaseRoute {
             throw new Error('username is undefined')
         }
         return username
+    }
+
+    private async validCredential(username: string) {
+        try {
+            const user = await User.getUser(username)
+            if (user) {
+                return true
+            }
+            return false
+        } catch (err) {
+            return false
+        }
     }
 }

@@ -15,3 +15,5 @@ html(lang="en")
               label(for='username') Username
               input.form-control(type='text' id='username' placeholder='username' name='username')
             button(type='submit' class='btn') Log in
+          if loginErr
+            p Error: User not found

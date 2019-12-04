@@ -26,4 +26,19 @@ export class Auth {
         res.statusCode = 404
         res.render('404')
     }
+
+    // TODO add tests
+    public static isUser = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            if (req.cookies.user) {
+                const user = await User.getUser(req.cookies.user)
+                if (user) {
+                    return next()
+                }
+            }
+        } catch (err) {
+            res.statusCode = 401
+            res.render('401')
+        }
+    }
 }
