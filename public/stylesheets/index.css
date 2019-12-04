@@ -49,14 +49,14 @@ li {
   border: 1px lightgrey solid;
   font-size: 16px;
   height: 28px;
+  margin-right: 8px;
   padding: 2px;
+  width: 254px;
 }
 
 .form-group {
   display: flex;
-  flex-direction: column;
   margin: auto;
-  width: 222px;
 }
 
 .select-item {
@@ -68,4 +68,8 @@ li {
 
 .select-item:hover {
   background-color: lightgrey;
+}
+
+.btn-submit {
+  cursor: pointer;
 }

@@ -52,12 +52,10 @@ export class IndexRoute extends BaseRoute {
         this.title = 'Runaway | Home'
 
         try {
-            const countries = await Country.getCountries()
             //set message
             const options: Record<string, any> = {
                 title: 'Runaway',
                 message: 'Runaway',
-                countries,
                 currUser: req.cookies.user,
             }
             //render template
