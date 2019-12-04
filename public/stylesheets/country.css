@@ -2,8 +2,9 @@
   border: 1px solid lightgrey;
   border-radius: 2px;
   box-shadow: 0.5px 0.5px lightgrey;  
+  margin-bottom: 14px;
   padding: 4px;
-  width: 200px;
+  width: 170px;
 }
 .dest-link {
   color: black;
@@ -29,4 +30,23 @@
   width: 100%;
   height: 100px;
   object-fit: cover;
+}
+
+.destinations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+}
+
+.stars > img {
+  width: 26px;
+}
+
+h4 {
+  margin: 8px 0 0 0;
 }

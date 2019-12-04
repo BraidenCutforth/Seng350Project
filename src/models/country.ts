@@ -5,6 +5,7 @@ import escapeRegExp = require('lodash.escaperegexp')
 export interface ICountry {
     _id?: ObjectId
     code: string
+    img: string
     flag: string
     name: string
     description: string

@@ -8,6 +8,7 @@ export interface IDestination {
     name: string
     country: string
     description: string
+    img: string
     stars: number
     reviews: Review[]
     spamScore: number

@@ -15,6 +15,8 @@ describe('country model tests', () => {
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [_id1, _id2, _id3],
             flag: '🇨🇬',
+            img:
+                'https://www.10wallpaper.com/wallpaper/1366x768/1501/alberta_canada_beautiful-Nature_HD_Wallpaper_1366x768.jpg',
         }
 
         await Country.addCountry(country)
@@ -45,6 +47,8 @@ describe('country model tests', () => {
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [_id1, _id2, _id3],
             flag: '🇨🇬',
+            img:
+                'https://www.10wallpaper.com/wallpaper/1366x768/1501/alberta_canada_beautiful-Nature_HD_Wallpaper_1366x768.jpg',
         }
         await Country.addCountry(country)
 
