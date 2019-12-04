@@ -70,7 +70,7 @@ export class SignUpRoute extends BaseRoute {
         try {
             const userInfo = this.parseUser(req)
             await User.addUser(userInfo)
-            res.redirect(`/profile/${userInfo.username}`)
+            res.redirect(`/login`)
         } catch {
             res.redirect('/signup')
         }

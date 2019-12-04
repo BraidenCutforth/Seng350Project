@@ -75,7 +75,7 @@ export class ProfileRoute extends BaseRoute {
 
     public async parseUser(username: string, currUser: string): Promise<IProfileData> {
         const userData = await User.getUser(username)
-        const isOwnProfile = this.isCurrentUser(userData, username)
+        const isOwnProfile = this.isCurrentUser(userData, currUser)
         if (!userData.profilePic) {
             userData.profilePic = '/images/default-profile-pic.jpg'
         }
