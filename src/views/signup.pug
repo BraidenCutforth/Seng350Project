@@ -13,14 +13,14 @@ html(lang="en")
         form(method='POST' action='/signup')
           div.form-group
             label(for='firstname') First name
-            input.form-control(type='text' id='firstname' placeholder='first name' name='firstname')
+            input.form-control(type='text' id='firstname' placeholder='first name' name='firstname' required maxlength='30')
           div.form-group
             label(for='lastname') Last name
-            input.form-control(type='text' id='lastname' placeholder='last name' name='lastname')
+            input.form-control(type='text' id='lastname' placeholder='last name' name='lastname' required maxlength='30')
           div.form-group
             label(for='username') Username
-            input.form-control(type='text' id='username' placeholder='username' name='username')
+            input.form-control(type='text' id='username' placeholder='username' name='username' required maxlength='30')
           div.form-group
             label(for='email') Email
-            input.form-control(type='email' id='email' placeholder='email' name='email')
+            input.form-control(type='email' id='email' placeholder='email' name='email' required maxlength='30')
           button(type='submit' class="btn") Create Account
