@@ -88,7 +88,7 @@ export class ProfileRoute extends BaseRoute {
             const date = userData._id.getTimestamp()
             dateJoined = dayjs(date).format('MMMM D, YYYY')
         }
-        const reviews = await Review.getReviews(userData.reviews)
+        const reviews = await Review.getReviews(userData.reviews || [])
         const reviewData = reviews.map(review => ({ title: review.title, content: marked(review.content) }))
         const profileData: IProfileData = {
             dateJoined,
