@@ -84,3 +84,7 @@ h1, h3 {
   display: flex;
   flex-direction: column;
 }
+
+.review-card {
+  margin-bottom: 12px;
+}

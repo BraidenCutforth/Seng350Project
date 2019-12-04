@@ -18,7 +18,9 @@ html
         a(href=`/review/create/${_id}`)
           button(class="btn" type="button") Create A Review +
       div(class="reviews")
-        each review in reviewData
-          div(class="review")
+        each review in reviewCardInfo
+          div(class="review card")
             a(class="review-link" href=`/review/${review._id}`)
-              h4 #{review.title}
+              h4
+                | !{review.title}
+              | !{review.content}

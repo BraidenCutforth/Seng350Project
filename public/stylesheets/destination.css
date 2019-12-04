@@ -26,3 +26,17 @@
   height: 200px;
   object-fit: cover;
 }
+
+.card {
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid lightgrey;
+  margin-bottom: 6px; 
+  padding: 12px;
+}
+
+.review-link {
+  color: black;
+  text-align: left;
+  text-decoration: none;
+}
