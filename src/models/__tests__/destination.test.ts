@@ -5,9 +5,6 @@ import { initDb, closeDb } from '../../db'
 import { ObjectId } from 'mongodb'
 
 xdescribe('destination model tests', () => {
-    beforeAll(async () => {
-        await initDb()
-    })
     const _id = new ObjectId()
 
     test('Add destination', async () => {
@@ -60,9 +57,5 @@ xdescribe('destination model tests', () => {
 
         const newNumDestinations = (await Destination.getDestinations()).length
         expect(newNumDestinations).toBe(numDestinations - 1)
-    })
-
-    afterAll(async () => {
-        await closeDb()
     })
 })

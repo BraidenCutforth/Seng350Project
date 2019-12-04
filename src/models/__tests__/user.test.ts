@@ -3,9 +3,6 @@ import { User, IUser } from '../user'
 import { initDb, closeDb } from '../../db'
 
 describe('user model tests', () => {
-    beforeAll(async () => {
-        await initDb()
-    })
     test('Add user', async () => {
         const numUsers = (await User.getUsers()).length
         const date = new Date()
@@ -63,9 +60,5 @@ describe('user model tests', () => {
 
         const newNumUsers = (await User.getUsers()).length
         expect(newNumUsers).toBe(numUsers - 1)
-    })
-
-    afterAll(async () => {
-        await closeDb()
     })
 })

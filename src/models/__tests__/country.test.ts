@@ -3,10 +3,6 @@ import { initDb, closeDb } from '../../db'
 import { ObjectID } from 'mongodb'
 
 describe('country model tests', () => {
-    beforeAll(async () => {
-        await initDb()
-    })
-
     const _id1 = new ObjectID()
     const _id2 = new ObjectID()
     const _id3 = new ObjectID()
@@ -56,9 +52,5 @@ describe('country model tests', () => {
 
         const newNumCountries = (await Country.getCountries()).length
         expect(newNumCountries).toBe(numCountries - 1)
-    })
-
-    afterAll(async () => {
-        await closeDb()
     })
 })

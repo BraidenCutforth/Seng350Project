@@ -4,9 +4,6 @@ import { initDb, closeDb } from '../../db'
 import { ObjectId } from 'mongodb'
 
 describe('review model tests', () => {
-    beforeAll(async () => {
-        await initDb()
-    })
     test('Add review', async () => {
         const id = new ObjectId()
         const review: IReview = {
@@ -93,9 +90,5 @@ describe('review model tests', () => {
         // Delete review
         const result = await Review.deleteReview(id)
         expect(result.deletedCount).toEqual(1)
-    })
-
-    afterAll(async () => {
-        await closeDb()
     })
 })

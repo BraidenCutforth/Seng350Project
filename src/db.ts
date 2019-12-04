@@ -28,5 +28,6 @@ export function getDb() {
 }
 
 export async function closeDb() {
+    _db = undefined
     await client.close()
 }
