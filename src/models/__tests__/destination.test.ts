@@ -4,11 +4,9 @@ import { initDb, closeDb } from '../../db'
 
 import { ObjectId } from 'mongodb'
 
-xdescribe('destination model tests', () => {
-    const _id = new ObjectId()
-
+describe('destination model tests', () => {
     test('Add destination', async () => {
-        const numDestinations = (await Destination.getDestinations()).length
+        const _id = new ObjectId()
         const destination: IDestination = {
             _id,
             name: 'Whistler',
@@ -19,13 +17,11 @@ xdescribe('destination model tests', () => {
             spamScore: 0,
         }
 
-        await Destination.addDestination(destination)
+        const result = await Destination.addDestination(destination)
 
-        const newNumDestinations = (await Destination.getDestinations()).length
-        expect(newNumDestinations).toBe(numDestinations + 1)
+        expect(result.insertedCount).toBe(1)
 
         await Destination.deleteDestination(destination)
-        expect((await Destination.getDestinations()).length).toBe(numDestinations)
     })
 
     test('get destination', async () => {
@@ -35,11 +31,12 @@ xdescribe('destination model tests', () => {
     })
 
     test('get destination fail', async () => {
-        const altId = new ObjectId()
-        await expect(Destination.getDestination(altId)).rejects.toEqual('No destinations found')
+        const _id = new ObjectId()
+        await expect(Destination.getDestination(_id)).rejects.toEqual('No destinations found')
     })
 
     test('remove destination', async () => {
+        const _id = new ObjectId()
         const destination: IDestination = {
             _id,
             name: 'Whistler',
@@ -51,11 +48,7 @@ xdescribe('destination model tests', () => {
         }
         await Destination.addDestination(destination)
 
-        const numDestinations = (await Destination.getDestinations()).length
-
-        await Destination.deleteDestination(destination)
-
-        const newNumDestinations = (await Destination.getDestinations()).length
-        expect(newNumDestinations).toBe(numDestinations - 1)
+        const result = await Destination.deleteDestination(destination)
+        expect(result.deletedCount).toBe(1)
     })
 })

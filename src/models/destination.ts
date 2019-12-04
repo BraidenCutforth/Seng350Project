@@ -25,7 +25,7 @@ export class Destination {
         }
     }
 
-    public static async getDestinations(destIds?: ObjectId[]) {
+    public static async getDestinations(destIds: ObjectId[]) {
         const collection = getDb().collection('destinations')
         const destinations = await collection
             .find({

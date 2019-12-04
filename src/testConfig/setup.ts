@@ -8,3 +8,5 @@ beforeAll(async () => {
 afterAll(async () => {
     await closeDb()
 })
+
+jest.setTimeout(10000)

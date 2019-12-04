@@ -1,12 +1,11 @@
 import { User, IUser } from '../user'
-
-import { initDb, closeDb } from '../../db'
+import { ObjectId } from 'mongodb'
 
 describe('user model tests', () => {
     test('Add user', async () => {
-        const numUsers = (await User.getUsers()).length
-        const date = new Date()
+        const _id = new ObjectId()
         const user: IUser = {
+            _id,
             firstName: 'Bob',
             lastName: 'Smith',
             username: 'xyz778asdfasdf',
@@ -18,13 +17,10 @@ describe('user model tests', () => {
             isAdmin: false,
         }
 
-        await User.addUser(user)
-
-        const newNumUsers = (await User.getUsers()).length
-        expect(newNumUsers).toBe(numUsers + 1)
+        const result = await User.addUser(user)
+        expect(result.insertedCount).toBe(1)
 
         await User.deleteUser(user)
-        expect((await User.getUsers()).length).toBe(numUsers)
     })
 
     test('get user', async () => {
