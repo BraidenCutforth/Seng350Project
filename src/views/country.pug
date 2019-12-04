@@ -8,12 +8,14 @@ html
   body
     include header.pug
     div(class="main-container")
-      h1 #{name}
+      img(class='img-header-country' src='https://www.10wallpaper.com/wallpaper/1366x768/1501/alberta_canada_beautiful-Nature_HD_Wallpaper_1366x768.jpg')
+      h1 #{name} #{flag}
       p #{description}
       h2 Destinations
       div(class="destinations")
         each dest in destData
           div(class="dest")
+            img(class='img-header-dest' src='https://www.whistlerrealestate.ca/drive/uploads/2015/10/fall-in-whistler.jpg')
             a(class="dest-link" href=`/destination/${dest._id}`)
               h4 #{dest.name}
               span #{dest.description}

@@ -14,6 +14,7 @@ describe('country model tests', () => {
             name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [_id1, _id2, _id3],
+            flag: '🇨🇬',
         }
 
         await Country.addCountry(country)
@@ -43,6 +44,7 @@ describe('country model tests', () => {
             name: 'Ghana',
             description: 'African country meaning "Warrior King" in the Soninke language',
             destinations: [_id1, _id2, _id3],
+            flag: '🇨🇬',
         }
         await Country.addCountry(country)
 

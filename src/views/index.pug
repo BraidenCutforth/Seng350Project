@@ -23,7 +23,7 @@ html
                 h3 Countries
                 each country in results.countries
                   li 
-                    a(class='list-link' href=`/country/${country.code}`) #{country.name}
+                    a(class='list-link' href=`/country/${country.code}`) #{country.name} #{country.flag}
               if results.destinations.length
                 h3 Destinations
                 each dest in results.destinations
