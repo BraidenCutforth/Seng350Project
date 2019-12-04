@@ -72,7 +72,7 @@ export class ReviewRoute extends BaseRoute {
 
     async createReview(req: Request, res: Response) {
         const destinationId = req.params.destinationId
-        const username = req.body['user']
+        const username = req.cookies.user
         try {
             // TODO: Parse review content from page into IReview structure
             // seem to get the 'user not signed in' error even when signed in
