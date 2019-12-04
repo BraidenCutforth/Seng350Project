@@ -30,9 +30,7 @@ describe('profile route', () => {
 
     describe('parseUser', () => {
         test('true', () => {
-            const fn = new ProfileRoute()['parseUser']
-
-            const result = fn('jchua', '')
+            const result = new ProfileRoute()['parseUser']('jchua', '')
 
             expect(result).not.toBeNull()
         })
