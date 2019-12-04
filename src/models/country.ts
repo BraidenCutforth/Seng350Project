@@ -51,12 +51,13 @@ export class Country {
     }
 
     public static async searchCountries(queryString: string) {
-        //TODO: change this into search function
         const collection = getDb().collection('countries')
         const parsedQS = escapeRegExp(queryString)
         const regex = new RegExp(`.*${parsedQS}.*`, 'i')
-        const result = await collection.find({ name: regex }).toArray()
-        // const result = this.getCountries()
+        const result = await collection
+            .find({ name: regex })
+            .sort({ name: 1 })
+            .toArray()
         return result
     }
 }

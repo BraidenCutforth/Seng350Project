@@ -1,8 +1,16 @@
 a {
   margin: 0 12px;
+  font-weight: bold;
+  color: royalblue;
+}
+
+ul {
+  list-style: none;
+  text-align: left;
 }
 
 li {
+  margin: 4px 0;
   padding: 4px 2px;
 }
 
@@ -75,4 +83,12 @@ li {
 
 .btn-submit {
   cursor: pointer;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  background-color: #404552;
+}
+
+.results-header {
+  margin-top: 48px;
 }

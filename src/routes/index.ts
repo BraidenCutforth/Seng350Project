@@ -69,12 +69,10 @@ export class IndexRoute extends BaseRoute {
         const searchword = req.body.searchword
         try {
             const countries = await Country.searchCountries(searchword)
-            //TODO: right now only getting one destination. need to search for multiple destinations
-            const destination = await Destination.searchDestinations(searchword)
+            const destinations = await Destination.searchDestinations(searchword)
             const results = {
-                ...countries,
-                //TODO: needs to be destionations once search function complete
-                destination,
+                countries,
+                destinations,
             }
             const options: Record<string, any> = {
                 title: 'Runaway',

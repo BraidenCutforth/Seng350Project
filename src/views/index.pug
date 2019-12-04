@@ -10,15 +10,24 @@ html
     include header.pug
     div(class="container")
       div(class="card")
+        a(href='/')
           img(src='/images//logo/default.png' class='logo')
-          form(method='POST' class='form-group' action='/search')
-            input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
-            button(type='submit' class='btn-submit') Search
-          if results
-            h3 Search results
+        form(method='POST' class='form-group' action='/search')
+          input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
+          button(type='submit' class='btn-submit') Search
+        if results
+          h2(class='results-header') Search results
+          if results.countries.length || results.destinations.length
             ul
-              each result in results
-                li= result.name
-
-
-      
+              if results.countries.length
+                h3 Countries
+                each country in results.countries
+                  li 
+                    a(href=`/country/${country.code}`) #{country.name}
+              if results.destinations.length
+                h3 Destinations
+                each dest in results.destinations
+                  li
+                    a(href=`/destination/${dest._id}`) #{dest.name}
+          else
+            span Oops! No results found

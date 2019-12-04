@@ -55,11 +55,13 @@ export class Destination {
     }
 
     public static async searchDestinations(queryString: string) {
-        //TODO: change this into search function
         const collection = getDb().collection('destinations')
         const parsedQS = escapeRegExp(queryString)
         const regex = new RegExp(`.*${parsedQS}.*`, 'i')
-        const result = await collection.find({ name: regex }).toArray()
+        const result = await collection
+            .find({ name: regex })
+            .sort({ name: 1 })
+            .toArray()
         return result
     }
 }
