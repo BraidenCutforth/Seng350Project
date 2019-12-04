@@ -11,7 +11,7 @@ export class AdminRoute extends BaseRoute {
             await User.deleteUser(user)
 
             // re-render view
-            const userData = await User.getUsers()
+            const userData = await User.getAllUsers()
             res.render('admin', { userData, currUser: req.cookies.user })
         } catch (err) {
             console.error(err)
@@ -20,7 +20,7 @@ export class AdminRoute extends BaseRoute {
     }
 
     async index(req: Request, res: Response) {
-        const userData = await User.getUsers()
+        const userData = await User.getAllUsers()
 
         //render template
         res.render('admin', { userData, currUser: req.cookies.user })

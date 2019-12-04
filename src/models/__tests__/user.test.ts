@@ -50,11 +50,11 @@ describe('user model tests', () => {
         }
         await User.addUser(user)
 
-        const numUsers = (await User.getUsers()).length
+        const numUsers = (await User.getAllUsers()).length
 
         await User.deleteUser(user)
 
-        const newNumUsers = (await User.getUsers()).length
+        const newNumUsers = (await User.getAllUsers()).length
         expect(newNumUsers).toBe(numUsers - 1)
     })
 })

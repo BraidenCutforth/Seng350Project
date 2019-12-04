@@ -27,7 +27,17 @@ export class User {
         }
     }
 
-    public static async getUsers() {
+    public static async getUsers(userIds: ObjectId[]) {
+        const collection = getDb().collection('users')
+        const users = await collection
+            .find({
+                _id: { $in: userIds },
+            })
+            .toArray()
+        return users as IUser[]
+    }
+
+    public static async getAllUsers() {
         const collection = getDb().collection('users')
         const users = await collection.find({}).toArray()
         return users as IUser[]
