@@ -9,12 +9,16 @@ html
   body
     include header.pug
     div(class="container")
-        div(class="card")
-            h1 #{message}
-            div.form-group
-              input.form-control(type='text' id='countryInput' placeholder='Select a country' name='country')
-              div(id='dropdown')
-                each country in countries
-                  a(class='select-item' href=`/country/${country.code}`) #{country.name}
-    script
-      include ../view_scripts/index.js
+      div(class="card")
+          h1 #{message}
+          form(method='POST' class='form-group' action='/search')
+            input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
+            button(type='submit' class='btn-submit') Search
+          if results
+            h3 Search results
+            ul
+              each result in results
+                li= result.name
+
+
+      

@@ -48,4 +48,10 @@ export class Country {
         const result = await collection.insertOne(country)
         return result
     }
+
+    public static async searchCountries(searchword: string) {
+        //TODO: change this into search function
+        const result = this.getCountries()
+        return result
+    }
 }
