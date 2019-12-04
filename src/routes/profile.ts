@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { IHeaderOpts } from './helpers'
 
 interface IProfileData extends IUser, IHeaderOpts {
-    joined: string
+    dateJoined: string
     isOwnProfile: boolean
     reviewCount: number
 }
@@ -80,13 +80,13 @@ export class ProfileRoute extends BaseRoute {
             userData.profilePic = '/images/default-profile-pic.jpg'
         }
         const reviewCount = userData.reviews != undefined ? userData.reviews.length : -1
-        let joined = ''
+        let dateJoined = ''
         if (userData._id) {
             const date = userData._id.getTimestamp()
-            joined = dayjs(date).format('MMMM D, YYYY')
+            dateJoined = dayjs(date).format('MMMM D, YYYY')
         }
         const profileData: IProfileData = {
-            joined: joined,
+            dateJoined,
             isOwnProfile: isOwnProfile,
             reviewCount: reviewCount,
             currUser,
