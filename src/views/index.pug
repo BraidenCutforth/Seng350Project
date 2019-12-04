@@ -9,8 +9,16 @@ html
   body
     include header.pug
     div(class="container")
-        div(class="card")
-            h1 #{message}
-            form(method='POST' class='form-group' action='/search')
-              input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
-              button(type='submit' class='btn-submit') Search
+      div(class="card")
+          h1 #{message}
+          form(method='POST' class='form-group' action='/search')
+            input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
+            button(type='submit' class='btn-submit') Search
+          if results
+            h3 Search results
+            ul
+              each result in results
+                li= result.name
+
+
+      
