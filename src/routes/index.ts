@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { BaseRoute } from './route'
 import { Country } from '../models/country'
+import { Destination } from '../models/destination'
 
 /**
  * / route
@@ -21,9 +22,7 @@ export class IndexRoute extends BaseRoute {
         console.log('[IndexRoute::getRouter] Creating index router.')
 
         //add home page route
-        router.get('/', (req: Request, res: Response, next: NextFunction) => {
-            this.index(req, res, next)
-        })
+        router.get('/', (req, res) => this.index(req, res)).post('/search', (req, res) => this.search(req, res))
 
         return router
     }
@@ -47,7 +46,7 @@ export class IndexRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public async index(req: Request, res: Response, next: NextFunction) {
+    public async index(req: Request, res: Response) {
         //set custom title
         this.title = 'Runaway | Home'
 
@@ -62,6 +61,21 @@ export class IndexRoute extends BaseRoute {
             this.render(req, res, 'index', options)
         } catch (error) {
             console.error(error)
+            this.render(req, res, '404')
+        }
+    }
+
+    async search(req: Request, res: Response) {
+        const searchword = req.body.searchword
+        try {
+            const countries = await Country.searchCountries(searchword)
+            const destinations = await Destination.searchDestinations(searchword)
+            const results = {
+                ...countries,
+                ...destinations,
+            }
+        } catch (err) {
+            console.error(err)
             this.render(req, res, '404')
         }
     }

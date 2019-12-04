@@ -52,4 +52,10 @@ export class Destination {
         const result = await collection.insertOne(destination)
         return result
     }
+
+    public static async searchDestinations(searchword: string) {
+        //TODO: change this into search function
+        const result = this.getDestination(new ObjectId('5dd088c659b15f146f5f1733'))
+        return result
+    }
 }
