@@ -1,5 +1,6 @@
 import { getDb } from '../db'
 import { ObjectId } from 'mongodb'
+import escapeRegExp = require('lodash.escaperegexp')
 
 export interface ICountry {
     _id?: ObjectId
@@ -49,9 +50,13 @@ export class Country {
         return result
     }
 
-    public static async searchCountries(searchword: string) {
+    public static async searchCountries(queryString: string) {
         //TODO: change this into search function
-        const result = this.getCountries()
+        const collection = getDb().collection('countries')
+        const parsedQS = escapeRegExp(queryString)
+        const regex = new RegExp(`.*${parsedQS}.*`, 'i')
+        const result = await collection.find({ name: regex }).toArray()
+        // const result = this.getCountries()
         return result
     }
 }

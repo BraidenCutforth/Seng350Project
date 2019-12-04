@@ -1,6 +1,7 @@
 import { getDb } from '../db'
 import { ObjectId } from 'mongodb'
 import { Review } from './review'
+import escapeRegExp from 'lodash.escaperegexp'
 
 export interface IDestination {
     _id?: ObjectId
@@ -53,9 +54,12 @@ export class Destination {
         return result
     }
 
-    public static async searchDestinations(searchword: string) {
+    public static async searchDestinations(queryString: string) {
         //TODO: change this into search function
-        const result = this.getDestination(new ObjectId('5dd088c659b15f146f5f1733'))
+        const collection = getDb().collection('destinations')
+        const parsedQS = escapeRegExp(queryString)
+        const regex = new RegExp(`.*${parsedQS}.*`, 'i')
+        const result = await collection.find({ name: regex }).toArray()
         return result
     }
 }

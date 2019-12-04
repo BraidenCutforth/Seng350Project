@@ -53,4 +53,16 @@ describe('country model tests', () => {
         const newNumCountries = (await Country.getCountries()).length
         expect(newNumCountries).toBe(numCountries - 1)
     })
+
+    describe('search', () => {
+        test('result expected', async () => {
+            const result = await Country.searchCountries('can')
+            expect(result.length).toBeGreaterThanOrEqual(1)
+        })
+
+        test('result not expected', async () => {
+            const result = await Country.searchCountries('completegibberishthatshouldnotreturnaresult')
+            expect(result.length).toBe(0)
+        })
+    })
 })

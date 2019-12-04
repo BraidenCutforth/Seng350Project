@@ -51,4 +51,16 @@ describe('destination model tests', () => {
         const result = await Destination.deleteDestination(destination)
         expect(result.deletedCount).toBe(1)
     })
+
+    describe('search', () => {
+        test('result expected', async () => {
+            const result = await Destination.searchDestinations('whis')
+            expect(result.length).toBeGreaterThanOrEqual(1)
+        })
+
+        test('result not expected', async () => {
+            const result = await Destination.searchDestinations('completegibberishthatshouldnotreturnaresult')
+            expect(result.length).toBe(0)
+        })
+    })
 })
