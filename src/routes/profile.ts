@@ -3,11 +3,14 @@ import { BaseRoute } from './route'
 import { IUser, User } from '../models/user'
 import dayjs from 'dayjs'
 import { IHeaderOpts } from './helpers'
+import { Review } from '../models/review'
+import marked from 'marked'
 
 interface IProfileData extends IUser, IHeaderOpts {
     dateJoined: string
     isOwnProfile: boolean
     reviewCount: number
+    reviewData: { title: string; content: string }[]
 }
 
 /**
@@ -85,12 +88,15 @@ export class ProfileRoute extends BaseRoute {
             const date = userData._id.getTimestamp()
             dateJoined = dayjs(date).format('MMMM D, YYYY')
         }
+        const reviews = await Review.getReviews(userData.reviews)
+        const reviewData = reviews.map(review => ({ title: review.title, content: marked(review.content) }))
         const profileData: IProfileData = {
             dateJoined,
             isOwnProfile: isOwnProfile,
             reviewCount: reviewCount,
             currUser,
             ...userData,
+            reviewData,
         }
         return profileData
     }

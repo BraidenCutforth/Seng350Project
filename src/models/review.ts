@@ -37,6 +37,16 @@ export class Review {
         return reviews as IReview[]
     }
 
+    public static async getReviews(revIds: ObjectId[]) {
+        const collection = getDb().collection('reviews')
+        const reviews = await collection
+            .find({
+                _id: { $in: revIds },
+            })
+            .toArray()
+        return reviews as IReview[]
+    }
+
     public static async getReviewsForDestination(destinationId: ObjectId) {
         const collection = getDb().collection('reviews')
         // eslint-disable-next-line @typescript-eslint/camelcase

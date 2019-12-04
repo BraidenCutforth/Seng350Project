@@ -4,9 +4,11 @@ import { Destination, IDestination } from '../models/destination'
 import { ObjectID } from 'mongodb'
 import { IReview, Review } from '../models/review'
 import { IHeaderOpts } from './helpers'
+import marked from 'marked'
 
 interface IDestinationData extends IDestination, IHeaderOpts {
     reviewData: IReview[]
+    reviewCardInfo: { title: string; content: string; _id: string }[]
 }
 
 /**
@@ -64,7 +66,17 @@ export class DestinationRoute extends BaseRoute {
         try {
             const destData = await Destination.getDestination(destId)
             const reviewData = await Review.getReviewsForDestination(destId)
-            this.render(req, res, 'destination', { ...destData, reviewData, currUser: req.cookies.user })
+            const reviewCardInfo = reviewData.map(review => ({
+                title: review.title,
+                content: marked(review.content),
+                _id: review._id ? review._id.toHexString() : '',
+            }))
+            this.render(req, res, 'destination', {
+                ...destData,
+                reviewData,
+                currUser: req.cookies.user,
+                reviewCardInfo,
+            })
         } catch (error) {
             console.error(error)
             this.render(req, res, '404')

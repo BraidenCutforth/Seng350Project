@@ -38,4 +38,10 @@ html
           if reviewCount <= 0
             div(class="card no-reviews")
               p @#{username} hasn't reviewed anything yet!
-        div(class="col-sm")
+          else
+            each review in reviewData
+              div(class="card review-card")
+                h4
+                  | !{review.title}
+                | !{review.content}
+        
