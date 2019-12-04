@@ -19,6 +19,7 @@ html
               placeholder='John'
               type='text'
               value=firstName
+              required maxlength='30'
             )
             label(for='lastName') Last Name
             input.form-control(
@@ -27,6 +28,7 @@ html
               placeholder='Doe'
               type='text'
               value=lastName
+              required maxlength='30'
             )
             label(for='email') Email
             input.form-control(
@@ -35,6 +37,7 @@ html
               placeholder='example@email.com'
               type='text'
               value=email
+              required maxlength='30'
             )
             label(for='username') Username
             input.form-control(
@@ -43,6 +46,7 @@ html
               placeholder='Username'
               type='text'
               value=username
+              required maxlength='30'
             )
             label(for='profilePic') Profile Picture
             input.form-control(
@@ -56,13 +60,14 @@ html
               name='bio'
               placeholder='Hi I\'m John!'
               type='text'
-              value=bio
-            )
+              maxlength='280'
+            ) #{bio}
             label(for='location') Location
-            textarea.form-control(
+            input.form-control(
               id='location'
               name='location'
-              placeholder='City, Country'
+              maxlength='60'
+              placeholder='i.e Victoria, BC'
               type='text'
               value=location
             )
