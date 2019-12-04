@@ -6,6 +6,11 @@ li {
   padding: 4px 2px;
 }
 
+.logo {
+  width: 400px;
+  margin: auto;
+}
+
 .btn:hover {
   background-color: lavender;
 }
@@ -21,8 +26,6 @@ li {
 }
 
 .card {
-  border-radius: 2px;
-  box-shadow: 1px 1px lightgray;
   background-color: white;
   display: flex;
   flex-direction: column;

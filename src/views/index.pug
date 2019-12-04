@@ -10,7 +10,7 @@ html
     include header.pug
     div(class="container")
       div(class="card")
-          h1 #{message}
+          img(src='/images//logo/default.png' class='logo')
           form(method='POST' class='form-group' action='/search')
             input(class='form-control' type='text' id='searchInput' placeholder='Search for a country or destination' name='searchword')
             button(type='submit' class='btn-submit') Search

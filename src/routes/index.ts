@@ -78,7 +78,6 @@ export class IndexRoute extends BaseRoute {
             }
             const options: Record<string, any> = {
                 title: 'Runaway',
-                message: 'Runaway',
                 currUser: req.cookies.user,
                 results,
             }
