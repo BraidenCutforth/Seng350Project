@@ -8,12 +8,14 @@ html
   body
     include header.pug
     div(class="main-container")
-      div(class="sub-header")
-        h1 #{name}
-        a(href=`/review/create/${_id}`)
-          button(class="btn" type="button") Create A Review
+      if img
+          img(class='img-header' src=img)
+      h1 #{name}
       p #{description}
-      h2 Reviews
+      div(class="sub-header")
+        h2 Reviews
+        a(href=`/review/create/${_id}`)
+          button(class="btn" type="button") Create A Review +
       div(class="reviews")
         each review in reviewData
           div(class="review")
