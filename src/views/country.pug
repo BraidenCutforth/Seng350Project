@@ -8,13 +8,39 @@ html
   body
     include header.pug
     div(class="main-container")
-      h1 #{name}
+      if img
+        img(class='img-header-country' src=img)
+      h1 #{name} #{flag}
       p #{description}
       h2 Destinations
       div(class="destinations")
         each dest in destData
           div(class="dest")
             a(class="dest-link" href=`/destination/${dest._id}`)
+              img(class='img-header-dest' src=dest.img)
               h4 #{dest.name}
-              span #{dest.description}
-              span Rating: #{4.2}
+              if dest.stars == "1"
+                div(class='stars')
+                  img(src='/images/star.png')
+              else if dest.stars == "2"
+                div(class='stars')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+              else if dest.stars == "3"
+                div(class='stars')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+              else if dest.stars == "4"
+                div(class='stars')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+              else if dest.stars == "5"
+                div(class='stars')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')
+                  img(src='/images/star.png')

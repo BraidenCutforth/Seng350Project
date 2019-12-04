@@ -15,6 +15,8 @@ describe('destination model tests', () => {
             stars: 4.2,
             reviews: [],
             spamScore: 0,
+            img:
+                'https://www.10wallpaper.com/wallpaper/1366x768/1501/alberta_canada_beautiful-Nature_HD_Wallpaper_1366x768.jpg',
         }
 
         const result = await Destination.addDestination(destination)
@@ -45,6 +47,8 @@ describe('destination model tests', () => {
             stars: 4.2,
             reviews: [],
             spamScore: 0,
+            img:
+                'https://www.10wallpaper.com/wallpaper/1366x768/1501/alberta_canada_beautiful-Nature_HD_Wallpaper_1366x768.jpg',
         }
         await Destination.addDestination(destination)
 

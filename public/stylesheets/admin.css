@@ -10,10 +10,10 @@ th, td {
   padding: 8px;
 }
 
-tr:nth-child(even){background-color: ivory}
+tr:nth-child(even){background-color: lightslategray}
 
 th {
-  background-color: darkslateblue;
+  background-color: #404552;;
   color: white;
 }
 
@@ -32,4 +32,8 @@ th {
 .delete-form {
   text-align: center;
   padding: 4px;
+}
+
+.main-container {
+  padding: 60px;
 }

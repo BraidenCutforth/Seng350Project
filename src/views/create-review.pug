@@ -11,13 +11,13 @@ html
       div(class="content-container")
         div(class="editor-container")
           form(method='POST' action=`/review/create/${destinationId}` id='create-review')
-            div.form-group
+            div.form-group(class='review-title')
               label(for='title') Title
               input.form-control(type='text' id='title' placeholder='My tour of Paris!' name='title')
-            div.form-group
+            div.form-group(class='review-content')
               textarea(id='content' name='content' form='create-review')
             a(href=`/destination/${destinationId}`)
-              button(type="button" class="btn edit-btn") Cancel
+              button(type="button" class="btn cancel-btn") Cancel
             button(type='submit' class="btn") Create review
         div(class="preview" id="preview" )
     script

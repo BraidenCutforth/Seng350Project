@@ -8,8 +8,10 @@ textarea {
 }
 
 .main-container {
-  padding: 24px;
-}
+  background-color: white;
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 60px;}
 
 .preview {
   border: 1px solid grey;
@@ -31,26 +33,25 @@ label {
   margin-bottom: 10px; 
 }
 
-.btn:hover {
-  background-color: lavender;
-}
-
 .btn {
-  background-color: transparent;
-  border-color: darkslateblue;
-  border-radius: 4px;
-  border-width: medium;
   cursor: pointer;
-  height: 42px;
-  width: 120px;
-  margin-top: 10px;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  background-color: #404552;
+  height: 34px;
 }
 
-.edit-btn {
-  border-color: gray;
+.cancel-btn {
+  cursor: pointer;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  background-color:gray;
+  height: 34px;
   margin-right: 8px;
 }
 
-.edit-btn:hover {
-  background-color: gray;
+.review-title, .review-content {
+  margin-bottom: 12px;
 }

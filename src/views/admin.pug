@@ -7,24 +7,25 @@ html(lang="en")
       include ../styles/admin.css
   body
     include header.pug
-    h1 Admin
-    table(style='width:100%', border='1')
-      tr
-        th Username
-        th Email
-        th First name
-        th Last name
-        th Admin rights
-        th Joined
-        th Actions
-      each user in userData
+    div(class='main-container')
+      h1 Admin
+      table(style='width:100%', border='1')
         tr
-          td #{user.username}
-          td #{user.email}
-          td #{user.firstName}
-          td #{user.lastName}
-          td #{user.isAdmin}
-          td #{user.joined}
-          td
-            form(class='delete-form' method='POST' action='/admin/delete/' + user.username)
-              button(class="btn action-btn") Delete
+          th Username
+          th Email
+          th First name
+          th Last name
+          th Admin rights
+          th Joined
+          th Actions
+        each user in userData
+          tr
+            td #{user.username}
+            td #{user.email}
+            td #{user.firstName}
+            td #{user.lastName}
+            td #{user.isAdmin}
+            td #{user.joined}
+            td
+              form(class='delete-form' method='POST' action='/admin/delete/' + user.username)
+                button(class="btn action-btn") Delete
