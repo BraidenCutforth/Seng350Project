@@ -76,7 +76,7 @@ A lot. About build web applications from scratch, setting up database connection
 
 ### What we could do better
 
-We never got the chance to implement testing for response measures. Currently, we manually test for response time, and our application is small and lightweight enough that it doesn't take too long. But in the future, if the application got larger and more complex, it will be important to implmenet performance testing on response times.
+We never got the chance to implement testing for response measures. Currently, we manually test for response time, and our application is small and lightweight enough that it doesn't take too long. But in the future, if the application got larger and more complex, it will be important to implement performance testing on response times.
 
 
 ### How our design could be improved
