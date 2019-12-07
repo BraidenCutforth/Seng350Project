@@ -6,7 +6,9 @@ Have you ever had a vacation planned to a country or area but are unsure of wher
 
 ## Set up
 
-Have `npm` and `node` installed. Next, install the node packages.
+Have `node`, `docker` and `docker-compose` installed.
+
+Install the node packages.
 
 ```bash
 npm install
@@ -18,10 +20,10 @@ Run the build script.
 npm run build
 ```
 
-Start up the server.
+Start up the server using docker.
 
 ```bash
-npm start
+docker-compose up
 ```
 
 Check out localhost:3000 to view the local build.
@@ -37,7 +39,7 @@ npm run test
 To run the tests with code coverage:
 
 ```bash
-npm run test -- --collect-coverage
+npm run test -- --coverage
 ```
 
 ## Milestone 3
@@ -100,7 +102,7 @@ On the index page, the user can select a country from the dropdown box. This dro
 
 When the user selects a country, they are brought to the country page. The country page is populated using the details from the country model. It has a short description about the country and lists the destinations within the country.
 
-The user can select a destination to see the reviews.  
+The user can select a destination to see the reviews.
 
 ---
 
