@@ -68,6 +68,9 @@ export class IndexRoute extends BaseRoute {
     async search(req: Request, res: Response) {
         const searchword = req.body.searchword
         try {
+            if (!searchword) {
+                throw new Error('Search word undefined')
+            }
             const countries = await Country.searchCountries(searchword)
             const destinations = await Destination.searchDestinations(searchword)
             const results = {

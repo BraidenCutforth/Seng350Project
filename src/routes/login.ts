@@ -100,7 +100,7 @@ export class LoginRoute extends BaseRoute {
             )
         } catch (err) {
             res.status(404)
-            res.send(err)
+            res.render('404')
         }
     }
 
@@ -118,7 +118,7 @@ export class LoginRoute extends BaseRoute {
             res.redirect('/')
         } catch (err) {
             res.status(404)
-            res.send(err)
+            res.render('404')
         }
 
         // if credientals are verified, redirect to index

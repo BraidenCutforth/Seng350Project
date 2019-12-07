@@ -27,10 +27,10 @@ export class EditProfileRoute extends BaseRoute {
         router
             .use('/edit/:username', Auth.isCurrentUser)
             .get('/edit/:username', (req: Request, res: Response, next: NextFunction) => {
-                this.index(req, res, next)
+                this.index(req, res)
             })
             .post('/edit/:username', (req: Request, res: Response, next: NextFunction) => {
-                this.updateUser(req, res, next)
+                this.updateUser(req, res)
             })
 
         return router
@@ -55,7 +55,7 @@ export class EditProfileRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    async index(req: Request, res: Response, next: NextFunction) {
+    async index(req: Request, res: Response) {
         const username = req.params.username
         try {
             const userData = await User.getUser(username)
@@ -79,7 +79,7 @@ export class EditProfileRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    async updateUser(req: Request, res: Response, next: NextFunction) {
+    async updateUser(req: Request, res: Response) {
         const username = req.params.username
         try {
             const userInfo = this.parseUser(req)

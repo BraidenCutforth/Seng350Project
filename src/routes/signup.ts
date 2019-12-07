@@ -23,10 +23,10 @@ export class SignUpRoute extends BaseRoute {
         // add home page route
         router
             .get('/', (req: Request, res: Response, next: NextFunction) => {
-                this.index(req, res, next)
+                this.index(req, res)
             })
             .post('/', (req: Request, res: Response, next: NextFunction) => {
-                this.createUser(req, res, next)
+                this.createUser(req, res)
             })
 
         return router
@@ -51,7 +51,7 @@ export class SignUpRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public index(req: Request, res: Response, next: NextFunction) {
+    public index(req: Request, res: Response) {
         //render template
         this.render(req, res, 'signup', { currUser: req.cookies.user })
     }
@@ -66,7 +66,7 @@ export class SignUpRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public async createUser(req: Request, res: Response, next: NextFunction) {
+    public async createUser(req: Request, res: Response) {
         try {
             const userInfo = this.parseUser(req)
             await User.addUser(userInfo)

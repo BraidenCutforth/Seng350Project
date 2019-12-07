@@ -36,6 +36,8 @@ export class Auth {
                     return next()
                 }
             }
+            res.statusCode = 401
+            res.render('401')
         } catch (err) {
             res.statusCode = 401
             res.render('401')

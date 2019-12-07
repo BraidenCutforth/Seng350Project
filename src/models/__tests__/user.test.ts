@@ -35,6 +35,80 @@ describe('user model tests', () => {
         )
     })
 
+    test('get all users', async () => {
+        const result = await User.getAllUsers()
+        expect(result.length).toBeGreaterThanOrEqual(1)
+    })
+
+    test('get users', async () => {
+        const _id1 = new ObjectId()
+        const _id2 = new ObjectId()
+        const user1: IUser = {
+            _id: _id1,
+            firstName: 'Bob',
+            lastName: 'Smith',
+            username: 'fajsdflajsdhfjkaslhdfhasldjfhaksdj',
+            email: 'xyz778asdfasdf@gmail.com',
+            bio: 'My user bio',
+            profilePic: 'nothing',
+            location: '',
+            reviews: [],
+            isAdmin: false,
+        }
+
+        const user2: IUser = {
+            _id: _id2,
+            firstName: 'Bob',
+            lastName: 'Smith',
+            username: 'jibberishusernameasdjflkasjdfkj;2',
+            email: 'xyz778asdfasdf@gmail.com',
+            bio: 'My user bio',
+            profilePic: 'nothing',
+            location: '',
+            reviews: [],
+            isAdmin: false,
+        }
+
+        await User.addUser(user1)
+        await User.addUser(user2)
+
+        const result = await User.getUsers([_id1, _id2])
+
+        await Promise.all([User.deleteUser(user1), User.deleteUser(user2)])
+
+        expect(result.length).toBe(2)
+        expect(result).toContainEqual(user1)
+        expect(result).toContainEqual(user2)
+    })
+
+    test('update user', async () => {
+        const _id = new ObjectId()
+        const username = 'asdjfkla;sdfaksdjfl;aaklsdjffdasdf'
+        const newBio = 'There is a new bio for ya'
+        const user: IUser = {
+            _id,
+            firstName: 'Bob',
+            lastName: 'Smith',
+            username,
+            email: 'xyz778asdfasdf@gmail.com',
+            bio: 'My user bio',
+            profilePic: 'nothing',
+            location: '',
+            reviews: [],
+            isAdmin: false,
+        }
+
+        await User.addUser(user)
+
+        const result = await User.updateUser(username, { bio: newBio })
+        const updatedUser = await User.getUser(username)
+
+        await User.deleteUser(updatedUser)
+
+        expect(result.modifiedCount).toBe(1)
+        expect(updatedUser.bio).toEqual(newBio)
+    })
+
     test('remove user', async () => {
         const date = new Date()
         const user: IUser = {

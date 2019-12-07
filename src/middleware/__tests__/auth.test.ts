@@ -214,4 +214,72 @@ describe('Auth Middleware', () => {
             expect(render).toHaveBeenCalledWith('404')
         })
     })
+
+    describe('isUser', () => {
+        test('is user', async () => {
+            User.getUser = jest.fn(() => {
+                return Promise.resolve({
+                    ...baseUser,
+                    isAdmin: true,
+                })
+            })
+            const render = jest.fn()
+            const next = jest.fn()
+            const req = {
+                cookies: {
+                    user: 'braidenc',
+                },
+            } as Request
+            const res = {} as Response
+
+            res.render = render
+
+            await Auth.isUser(req, res, next)
+
+            expect(next).toHaveBeenCalled()
+            expect(render).not.toHaveBeenCalled()
+        })
+
+        test('is not user', async () => {
+            User.getUser = jest.fn(() => {
+                return Promise.reject('test error')
+            })
+            const render = jest.fn()
+            const next = jest.fn()
+            const req = {
+                cookies: {
+                    user: 'ajsdfhasjkdfhlakjsdhfjkasdhf',
+                },
+            } as Request
+            const res = {} as Response
+
+            res.render = render
+
+            await Auth.isUser(req, res, next)
+
+            expect(next).not.toHaveBeenCalled()
+            expect(render).toHaveBeenCalledWith('401')
+        })
+
+        test('user undefined', async () => {
+            User.getUser = jest.fn(() => {
+                return Promise.reject('test error')
+            })
+            const render = jest.fn()
+            const next = jest.fn()
+            const req = {
+                cookies: {
+                    user: undefined,
+                },
+            } as Request
+            const res = {} as Response
+
+            res.render = render
+
+            await Auth.isUser(req, res, next)
+
+            expect(next).not.toHaveBeenCalled()
+            expect(render).toHaveBeenCalledWith('401')
+        })
+    })
 })

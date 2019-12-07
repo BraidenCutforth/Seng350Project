@@ -44,29 +44,6 @@ export class Review {
         return reviews as IReview[]
     }
 
-    public static async getRecentReviewsForDestination(destinationId: ObjectId, limit?: number) {
-        const collection = getDb().collection('reviews')
-        const reviews = await collection
-            .aggregate([
-                { $match: { destination_id: destinationId } }, // eslint-disable-line @typescript-eslint/camelcase
-                {
-                    $addField: {
-                        reviewScore: {
-                            $subtract: [new Date(), new ObjectId('$_id').getTimestamp()],
-                        },
-                    },
-                },
-                {
-                    $sort: {
-                        reviewScore: 1,
-                    },
-                },
-                { $limit: limit || 100 },
-            ])
-            .toArray()
-        return reviews as IReview[]
-    }
-
     public static async deleteReview(_id: ObjectId) {
         const collection = getDb().collection('reviews')
         const result = await collection.deleteOne({ _id })

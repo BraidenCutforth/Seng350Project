@@ -14,17 +14,6 @@ interface CreateReviewParams extends IHeaderOpts {
     username: string
 }
 
-interface ReviewOpts {
-    title: string
-    stars: number
-    content: string
-    upvoters: number
-    downvoters: number
-    creatorName: string
-    creatorUsername: string
-    destination: string
-}
-
 export class ReviewRoute extends BaseRoute {
     getRouter() {
         const router = Router()

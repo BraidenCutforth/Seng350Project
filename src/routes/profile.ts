@@ -33,7 +33,7 @@ export class ProfileRoute extends BaseRoute {
         const router = Router()
         //add profile page route
         router.get('/:username', (req: Request, res: Response, next: NextFunction) => {
-            this.index(req, res, next)
+            this.index(req, res)
         })
 
         return router
@@ -63,7 +63,7 @@ export class ProfileRoute extends BaseRoute {
      * @param res {Response} The express Response object.
      * @next {NextFunction} Execute the next method.
      */
-    public async index(req: Request, res: Response, next: NextFunction) {
+    public async index(req: Request, res: Response) {
         const username = req.params.username
         try {
             const profileData = await this.parseUser(username, req.cookies.user)
