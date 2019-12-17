@@ -4,7 +4,7 @@ Authors: Neil Ernst
 
 ---
 
-# Running Total (this will change each milestone):   45
+# Running Total (this will change each milestone):   70
 
 NB: for all milestones, basic clean coding style: comments, standardized indentation, lack of code smells, is expected. Your submission and repository should show the following: 
 	- Travis CI is being used (M3+)
@@ -84,3 +84,34 @@ Marks deducted:
 -----
 
 - Asynchronous programming was only done to connect to database. The read/write operation could also be implemented Asynchronously.
+
+# Milestone 4 25 / 30
+
+## Marking Guide
+
+- code compiles
+- code conventions/CI from above (commented, code style, design principles)
+- working demo
+- clear explanation of what user stories were satisfied in this iteration
+- design as implemented follows design doc, or change rationale is present in README
+- async is async when necessary
+- TSLint does not complain
+- test suite present/part of CI
+- test coverage reasonable and meaningful
+- explanation of how you are automating testing 3 QAS from your list in M1
+- explanation of integration testing and CI pipeline
+
+
+Marks deducted:
+
+- Code commenting and coding convention. (-2)
+- Not enough evidence of implementing the QASs in the code. (-3)
+
+
+## Notes M4
+
+(explaining why marks were deducted)
+-----
+
+- Code commenting could be better. For example, no comments in the models, middleware where most of the bussiness ligics reside.
+- Good emphasis on performance. But other QASs are not addressed well. For example, auth() middleware relies on cookie. What are the negative implecations of using cookie on security. Also, lack of commenting affect modifiability. 
